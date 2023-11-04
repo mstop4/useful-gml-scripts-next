@@ -1,0 +1,17 @@
+{
+  "FolderOrderSettings": [
+    {"name":"Fonts","order":7,"path":"folders/Fonts.yy",},
+    {"name":"Useful Script Library","order":16,"path":"folders/Useful Script Library.yy",},
+    {"name":"Demos","order":18,"path":"folders/Demos.yy",},
+    {"name":"Standalone","order":1,"path":"folders/Useful Script Library/Standalone.yy",},
+  ],
+  "ResourceOrderSettings": [
+    {"name":"scr_UGMLS_drawing","order":3,"path":"scripts/scr_UGMLS_drawing/scr_UGMLS_drawing.yy",},
+    {"name":"scr_UGMLS_debugging","order":2,"path":"scripts/scr_UGMLS_debugging/scr_UGMLS_debugging.yy",},
+    {"name":"scr_UGMLS_data_structures","order":1,"path":"scripts/scr_UGMLS_data_structures/scr_UGMLS_data_structures.yy",},
+    {"name":"scr_UGMLS_web","order":6,"path":"scripts/scr_UGMLS_web/scr_UGMLS_web.yy",},
+    {"name":"scr_UGMLS_strings","order":4,"path":"scripts/scr_UGMLS_strings/scr_UGMLS_strings.yy",},
+    {"name":"info","order":17,"path":"notes/info/info.yy",},
+    {"name":"scr_UGMLS_system","order":5,"path":"scripts/scr_UGMLS_system/scr_UGMLS_system.yy",},
+  ],
+}
