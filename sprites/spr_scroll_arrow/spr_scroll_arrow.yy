@@ -26,7 +26,7 @@
   "origin": 4,
   "parent": {
     "name": "Menu System",
-    "path": "folders/Useful Script Library/Assets/Menu System.yy",
+    "path": "folders/Useful GML Script Library/Assets/Menu System.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {

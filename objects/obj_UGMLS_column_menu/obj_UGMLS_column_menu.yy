@@ -12,7 +12,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "Column Menu",
-    "path": "folders/Useful Script Library/Components/Menu System/Column Menu.yy",
+    "path": "folders/Useful GML Script Library/Components/Menu System/Column Menu.yy",
   },
   "parentObjectId": {
     "name": "obj_ugmls_base_menu",

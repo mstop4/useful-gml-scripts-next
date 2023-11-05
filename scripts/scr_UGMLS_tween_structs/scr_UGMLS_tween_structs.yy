@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "Tweens",
-    "path": "folders/Useful Script Library/Standalone/Math/Tweens.yy",
+    "path": "folders/Useful GML Script Library/Standalone/Math/Tweens.yy",
   },
 }

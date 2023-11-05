@@ -9,7 +9,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "Text Object",
-    "path": "folders/Useful Script Library/Components/Text Object.yy",
+    "path": "folders/Useful GML Script Library/Components/Text Object.yy",
   },
   "parentObjectId": null,
   "persistent": false,

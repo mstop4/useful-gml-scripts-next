@@ -10,7 +10,7 @@ function init_steam_deck_info() {
 /// @desc Adds a new player to manager, returns player index.
 function add_player() {
 	var _new_player = new ControlManagerPlayer();
-	ds_list_add(players, _new_player);
+	ds_list_add(self.players, _new_player);
 	num_players++;
 	return num_players-1;
 }

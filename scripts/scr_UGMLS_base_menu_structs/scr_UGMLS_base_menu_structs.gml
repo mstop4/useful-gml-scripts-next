@@ -26,8 +26,6 @@ function MenuControlState(_player_inst) constructor {
 	}
 	
 	function poll_input() {
-		// Feather ignore GM1029
-		// Feather ignore GM1043
 		pressed_state[MENU_CONTROLS.UP] = player_inst.get_control_state(CONTROLS.UP, CONTROL_STATE.PRESSED);
 		pressed_state[MENU_CONTROLS.DOWN] = player_inst.get_control_state(CONTROLS.DOWN, CONTROL_STATE.PRESSED);
 		pressed_state[MENU_CONTROLS.LEFT] = player_inst.get_control_state(CONTROLS.LEFT, CONTROL_STATE.PRESSED);
@@ -43,12 +41,9 @@ function MenuControlState(_player_inst) constructor {
 		held_state[MENU_CONTROLS.CONFIRM] = player_inst.get_control_state(CONTROLS.MENU_CONFIRM, CONTROL_STATE.HELD);
 		held_state[MENU_CONTROLS.CANCEL] = player_inst.get_control_state(CONTROLS.MENU_CANCEL, CONTROL_STATE.HELD);
 		held_state[MENU_CONTROLS.DELETE_BINDING] = player_inst.get_control_state(CONTROLS.DELETE_BINDING, CONTROL_STATE.HELD);
-		// Feather restore GM1029
-		// Feather restore GM1043
 	}
 	
 	function control_any_pressed() {
-		// Feather ignore once GM1013
 		return player_inst.ctrl_any_pressed;
 	}
 }

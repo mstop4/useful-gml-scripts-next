@@ -18,7 +18,6 @@ function nested_menu_init(_config) {
 
 /// @param {real} _index
 function nested_menu_get_item_by_index(_index) {
-	// Feather ignore once GM1028
 	return self.items[| _index];
 }
 

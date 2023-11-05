@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "Nested Menu",
-    "path": "folders/Useful Script Library/Components/Menu System/Nested Menu.yy",
+    "path": "folders/Useful GML Script Library/Components/Menu System/Nested Menu.yy",
   },
 }

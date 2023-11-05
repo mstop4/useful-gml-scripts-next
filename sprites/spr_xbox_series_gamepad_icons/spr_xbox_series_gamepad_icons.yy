@@ -49,7 +49,7 @@
   "origin": 0,
   "parent": {
     "name": "Input",
-    "path": "folders/Useful Script Library/Assets/Input.yy",
+    "path": "folders/Useful GML Script Library/Assets/Input.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {

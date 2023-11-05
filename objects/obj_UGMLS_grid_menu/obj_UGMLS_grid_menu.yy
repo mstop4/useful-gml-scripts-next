@@ -13,7 +13,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "Grid Menu",
-    "path": "folders/Useful Script Library/Components/Menu System/Grid Menu.yy",
+    "path": "folders/Useful GML Script Library/Components/Menu System/Grid Menu.yy",
   },
   "parentObjectId": {
     "name": "obj_ugmls_base_menu",

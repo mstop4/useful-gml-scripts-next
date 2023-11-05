@@ -13,7 +13,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "Base Menu",
-    "path": "folders/Useful Script Library/Components/Menu System/Base Menu.yy",
+    "path": "folders/Useful GML Script Library/Components/Menu System/Base Menu.yy",
   },
   "parentObjectId": null,
   "persistent": false,

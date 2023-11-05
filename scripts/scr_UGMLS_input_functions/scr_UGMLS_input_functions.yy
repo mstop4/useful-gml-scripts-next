@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "Input",
-    "path": "folders/Useful Script Library/Standalone/Input.yy",
+    "path": "folders/Useful GML Script Library/Standalone/Input.yy",
   },
 }

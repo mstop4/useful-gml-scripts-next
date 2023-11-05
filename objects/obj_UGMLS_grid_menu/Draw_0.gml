@@ -48,7 +48,6 @@ for (var _i=view_area.left; _i<=view_area.right; _i++) {
 		}
 		
 		if (view_width > 0 && _i == view_area.left) {
-			// Feather ignore GM1010
 			if (view_scroll_progress_x.v < 0 && view_area.left > 0) {
 				// Scroll left first element
 				_item = items[# view_area.left - 1, _j];

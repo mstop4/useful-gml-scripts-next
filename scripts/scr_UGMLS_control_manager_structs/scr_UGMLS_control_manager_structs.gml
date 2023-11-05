@@ -160,7 +160,6 @@ function ControlManagerPlayer() constructor {
 	/// @param {Enum.CONTROLS}			 _control
 	/// @returns {any} FIXME: Should be Struct.Binding | real
 	function get_bindings(_control_type, _control) {
-		// Feather ignore GM1028
 		if (_control_type == CONTROL_TYPE.KEYBOARD_AND_MOUSE) {
 			return keyboard_map[_control];
 		} else if (_control_type == CONTROL_TYPE.GAMEPAD) {
@@ -168,7 +167,6 @@ function ControlManagerPlayer() constructor {
 		} else {
 			return -1;
 		}
-		// Feather restore GM1028
 	}
 	
 	/// @desc					Assigns gamepad to a player slot.
@@ -182,7 +180,6 @@ function ControlManagerPlayer() constructor {
 	/// @param {Enum.CONTROLS}			_control
 	/// @param {Enum.CONTROL_STATE}	_control_state
 	function get_control_state(_control, _control_state) {
-		// Feather ignore GM1028
 		if (_control_state == CONTROL_STATE.HELD) {
 			return ctrl_held[_control];
 		} else if (_control_state == CONTROL_STATE.PRESSED) {
@@ -192,7 +189,6 @@ function ControlManagerPlayer() constructor {
 		} else {
 			return false;
 		}
-		// Feather restore GM1028
 	}
 	
 	/// @desc Input processing loop.
@@ -225,7 +221,6 @@ function ControlManagerPlayer() constructor {
 					var _map_value = _cur_values[_j];
 					if (_map_value == -1) continue;
 
-					// Feather ignore GM1029
 					if (keyboard_map[_i].control_source == CONTROL_SOURCE.MOUSE) {
 						ctrl_held[_i] = ctrl_held[_i] || mouse_check_button(_map_value);
 						ctrl_pressed[_i] = ctrl_pressed[_i] || mouse_check_button_pressed(_map_value);
@@ -235,7 +230,6 @@ function ControlManagerPlayer() constructor {
 						ctrl_pressed[_i] = ctrl_pressed[_i] || keyboard_check_pressed(_map_value);
 						ctrl_released[_i] = ctrl_released[_i] || keyboard_check_released(_map_value);
 					}
-					// Feather restore GM1029
 				}
 			}
 	
@@ -317,7 +311,6 @@ function ControlManagerPlayer() constructor {
 					ctrl_released[_i] = ctrl_released[_i] || gamepad_button_check_released(gamepad_slot, _map_value);
 				
 					// Check Left-Stick-as-D-Pad values
-					// Feather ignore GM1009
 					if (_map_value == gp_padd) {
 						ctrl_held[_i] = ctrl_held[_i] || stick_dpad_held[DPAD_DIRECTION.DOWN];
 						ctrl_pressed[_i] = ctrl_pressed[_i] || stick_dpad_pressed[DPAD_DIRECTION.DOWN];

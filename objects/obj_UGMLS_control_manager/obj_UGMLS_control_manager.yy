@@ -12,7 +12,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "Control Manager",
-    "path": "folders/Useful Script Library/Components/Control Manager.yy",
+    "path": "folders/Useful GML Script Library/Components/Control Manager.yy",
   },
   "parentObjectId": null,
   "persistent": true,

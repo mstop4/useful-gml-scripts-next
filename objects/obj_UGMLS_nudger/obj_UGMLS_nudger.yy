@@ -10,7 +10,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "Nudger",
-    "path": "folders/Useful Script Library/Components/Nudger.yy",
+    "path": "folders/Useful GML Script Library/Components/Nudger.yy",
   },
   "parentObjectId": null,
   "persistent": false,

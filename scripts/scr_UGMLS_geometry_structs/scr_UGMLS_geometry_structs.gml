@@ -25,7 +25,6 @@ function Rectangle(_left, _top, _right, _bottom) constructor {
 		return self.bottom - self.top;
 	}
 	
-	// Feather ignore GM1041 
 	function left_edge() {
 		return new LineSegment(self.left, self.top, self.left, self.bottom);
 	}

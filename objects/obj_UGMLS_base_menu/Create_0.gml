@@ -62,7 +62,6 @@ function handle_selectable_confirm(_item) {
 function handle_spinner_confirm(_item) {
 	if (!_item.enabled) return;
 	if (is_callable(_item.on_confirm_func)) {
-		// Feather ignore once GM1028
 		_item.on_confirm_func(_item.cur_index, _item.values[_item.cur_index], _item.on_confirm_args);
 	}
 
@@ -206,11 +205,9 @@ function handle_key_config_discovery(_item) {
 		active_key_config.discovery_binding_info = false;
 
 		if (is_callable(self.active_key_config.on_change_func)) {
-			// Feather ignore once GM1050
 			self.active_key_config.on_change_func(_control_type, _last_pressed.control_source, active_key_config.control, _control_index, _last_pressed.control_pressed, self.active_key_config.on_change_args);
 		}
 
-		// Feather ignore once GM1043
 		self.active_key_config = -1;
 		io_clear();
 	}
@@ -245,7 +242,6 @@ function menu_base_draw_item(_item, _x, _y) {
 		
 		// Draw keyboard bindings
 		for (var _i=0; _i<KEYBOARD_MAX_BINDINGS_PER_CONTROL; _i++) {
-			// Feather ignore GM1028
 			if (use_control_icons) {
 				var _item_icon_index = _item.get_icon_index(CONTROL_TYPE.KEYBOARD_AND_MOUSE, _i);
 				draw_sprite_ext(keyboard_icons[keyboard_icons_index], _item_icon_index, _cur_x, _y + control_icons_y_offset * control_icons_scale, control_icons_scale, control_icons_scale, 0, c_white, menu_alpha.v);
@@ -266,14 +262,11 @@ function menu_base_draw_item(_item, _x, _y) {
 				}
 				draw_text(_cur_x, _y, _item_value);
 			}
-			// Feather restore GM1028
-			// Feather ignore GM1009
 			if (discovery_mode != MENU_DISCOVERY_MODE.NONE
 				&& active_key_config == _item
 				&& _cur_binding_index == _item.current_binding_index) {
 				draw_sprite(sub_cursor_spr, 0, _cur_x - cursor_padding, _y + item_height / 2);
 			}
-			// Feather restore GM1009
 			
 			_cur_x += binding_spacing;
 			_cur_binding_index++;
@@ -283,7 +276,6 @@ function menu_base_draw_item(_item, _x, _y) {
 		
 		// Draw gamepad bindings
 		for (var _i=0; _i<GAMEPAD_MAX_BINDINGS_PER_CONTROL; _i++) {
-			// Feather ignore GM1028
 			if (use_control_icons) {
 				var _item_icon_index = _item.get_icon_index(CONTROL_TYPE.GAMEPAD, _i);
 				draw_sprite_ext(gamepad_icons[gamepad_icons_index], _item_icon_index, _cur_x, _y + control_icons_y_offset * control_icons_scale, control_icons_scale, control_icons_scale, 0, c_white, menu_alpha.v);
@@ -305,15 +297,12 @@ function menu_base_draw_item(_item, _x, _y) {
 			
 				draw_text(_cur_x, _y, _item_value);
 			}
-			// Feather restore GM1028
-			
-			// Feather ignore GM1009
+
 			if (discovery_mode != MENU_DISCOVERY_MODE.NONE
 				&& active_key_config == _item
 				&& _cur_binding_index == _item.current_binding_index) {
 				draw_sprite(sub_cursor_spr, 0, _cur_x - cursor_padding, _y + item_height / 2);
 			}
-			// Feather restore GM1009
 	
 			_cur_x += binding_spacing;
 			_cur_binding_index++;

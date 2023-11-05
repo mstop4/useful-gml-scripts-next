@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "Easings",
-    "path": "folders/Useful Script Library/Standalone/Math/Easings.yy",
+    "path": "folders/Useful GML Script Library/Standalone/Math/Easings.yy",
   },
 }
