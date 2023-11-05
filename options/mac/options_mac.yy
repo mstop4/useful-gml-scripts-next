@@ -13,7 +13,7 @@
   "option_mac_copyright": "",
   "option_mac_disable_sandbox": false,
   "option_mac_display_cursor": true,
-  "option_mac_display_name": "Created with GameMaker",
+  "option_mac_display_name": "Useful GML Scripts Demo",
   "option_mac_enable_retina": false,
   "option_mac_enable_steam": false,
   "option_mac_icon_png": "${base_options_dir}/mac/icons/1024.png",
@@ -29,7 +29,7 @@
   "option_mac_start_fullscreen": false,
   "option_mac_team_id": "",
   "option_mac_texture_page": "2048x2048",
-  "option_mac_version": "1.0.0.0",
+  "option_mac_version": "2.0.0",
   "option_mac_vsync": false,
   "option_mac_x86_64": true,
 }
