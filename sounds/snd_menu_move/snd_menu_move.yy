@@ -13,7 +13,7 @@
   "duration": 0.792494,
   "parent": {
     "name": "Menu System",
-    "path": "folders/Useful GML Script Library/Assets/Menu System.yy",
+    "path": "folders/Demos/Assets/Menu System.yy",
   },
   "preload": false,
   "sampleRate": 44100,

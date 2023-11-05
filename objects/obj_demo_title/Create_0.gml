@@ -3,7 +3,7 @@ function go_to_demo(_args) {
 }
 
 rooms = [
-	//room_control_manager_demo,
+	room_control_manager_demo,
 	room_data_structures_demo,
 	room_drawing_demo,
 	room_easing_demo,
@@ -21,7 +21,7 @@ rooms = [
 num_rooms = array_length(rooms);
 
 room_names = [
-	//"Control Manager",
+	"Control Manager",
 	"Data Structures",
 	"Drawing",
 	"Easings",
