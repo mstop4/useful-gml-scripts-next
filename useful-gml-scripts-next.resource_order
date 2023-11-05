@@ -8,6 +8,7 @@
     {"name":"Assets","order":2,"path":"folders/Useful Script Library/Assets.yy",},
     {"name":"Components","order":1,"path":"folders/Useful Script Library/Components.yy",},
     {"name":"Input","order":3,"path":"folders/Useful Script Library/Assets/Input.yy",},
+    {"name":"Nudger","order":1,"path":"folders/Useful Script Library/Components/Nudger.yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"scr_UGMLS_drawing","order":5,"path":"scripts/scr_UGMLS_drawing/scr_UGMLS_drawing.yy",},
