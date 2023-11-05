@@ -160,6 +160,7 @@ function ControlManagerPlayer() constructor {
 	/// @param {Enum.CONTROLS}			 _control
 	/// @returns {any} FIXME: Should be Struct.Binding | real
 	function get_bindings(_control_type, _control) {
+		// Feather ignore GM1028
 		if (_control_type == CONTROL_TYPE.KEYBOARD_AND_MOUSE) {
 			return keyboard_map[_control];
 		} else if (_control_type == CONTROL_TYPE.GAMEPAD) {
@@ -167,6 +168,7 @@ function ControlManagerPlayer() constructor {
 		} else {
 			return -1;
 		}
+		// Feather restore GM1028
 	}
 	
 	/// @desc					Assigns gamepad to a player slot.
@@ -180,6 +182,7 @@ function ControlManagerPlayer() constructor {
 	/// @param {Enum.CONTROLS}			_control
 	/// @param {Enum.CONTROL_STATE}	_control_state
 	function get_control_state(_control, _control_state) {
+		// Feather ignore GM1028
 		if (_control_state == CONTROL_STATE.HELD) {
 			return ctrl_held[_control];
 		} else if (_control_state == CONTROL_STATE.PRESSED) {
@@ -189,6 +192,7 @@ function ControlManagerPlayer() constructor {
 		} else {
 			return false;
 		}
+		// Feather restore GM1028
 	}
 	
 	/// @desc Input processing loop.

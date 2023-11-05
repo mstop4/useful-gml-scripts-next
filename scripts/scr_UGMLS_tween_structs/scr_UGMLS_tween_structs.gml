@@ -18,7 +18,7 @@ enum TWEEN_LIMIT_MODE {
 /// @param {real}									 _max_v
 /// @param {Enum.TWEEN_LIMIT_MODE} _limit_mode
 /// @param {bool}									 _stop_outside_range  If true, delta is automatically set to 0 when value goes outside the designated range
-/// @param {Function}							 _outside_range_callback  A function that is called when value goes outside the designated range 
+/// @param {Function}							 [_outside_range_callback]  A function that is called when value goes outside the designated range 
 function Tween(_value, _delta, _min_v, _max_v, _limit_mode, _stop_outside_range, _outside_range_callback) constructor {
 	v = _value;
 	d = _delta;
