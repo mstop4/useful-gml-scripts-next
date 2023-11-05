@@ -1,10 +1,5 @@
 event_inherited();
 
-items = ds_list_create();
-num_items = 0;
-pos = 0;
-active_item = noone;
-
 /// @param {Struct} _config
 //         - {Id.Instance}       player_controller
 //         - {Asset.GMFont}   font
@@ -77,3 +72,8 @@ function nested_menu_add_submenu(_config) {
 	column_menu_update_view_area();
 	return _new;
 }
+
+items = ds_list_create();
+num_items = 0;
+pos = 0;
+active_item = noone;

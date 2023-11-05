@@ -1,10 +1,5 @@
 event_inherited();
 
-items = ds_list_create();
-num_items = 0;
-pos = 0;
-view_area = new Vector2(0, 0);
-
 /// @param _config
 //         - {real} view_height
 //				 - {Id.Instance}       player_controller
@@ -127,3 +122,8 @@ function column_menu_add_divider(_config) {
 	column_menu_update_view_area();
 	return _new;
 }
+
+items = ds_list_create();
+num_items = 0;
+pos = 0;
+view_area = new Vector2(0, 0);

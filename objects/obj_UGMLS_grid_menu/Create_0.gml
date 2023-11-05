@@ -1,12 +1,5 @@
 event_inherited();
 
-items = ds_grid_create(1, 1);
-items_width = 1;
-items_height = 1;
-pos = new Vector2(0, 0);
-view_area = new Rectangle(0, 0, 0, 0);
-view_scroll_progress_x = new Tween(0, 0, -1, 1, TWEEN_LIMIT_MODE.CLAMP, true, function() {});
-
 /// @param {Struct} _config 
 //         - {real}   width
 //         - {real}   height
@@ -212,3 +205,10 @@ function grid_menu_add_divider(_x, _y, _config) {
 	items[# _x, _y] = _new;
 	return _new;
 }
+
+items = ds_grid_create(1, 1);
+items_width = 1;
+items_height = 1;
+pos = new Vector2(0, 0);
+view_area = new Rectangle(0, 0, 0, 0);
+view_scroll_progress_x = new Tween(0, 0, -1, 1, TWEEN_LIMIT_MODE.CLAMP, true, function() {});
