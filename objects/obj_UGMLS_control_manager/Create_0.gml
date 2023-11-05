@@ -1,12 +1,6 @@
 players = ds_list_create();
 num_players = 0;
 
-/// @desc Calls get_steam_deck_info from system scripts and stores results locally.
-///       Note: Doesn't work if called at the very start of the game. Wait a few steps before calling it.
-function init_steam_deck_info() {
-	steam_deck_info = get_steam_deck_info();
-}
-
 /// @desc Adds a new player to manager, returns player index.
 function add_player() {
 	var _new_player = new ControlManagerPlayer();
@@ -23,6 +17,12 @@ function get_player(_index) {
 	}
 	
 	return noone;
+}
+
+/// @desc Calls get_steam_deck_info from system scripts and stores results locally.
+///       Note: Doesn't work if called at the very start of the game. Wait a few steps before calling it.
+function init_steam_deck_info() {
+	steam_deck_info = get_steam_deck_info();
 }
 
 /// @desc					  Checks if the game is currently running on a Steam Deck.

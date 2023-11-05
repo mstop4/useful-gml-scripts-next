@@ -16,7 +16,7 @@ rooms = [
 	//room_key_config_menu_demo,
 	room_strings_demo,
 	room_web_demo,
-	//room_system_info
+	room_system_info
 ];
 num_rooms = array_length(rooms);
 
@@ -34,7 +34,7 @@ room_names = [
 	//"Control Config Menu",
 	"Strings",
 	"Web",
-	//"System Info"
+	"System Info"
 ];
 
 menu = instance_create_layer(32, 64, layer, obj_ugmls_column_menu);
