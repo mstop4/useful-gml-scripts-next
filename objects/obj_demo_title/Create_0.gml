@@ -14,8 +14,8 @@ rooms = [
 	//room_grid_menu_demo,
 	//room_nested_menu_demo,
 	//room_key_config_menu_demo,
-	//room_strings_demo,
-	//room_web_demo,
+	room_strings_demo,
+	room_web_demo,
 	//room_system_info
 ];
 num_rooms = array_length(rooms);
@@ -32,8 +32,8 @@ room_names = [
 	//"Grid Menu",
 	//"Nested Menu",
 	//"Control Config Menu",
-	//"Strings",
-	//"Web",
+	"Strings",
+	"Web",
 	//"System Info"
 ];
 
