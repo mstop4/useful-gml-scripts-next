@@ -246,7 +246,7 @@ global.ugmls_keyboard_icon_map = [
 ];
 
 // Codes are offset by 32768
-global.gamepad_icon_map = [
+global.ugmls_gamepad_icon_map = [
 	-1,
 	6,
 	7,

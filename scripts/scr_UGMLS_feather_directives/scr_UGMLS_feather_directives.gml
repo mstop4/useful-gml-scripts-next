@@ -9,6 +9,7 @@
 // Feather ignore GM1041 in /Useful GML Script Library/Components/Menu System
 // Feather ignore GM1043 in /Useful GML Script Library/Components/Menu System
 // Feather ignore GM1050 in /Useful GML Script Library/Components/Menu System
+// Feather ignore GM1060 in /Useful GML Script Library/Components/Menu System
 // Feather ignore GM2016 in /Useful GML Script Library/Components/Menu System
 // Feather ignore GM2017 in /Useful GML Script Library/Components/Menu System
 
