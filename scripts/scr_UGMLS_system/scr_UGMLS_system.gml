@@ -1,17 +1,17 @@
-global._ugmls_os_type_strings = [];
-global._ugmls_os_type_strings[os_windows] = "Windows";
-global._ugmls_os_type_strings[os_uwp] = "Universal Windows Platform";
-global._ugmls_os_type_strings[os_operagx] = "Opera GX";
-global._ugmls_os_type_strings[os_linux] = "Linux";
-global._ugmls_os_type_strings[os_macosx] = "macOS";
-global._ugmls_os_type_strings[os_ios] = "iOS";
-global._ugmls_os_type_strings[os_tvos] = "Apple tvOS";
-global._ugmls_os_type_strings[os_android] = "Android";
-global._ugmls_os_type_strings[os_ps4] = "PlayStation 4";
-global._ugmls_os_type_strings[os_ps5] = "PlayStation 5";
-global._ugmls_os_type_strings[os_xboxone] = "Xbox One";
-global._ugmls_os_type_strings[os_xboxseriesxs] = "Xbox Series X/S";
-global._ugmls_os_type_strings[os_switch] = "Nintendo Switch";
+global.ugmls_os_type_strings = [];
+global.ugmls_os_type_strings[os_windows] = "Windows";
+global.ugmls_os_type_strings[os_uwp] = "Universal Windows Platform";
+global.ugmls_os_type_strings[os_operagx] = "Opera GX";
+global.ugmls_os_type_strings[os_linux] = "Linux";
+global.ugmls_os_type_strings[os_macosx] = "macOS";
+global.ugmls_os_type_strings[os_ios] = "iOS";
+global.ugmls_os_type_strings[os_tvos] = "Apple tvOS";
+global.ugmls_os_type_strings[os_android] = "Android";
+global.ugmls_os_type_strings[os_ps4] = "PlayStation 4";
+global.ugmls_os_type_strings[os_ps5] = "PlayStation 5";
+global.ugmls_os_type_strings[os_xboxone] = "Xbox One";
+global.ugmls_os_type_strings[os_xboxseriesxs] = "Xbox Series X/S";
+global.ugmls_os_type_strings[os_switch] = "Nintendo Switch";
 
 global._ugmls_os_browser_strings = [];
 global._ugmls_os_browser_strings[browser_unknown] = "Unknown Browser";
@@ -29,7 +29,7 @@ global._ugmls_os_browser_strings[browser_windows_store] = "Windows App";
 /// @param {real} _os_type
 function get_os_type_string(_os_type){
 	try {
-		return global._ugmls_os_type_strings[_os_type];
+		return global.ugmls_os_type_strings[_os_type];
 	} catch (_e) {
 		return "Unknown OS";
 	}
