@@ -2,13 +2,13 @@
   "FolderOrderSettings": [
     {"name":"Fonts","order":1,"path":"folders/Fonts.yy",},
     {"name":"Useful Script Library","order":2,"path":"folders/Useful Script Library.yy",},
+    {"name":"Assets","order":2,"path":"folders/Useful Script Library/Assets.yy",},
+    {"name":"Input","order":3,"path":"folders/Useful Script Library/Assets/Input.yy",},
+    {"name":"Components","order":1,"path":"folders/Useful Script Library/Components.yy",},
+    {"name":"Nudger","order":1,"path":"folders/Useful Script Library/Components/Nudger.yy",},
     {"name":"Math","order":1,"path":"folders/Useful Script Library/Standalone/Math.yy",},
     {"name":"Easings","order":1,"path":"folders/Useful Script Library/Standalone/Math/Easings.yy",},
     {"name":"Tweens","order":2,"path":"folders/Useful Script Library/Standalone/Math/Tweens.yy",},
-    {"name":"Assets","order":2,"path":"folders/Useful Script Library/Assets.yy",},
-    {"name":"Components","order":1,"path":"folders/Useful Script Library/Components.yy",},
-    {"name":"Input","order":3,"path":"folders/Useful Script Library/Assets/Input.yy",},
-    {"name":"Nudger","order":1,"path":"folders/Useful Script Library/Components/Nudger.yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"scr_UGMLS_drawing","order":5,"path":"scripts/scr_UGMLS_drawing/scr_UGMLS_drawing.yy",},
