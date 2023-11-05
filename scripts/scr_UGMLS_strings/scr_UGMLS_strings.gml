@@ -1,19 +1,3 @@
-/// @desc				 Concatenates a bunch of arguments into a string.
-///							 Deprecated: Use template strings (e.g. $"{_value1} {_value2}") or string_concat instead.
-/// @deprecated
-/// @param {any} _value1
-/// @param {any} [_value2]
-/// ...
-function concat(_value1) {
-	var _str = "";
-
-	for (var _i=0; _i<argument_count; _i++) {
-		_str += string(argument[_i]);
-	}
-
-	return _str;
-}
-
 /// @desc								Formats a long string so that it doesn't exceed max_width by adding line breaks where appropriate.
 /// @arg {string}				_str        
 /// @arg {real}					_max_width 
@@ -75,30 +59,6 @@ function dialogue_line_breaker(_str, _max_width, _font) {
 	draw_set_font(_old_font);
 
 	return _out_str;
-}
-
-/// @desc          Splits string into substrings.
-///								 Deprecated: Use string_split of string_split_ext instead.
-/// @deprecated
-/// @arg {string}  _str
-/// @arg {string}  _delimiter
-function split_string(_str, _delimiter) {
-	var _substrings = [];
-	var _str_len = string_length(_str);
-	var _buffer = "";
-	
-	for (var _i=1; _i<=_str_len; _i++) {
-		var _char = string_char_at(_str, _i);
-		if (_char == _delimiter) {
-			array_push(_substrings, _buffer);
-			_buffer = "";
-		} else {
-			_buffer += _char;
-		}
-	}
-	
-	array_push(_substrings, _buffer);
-	return _substrings;
 }
 
 /// @desc          Pads a string with char until it is a certain width (in pixels)

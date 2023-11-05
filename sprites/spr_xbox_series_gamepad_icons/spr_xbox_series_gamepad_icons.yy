@@ -48,8 +48,8 @@
   "nineSlice": null,
   "origin": 0,
   "parent": {
-    "name": "Assets",
-    "path": "folders/Useful Script Library/Assets.yy",
+    "name": "Input",
+    "path": "folders/Useful Script Library/Assets/Input.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {
