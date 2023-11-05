@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "scr_UGMLS_control_manager_config",
+  "name": "scr_ugmls_control_manager_config",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

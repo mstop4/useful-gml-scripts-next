@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "scr_UGMLS_web",
+  "name": "scr_ugmls_web",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

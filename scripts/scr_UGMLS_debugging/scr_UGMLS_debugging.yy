@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "scr_UGMLS_debugging",
+  "name": "scr_ugmls_debugging",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

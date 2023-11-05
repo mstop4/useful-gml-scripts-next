@@ -1,7 +1,7 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "obj_UGMLS_grid_menu",
+  "name": "obj_ugmls_grid_menu",
   "eventList": [
     {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,},
     {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":1,"eventType":3,"isDnD":false,},
@@ -16,8 +16,8 @@
     "path": "folders/Useful Script Library/Components/Menu System/Grid Menu.yy",
   },
   "parentObjectId": {
-    "name": "obj_UGMLS_base_menu",
-    "path": "objects/obj_UGMLS_base_menu/obj_UGMLS_base_menu.yy",
+    "name": "obj_ugmls_base_menu",
+    "path": "objects/obj_ugmls_base_menu/obj_ugmls_base_menu.yy",
   },
   "persistent": false,
   "physicsAngularDamping": 0.1,

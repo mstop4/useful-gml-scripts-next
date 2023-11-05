@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "scr_UGMLS_math_functions",
+  "name": "scr_ugmls_math_functions",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

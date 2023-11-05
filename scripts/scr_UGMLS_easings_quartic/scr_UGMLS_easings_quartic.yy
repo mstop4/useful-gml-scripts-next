@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "scr_UGMLS_easings_quartic",
+  "name": "scr_ugmls_easings_quartic",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

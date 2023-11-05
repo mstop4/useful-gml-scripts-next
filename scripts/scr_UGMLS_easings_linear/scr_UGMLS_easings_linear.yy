@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "scr_UGMLS_easings_linear",
+  "name": "scr_ugmls_easings_linear",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

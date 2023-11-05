@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "scr_UGMLS_easings_quintic",
+  "name": "scr_ugmls_easings_quintic",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "scr_UGMLS_colours",
+  "name": "scr_ugmls_colours",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

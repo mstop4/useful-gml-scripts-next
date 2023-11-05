@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "scr_UGMLS_input_functions",
+  "name": "scr_ugmls_input_functions",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
