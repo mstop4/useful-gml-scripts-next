@@ -1,3 +1,18 @@
+reset_bindings = method(id, function() {
+	io_clear();
+	self.my_player.clear_all_input();
+	inst_persistent_controller.reset_all_control_bindings();
+	var _num_items = ds_list_size(self.menu.items);
+		
+	for (var _i = 0; _i < _num_items; _i++) {
+		var _item = self.menu.items[| _i];
+		if (ds_list_find_index(_item.types, "keyconfig") == -1) return;
+
+		_item.kbm_bindings = duplicate_array(my_player.get_bindings(CONTROL_TYPE.KEYBOARD_AND_MOUSE, _item.control).values);
+		_item.gamepad_bindings = duplicate_array(my_player.get_bindings(CONTROL_TYPE.GAMEPAD,  _item.control).values);
+	}
+});
+
 // Set up Control Manager
 control_labels[CONTROLS.UP] = "Up";
 control_labels[CONTROLS.DOWN] = "Down";
@@ -68,6 +83,13 @@ var _remove_binding = menu.column_menu_add_key_config({
 	on_confirm_args: [-1],
 	silent_on_confirm: false,
 	silent_on_change: false
+});
+
+menu.column_menu_add_selectable({
+	label: "Reset All Bindings",
+	on_confirm_func: self.reset_bindings,
+	on_confirm_args: [],
+	silent_on_confirm: false
 });
 
 _cancel_rebinding.set_binding_locked(CONTROL_TYPE.KEYBOARD_AND_MOUSE, 0, true);

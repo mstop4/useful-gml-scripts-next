@@ -147,7 +147,7 @@ function ControlManagerPlayer() constructor {
 	}
 	
 	/// @desc Removes all control bindings.
-	function reset_all_bindings() {
+	function clear_all_bindings() {
 		for (var _i=0; _i<CONTROLS.MAX; _i++) {
 			keyboard_map[_i] = new Binding(KEYBOARD_MAX_BINDINGS_PER_CONTROL, CONTROL_SOURCE.KEYBOARD);
 			gamepad_map[_i] = new Binding(GAMEPAD_MAX_BINDINGS_PER_CONTROL, CONTROL_SOURCE.GAMEPAD);
