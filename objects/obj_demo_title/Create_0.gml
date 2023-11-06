@@ -1,7 +1,3 @@
-function go_to_demo(_args) {
-	room_goto(_args[0]);
-}
-
 rooms = [
 	room_control_manager_demo,
 	room_data_structures_demo,
@@ -10,10 +6,10 @@ rooms = [
 	room_laser_demo,
 	room_input_demo,
 	room_math_demo,
-	//room_column_menu_demo,
-	//room_grid_menu_demo,
-	//room_nested_menu_demo,
-	//room_key_config_menu_demo,
+	room_column_menu_demo,
+	room_grid_menu_demo,
+	room_nested_menu_demo,
+	room_key_config_menu_demo,
 	room_strings_demo,
 	room_web_demo,
 	room_system_info
@@ -28,14 +24,21 @@ room_names = [
 	"Geometry",
 	"Input",
 	"Math",
-	//"Column Menu",
-	//"Grid Menu",
-	//"Nested Menu",
-	//"Control Config Menu",
+	"Column Menu",
+	"Grid Menu",
+	"Nested Menu",
+	"Control Config Menu",
 	"Strings",
 	"Web",
 	"System Info"
 ];
+
+
+function go_to_demo(_args) {
+	io_clear();
+	inst_control_manager.get_player(0).clear_all_input();
+	room_goto(_args[0]);
+}
 
 menu = instance_create_layer(32, 64, layer, obj_ugmls_column_menu);
 menu.column_menu_init({

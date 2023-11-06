@@ -37,7 +37,7 @@ function grid_menu_init(_config) {
 	cursor_change_sfx = _config.cursor_change_sfx;
 	cursor_confirm_sfx = _config.cursor_confirm_sfx;
 	
-	ds_grid_resize(items, _config.width, _config.height);
+	ds_grid_resize(self.items, _config.width, _config.height);
 	items_width = _config.width;
 	items_height = _config.height;
 	
@@ -143,13 +143,13 @@ function grid_menu_get_item_by_label(_label) {
 //         - {array}    on_confirm_args
 //         - {boolean}  silent_on_confirm
 function grid_menu_add_selectable(_x, _y, _config) {
-	if (_x < 0 || _x >= ds_grid_width(items)
-		|| _y < 0 || _y >= ds_grid_height(items))
+	if (_x < 0 || _x >= ds_grid_width(self.items)
+		|| _y < 0 || _y >= ds_grid_height(self.items))
 			return;
 	
 	var _new = new MenuSelectable(_config);
 	_new.parent_menu = self.id;
-	items[# _x, _y] = _new;
+	self.items[# _x, _y] = _new;
 	return _new;
 }
 

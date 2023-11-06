@@ -92,10 +92,10 @@ function column_menu_add_selectable(_config) {
 //         - {boolean}  silent_on_change
 function column_menu_add_spinner(_config) {
 	var _new = new MenuSpinner(_config);
-	ds_list_add(items, _new);
+	ds_list_add(self.items, _new);
 	num_items++;
 	_new.parent_menu = self.id;
-	column_menu_update_view_area();
+	self.column_menu_update_view_area();
 	return _new;
 }
 
@@ -110,10 +110,10 @@ function column_menu_add_spinner(_config) {
 //         - {boolean}  silent_on_change
 function column_menu_add_key_config(_config) {
 	var _new = new MenuKeyConfig(_config);
-	ds_list_add(items, _new);
+	ds_list_add(self.items, _new);
 	num_items++;
 	_new.parent_menu = self.id;
-	column_menu_update_view_area();
+	self.column_menu_update_view_area();
 	return _new;
 }
 

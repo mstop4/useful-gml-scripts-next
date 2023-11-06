@@ -231,12 +231,12 @@ function MenuKeyConfig(_config) : MenuItem(_config) constructor {
 	function verify_locked_bindings() {
 		var _len = array_length(kbm_bindings);
 		for (var _i=0; _i<_len; _i++) {
-			locked_kbm_bindings[_i] = array_find(global.disallowed_keyboard_controls, kbm_bindings[_i]) != -1;
+			locked_kbm_bindings[_i] = array_find(global.ugmls_disallowed_keyboard_controls, kbm_bindings[_i]) != -1;
 		}
 		
 		_len = array_length(gamepad_bindings);
 		for (var _i=0; _i<_len; _i++) {
-			locked_gamepad_bindings[_i] = array_find(global.disallowed_gamepad_controls, gamepad_bindings[_i]) != -1;
+			locked_gamepad_bindings[_i] = array_find(global.ugmls_disallowed_gamepad_controls, gamepad_bindings[_i]) != -1;
 		}
 	}
 	

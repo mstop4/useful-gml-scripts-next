@@ -61,14 +61,14 @@ function nested_menu_toggle_submenu_by_index(_index) {
 //         - {boolean}			 silent_on_confirm
 function nested_menu_add_submenu(_config) {
 	var _new = new NestedMenuSubmenu(_config);
-	ds_list_add(items, _new);
+	ds_list_add(self.items, _new);
 	num_items++;
 	_new.parent_menu = self;
 	_new.submenu.enabled = false;
 	_new.submenu.visible = false;
 	_new.submenu.x = self.x + self.column_width;
 	_new.submenu.y = self.y;
-	column_menu_update_view_area();
+	self.column_menu_update_view_area();
 	return _new;
 }
 
