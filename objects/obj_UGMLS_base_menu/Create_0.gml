@@ -142,7 +142,7 @@ function handle_key_config_cancel(_item) {
 	if (!_item.enabled) return;
 	if (discovery_mode == MENU_DISCOVERY_MODE.SELECTING) {
 		discovery_mode = MENU_DISCOVERY_MODE.NONE;
-		self.active_key_config = noone;		
+		self.active_key_config = -1;		
 	}
 }
 
@@ -170,7 +170,7 @@ function handle_key_config_delete(_item) {
 	if (active_key_config) {
 		active_key_config.discovery_binding_info = false;
 	}
-	self.active_key_config = noone;
+	self.active_key_config = -1;
 }
 
 /// @param {Struct.MenuKeyConfig} _item
@@ -357,7 +357,7 @@ control_icons_scale = 1;
 control_icons_y_offset = -18;
 
 discovery_mode = MENU_DISCOVERY_MODE.NONE;
-active_key_config = noone;
+active_key_config = -1;
 menu_alpha = new Tween(1, 0, 0, 1, TWEEN_LIMIT_MODE.CLAMP, true, function() {});
 view_scroll_progress_y = new Tween(0, 0, -1, 1, TWEEN_LIMIT_MODE.CLAMP, true, function() {});
 view_scroll_arrow_height = sprite_get_height(view_scroll_arrows_spr);

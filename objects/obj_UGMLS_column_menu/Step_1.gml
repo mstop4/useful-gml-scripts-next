@@ -2,14 +2,14 @@ if (!enabled) exit;
 
 control_state.poll_input();
 
-if (active_key_config != noone && discovery_mode == MENU_DISCOVERY_MODE.DISCOVERING) {
+if (active_key_config != -1 && discovery_mode == MENU_DISCOVERY_MODE.DISCOVERING) {
 	var _item = items[| pos];	
 	self.handle_key_config_discovery(_item);
 	exit;
 }
 
 if (control_state.pressed_state[MENU_CONTROLS.UP]) {
-	if (active_key_config == noone) {
+	if (active_key_config == -1) {
 		var _cur_pos = pos;
 		var _item = -1;
 	
@@ -27,7 +27,7 @@ if (control_state.pressed_state[MENU_CONTROLS.UP]) {
 }
 
 if (control_state.pressed_state[MENU_CONTROLS.DOWN]) {
-	if (active_key_config == noone) {
+	if (active_key_config == -1) {
 		var _cur_pos = pos;
 		var _item = -1;
 	
