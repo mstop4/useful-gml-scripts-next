@@ -3,6 +3,8 @@ num_players = 0;
 device_count = gamepad_get_device_count();
 gamepad_connected = array_create(device_count, false);
 num_gamepads_connected = 0;
+gamepad_discovery_mode = false;
+gamepad_discovery_player_index = 0;
 
 /// @desc Checks the connection status of devices
 function check_device_connection_statuses() {
@@ -18,9 +20,41 @@ function check_device_connection_statuses() {
 	}
 }
 
+/// @desc Starts listening for any input on any gamepad
+function start_gamepad_discovery_mode(_player_index) {
+	gamepad_discovery_mode = true;
+	gamepad_discovery_player_index = _player_index;
+}
+
+/// @desc Listens for any input on any gamepad. If detected, returns device index
+function listen_for_gamepad_input() {
+	var _gamepad_index = -1;
+	
+	for (var _i=0; _i<device_count; _i++) {
+		if (_gamepad_index != -1) break;
+
+		for (var _j=gp_face1; _j<=gp_padr; _j++) {
+			if (gamepad_button_check_pressed(_i, _j)) {
+				_gamepad_index = _i;
+				break;
+			}
+		}
+	}
+	
+	if (_gamepad_index != -1) {
+		self.stop_gamepad_discovery_mode();
+		self.players[| self.gamepad_discovery_player_index].set_gamepad_slot(_gamepad_index);
+	}
+}
+
+/// @desc Stop listening for input on any gamepad
+function stop_gamepad_discovery_mode() {
+	gamepad_discovery_mode = false;
+}
+
 /// @desc Adds a new player to manager, returns player index.
 function add_player() {
-	var _new_player = new ControlManagerPlayer();
+	var _new_player = new ControlManagerPlayer(id);
 	ds_list_add(self.players, _new_player);
 	num_players++;
 	return num_players-1;
