@@ -1,5 +1,22 @@
 players = ds_list_create();
 num_players = 0;
+device_count = gamepad_get_device_count();
+gamepad_connected = array_create(device_count, false);
+num_gamepads_connected = 0;
+
+/// @desc Checks the connection status of devices
+function check_device_connection_statuses() {
+	gamepad_connected = array_create(device_count, false);
+	num_gamepads_connected = 0;
+
+	for (var _i=0; _i<device_count; _i++) {
+		var _is_connected = gamepad_is_connected(_i);
+		if (_is_connected) {
+			num_gamepads_connected++;
+		}
+		gamepad_connected[_i] = _is_connected;
+	}
+}
 
 /// @desc Adds a new player to manager, returns player index.
 function add_player() {
