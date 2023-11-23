@@ -93,7 +93,7 @@ function MenuSelectable(_config) : MenuItem(_config) constructor {
 //         - {function} on_change_func
 //         - {array}    on_change_args
 //         - {boolean}  silent_on_confirm
-//         - {boolean}  silent_on_change
+//         - {boolean}  silent_on_change   NOTE: doesn't work yet
 function MenuValuedSelectable(_config) : MenuSpinnerBase(_config) constructor {
 	type = "valuedSelectable";
 	value = _config.init_value;
@@ -104,6 +104,18 @@ function MenuValuedSelectable(_config) : MenuSpinnerBase(_config) constructor {
 	
 	function get_value() {
 		return value;
+	}
+	
+	function set_value(_value) {
+		value = _value;
+		if (is_callable(on_change_func)) {
+			on_change_func(value, on_change_args);
+		}
+
+		// FIXME
+		/*if (!silent_on_change && audio_exists(cursor_confirm_sfx)) {
+			audio_play_sound(cursor_confirm_sfx, 1, false);
+		}*/
 	}
 }
 

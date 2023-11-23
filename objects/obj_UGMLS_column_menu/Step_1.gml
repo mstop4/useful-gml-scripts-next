@@ -75,6 +75,9 @@ if (control_state.pressed_state[MENU_CONTROLS.CONFIRM]) {
 	else if (_item.type == "selectable")
 		self.handle_selectable_confirm(_item);
 		
+	else if (_item.type == "valuedSelectable")
+		self.handle_valued_selectable_confirm(_item);
+		
 	else if (_item.type == "keyconfig")
 		self.handle_key_config_confirm(_item);
 }

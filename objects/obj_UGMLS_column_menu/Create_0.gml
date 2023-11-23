@@ -82,6 +82,24 @@ function column_menu_add_selectable(_config) {
 
 /// @param {Struct} _config 
 //         - {string}   label
+//         - {string}   init_value
+//         - {function} on_confirm_func
+//         - {array}    on_confirm_args
+//         - {function} on_change_func
+//         - {array}    on_change_args
+//         - {boolean}  silent_on_confirm
+//         - {boolean}  silent_on_change
+function column_menu_add_valued_selectable(_config) {
+	var _new = new MenuValuedSelectable(_config);
+	ds_list_add(self.items, _new);
+	num_items++;
+	_new.parent_menu = self.id;
+	self.column_menu_update_view_area();
+	return _new;
+}
+
+/// @param {Struct} _config 
+//         - {string}   label
 //         - {array}    values
 //         - {integer}  init_index
 //         - {function} on_confirm_func
