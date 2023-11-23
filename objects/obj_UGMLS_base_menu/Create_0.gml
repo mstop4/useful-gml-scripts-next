@@ -215,7 +215,7 @@ function handle_key_config_discovery(_item) {
 
 /// @param {Struct.MenuItem} _item
 function menu_base_draw_item(_item, _x, _y) {
-	var _type = _item.types[| ds_list_size(_item.types)-1];
+	var _type = _item.type;
 	if (_item.enabled) draw_set_colour(c_white);
 	else draw_set_colour(c_gray);
 
