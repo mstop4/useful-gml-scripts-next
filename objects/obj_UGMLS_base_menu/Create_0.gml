@@ -214,7 +214,10 @@ function handle_key_config_discovery(_item) {
 }
 
 /// @param {Struct.MenuItem} _item
-function menu_base_draw_item(_item, _x, _y) {
+/// @param {Real} _x
+/// @param {Real} _y
+/// @param {Bool} _is_focused
+function menu_base_draw_item(_item, _x, _y, _is_focused = false) {
 	var _type = _item.type;
 	if (_item.enabled) draw_set_colour(c_white);
 	else draw_set_colour(c_gray);
@@ -227,10 +230,32 @@ function menu_base_draw_item(_item, _x, _y) {
 			break;
 			
 	case "spinner":
+		var _item_value = _item.get_value();
 		draw_set_font(self.menu_label_font);
 		draw_text(_x, _y, _item.label);
 		draw_set_font(self.menu_value_font);
-		draw_text(_x + label_width, _y + spinner_value_text_y_offset, _item.get_value());
+		draw_text(_x + label_width, _y + spinner_value_text_y_offset, _item_value);
+		
+		if (_is_focused) {
+			var _alpha = draw_get_alpha();
+			var _text_width = string_width(_item_value);
+			
+			draw_sprite_ext(
+				spinner_scroll_arrows_spr,
+				0,
+				_x + label_width - spinner_scroll_arrows_margin,
+				_y + spinner_value_text_y_offset + spinner_scroll_arrows_y + item_height / 2,
+				1, 1, 90, c_white, _alpha
+			);
+			
+			draw_sprite_ext(
+				spinner_scroll_arrows_spr,
+				0,
+				_x + label_width + spinner_scroll_arrows_margin + _text_width,
+				_y + spinner_value_text_y_offset + spinner_scroll_arrows_y + item_height / 2,
+				1, 1, 270, c_white, _alpha
+			);
+		}
 		break;
 			
 	case "keyconfig":
