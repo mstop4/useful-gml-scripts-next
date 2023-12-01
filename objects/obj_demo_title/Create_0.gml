@@ -1,6 +1,7 @@
 rooms = [
 	room_control_manager_demo,
 	room_data_structures_demo,
+	room_debugging_demo,
 	room_drawing_demo,
 	room_easing_demo,
 	room_laser_demo,
@@ -19,6 +20,7 @@ num_rooms = array_length(rooms);
 room_names = [
 	"Control Manager",
 	"Data Structures",
+	"Debugging",
 	"Drawing",
 	"Easings",
 	"Geometry",

@@ -42,7 +42,6 @@ function rgb_hex_string_to_real(_hex_str) {
 	return _value;
 }
 
-
 /// @desc         Shifts the components of an HSV colour
 /// @param {real} _base_color  
 /// @param {real} _variance_hue 
