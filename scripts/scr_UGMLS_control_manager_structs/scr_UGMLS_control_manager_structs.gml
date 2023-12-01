@@ -95,7 +95,7 @@ function ControlManagerPlayer(_control_manager) constructor {
 	// Touch
 	
 	/// @desc Clears all input states
-	clear_all_input = method(self, function() {
+	static clear_all_input = method(self, function() {
 		for (var _i=0; _i<CONTROLS.MAX; _i++) {
 			ctrl_held[_i] = false;
 			ctrl_pressed[_i] = false;
@@ -122,7 +122,7 @@ function ControlManagerPlayer(_control_manager) constructor {
 		prev_stick_input.y = 0;
 	});
 	
-	/// @desc												 Sets a binding for a control.
+	/// @desc	 Sets a binding for a control.
 	/// @param {Enum.CONTROL_TYPE}	 _control_type
 	/// @param {Enum.CONTROL_SOURCE} _control_source
 	/// @param {Enum.CONTROLS}			 _control 
@@ -154,7 +154,7 @@ function ControlManagerPlayer(_control_manager) constructor {
 		}
 	});
 	
-	/// @desc												 Removes a binding for a control.
+	/// @desc	 Removes a binding for a control.
 	/// @param {Enum.CONTROL_TYPE}	 _control_type
 	/// @param {Enum.CONTROLS}			 _control 
 	/// @param {real}							   _index
@@ -185,9 +185,9 @@ function ControlManagerPlayer(_control_manager) constructor {
 		}
 	});
 	
-	/// @desc												 Gets bindings for a control.
-	/// @param {Enum.CONTROL_TYPE}	 _control_type
-	/// @param {Enum.CONTROLS}			 _control
+	/// @desc	   Gets bindings for a control.
+	/// @param   {Enum.CONTROL_TYPE}	 _control_type
+	/// @param   {Enum.CONTROLS}			 _control
 	/// @returns {any} FIXME: Should be Struct.Binding | real
 	static get_bindings = method(self, function(_control_type, _control) {
 		if (_control_type == CONTROL_TYPE.KEYBOARD_AND_MOUSE) {
@@ -199,14 +199,14 @@ function ControlManagerPlayer(_control_manager) constructor {
 		}
 	});
 	
-	/// @desc					Assigns gamepad to a player slot.
+	/// @desc	 Assigns gamepad to a player slot.
 	/// @param {real} _index
 	static set_gamepad_slot = method(self, function(_index) {
 		gamepad_slot = _index;
 		self.clear_all_input();
 	});
 	
-	/// @desc												  Gets current state of a control.
+	/// @desc		 Gets current state of a control.
 	/// @param   {Enum.CONTROLS}			_control
 	/// @param   {Enum.CONTROL_STATE}	_control_state
 	/// @returns {Bool}
