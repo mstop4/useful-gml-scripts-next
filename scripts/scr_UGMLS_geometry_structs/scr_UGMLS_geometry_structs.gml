@@ -1,3 +1,4 @@
+/// @desc  A line segment defined by two points "a" and "b"
 /// @param {real} _ax
 /// @param {real} _ay
 /// @param {real} _bx
@@ -7,6 +8,7 @@ function LineSegment(_ax, _ay, _bx, _by) constructor {
 	b = new Vector2(_bx, _by);
 }
 
+/// @desc  A rectangle defined by four sides: "top", "left", "bottom", and "right"
 /// @param {real} _left
 /// @param {real} _top
 /// @param {real} _right
@@ -19,31 +21,31 @@ function Rectangle(_left, _top, _right, _bottom) constructor {
 	
 	/// @desc Width of rectangle
 	static width = method(self, function() {
-		return self.right - self.left;
+		return right - left;
 	});
 	
 	/// @desc Height of rectangle
 	static height = method(self, function() {
-		return self.bottom - self.top;
+		return bottom - top;
 	});
 	
 	/// @desc A LineSegment representing the left-side edge
 	static left_edge = method(self, function() {
-		return new LineSegment(self.left, self.top, self.left, self.bottom);
+		return new LineSegment(left, top, left, bottom);
 	});
 	
 	/// @desc A LineSegment representing the top edge
 	static top_edge = method(self, function() {
-		return new LineSegment(self.left, self.top, self.right, self.top);
+		return new LineSegment(left, top, right, top);
 	});
 	
 	/// @desc A LineSegment representing the right-side edge
 	static right_edge = method(self, function() {
-		return new LineSegment(self.right, self.top, self.right, self.bottom);
+		return new LineSegment(right, top, right, bottom);
 	});
 	
 	/// @desc A LineSegment representing the bottom edge
 	static bottom_edge = method(self, function() {
-		return new LineSegment(self.left, self.bottom, self.right, self.bottom);
+		return new LineSegment(left, bottom, right, bottom);
 	});
 }

@@ -6,6 +6,7 @@
     {"name":"Column Menu","order":14,"path":"folders/Demos/Column Menu.yy",},
     {"name":"Control Manager","order":13,"path":"folders/Demos/Control Manager.yy",},
     {"name":"Data Structures","order":3,"path":"folders/Demos/Data Structures.yy",},
+    {"name":"Debugging","order":4,"path":"folders/Demos/Debugging.yy",},
     {"name":"Drawing","order":5,"path":"folders/Demos/Drawing.yy",},
     {"name":"Easings","order":6,"path":"folders/Demos/Easings.yy",},
     {"name":"Geometry","order":7,"path":"folders/Demos/Geometry.yy",},
@@ -33,7 +34,6 @@
     {"name":"Math","order":1,"path":"folders/Useful GML Script Library/Standalone/Math.yy",},
     {"name":"Easings","order":1,"path":"folders/Useful GML Script Library/Standalone/Math/Easings.yy",},
     {"name":"Tweens","order":2,"path":"folders/Useful GML Script Library/Standalone/Math/Tweens.yy",},
-    {"name":"Debugging","order":4,"path":"folders/Demos/Debugging.yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"obj_easing_tester","order":1,"path":"objects/obj_easing_tester/obj_easing_tester.yy",},
