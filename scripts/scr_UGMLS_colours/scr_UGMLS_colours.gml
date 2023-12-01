@@ -1,4 +1,4 @@
-/// @desc         Returns interpolated colour between two HSV colours.
+/// @desc  Returns interpolated colour between two HSV colours.
 /// @param {real} _base_color1 colour
 /// @param {real} _base_color2 colour
 /// @param {real} _t
@@ -10,15 +10,15 @@ function interpolate_hsv(_base_color1, _base_color2, _t) {
 	return make_color_hsv(_temp_hue, _temp_sat, _temp_val);
 }
 
-/// @desc           Converts RGB int/hex to BGR real
+/// @desc    Converts RGB int/hex to BGR real
 /// @param   {real} _rgb_colour colour
 /// @returns {real}
 function rgb_to_bgr(_rgb_colour) {
 	return (_rgb_colour & $FF) << 16 | (_rgb_colour & $FF00) | (_rgb_colour & $FF0000) >> 16;
 }
 
-/// @desc            Converts RGB hex string to a real
-/// @param  {string} _hex_str
+/// @desc    Converts RGB hex string to a real
+/// @param   {string} _hex_str
 /// @returns {real}
 function rgb_hex_string_to_real(_hex_str) {
 	if (!is_string(_hex_str)) return -1;
@@ -42,7 +42,7 @@ function rgb_hex_string_to_real(_hex_str) {
 	return _value;
 }
 
-/// @desc         Shifts the components of an HSV colour
+/// @desc  Shifts the components of an HSV colour
 /// @param {real} _base_color  
 /// @param {real} _variance_hue 
 /// @param {real} _variance_sat 

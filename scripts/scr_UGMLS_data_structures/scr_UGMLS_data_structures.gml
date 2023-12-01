@@ -1,17 +1,17 @@
-/// @desc								Compares all cells of two DS Grids for equality.
+/// @desc	 Compares all cells of two DS Grids for equality.
 /// @param {Id.DsGrid} _grid1
 /// @param {Id.DsGrid} _grid2
 function grids_are_equal(_grid1, _grid2) {
 	return ds_grid_write(_grid1) == ds_grid_write(_grid2);
 }
 
-/// @desc					 Chooses a random element from an array.
+/// @desc	 Chooses a random element from an array.
 /// @param {Array} _array
 function choose_from_array(_array) {
 	return _array[irandom(array_length(_array)-1)];
 }
 
-/// @desc					 Checks if Array a is a subset of array b.
+/// @desc	 Checks if Array a is a subset of array b.
 /// @param {Array} _a
 /// @param {Array} _b
 function array_is_subset(_a, _b) {
@@ -36,8 +36,8 @@ function array_is_subset(_a, _b) {
 	return true;
 }
 
-/// @desc					 Finds a given value in an array and returns its index, if the value doesn't exists, returns -1.
-///								 Note: array_find_index is more powerful and is recommended instead, but this function can still be used in some specialized cases.
+/// @desc	 Finds a given value in an array and returns its index, if the value doesn't exists, returns -1.
+///				 Note: array_find_index is more powerful and is recommended instead, but this function can still be used in some specialized cases.
 /// @param {Array} _array
 /// @param {any}	 _value
 function array_find(_array, _value) {
@@ -49,7 +49,7 @@ function array_find(_array, _value) {
 	return -1;
 }
 
-/// @desc					 Creates a new copy of a given array.
+/// @desc	 Creates a new copy of a given array.
 /// @param {Array} _array
 function duplicate_array(_array) {
 	var _new_array = array_create(array_length(_array));
@@ -57,7 +57,7 @@ function duplicate_array(_array) {
 	return _new_array;
 }
 
-/// @desc					 Randomly shuffles the elements in a given array.
+/// @desc	 Randomly shuffles the elements in a given array.
 /// @param {Array} _array
 function shuffle_array(_array) {
   var _current_index = array_length(_array);
@@ -78,7 +78,7 @@ function shuffle_array(_array) {
   return _array;
 }
 
-/// @desc							Parses a JSON with Comments from file, stripping out the comments.
+/// @desc		 Parses a JSON with Comments from file, stripping out the comments.
 /// @param   {String} _filename
 /// @returns {Struct}
 function file_jsonc_parse(_filename) {

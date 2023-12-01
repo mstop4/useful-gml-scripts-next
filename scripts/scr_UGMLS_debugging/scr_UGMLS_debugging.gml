@@ -1,4 +1,4 @@
-/// @desc      Syntactic sugar for show_debug_message.
+/// @desc  Syntactic sugar for show_debug_message.
 /// @param {any} _value1
 /// @param {any} [_value2]
 /// ...
