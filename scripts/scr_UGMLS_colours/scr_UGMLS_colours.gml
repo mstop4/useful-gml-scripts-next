@@ -25,9 +25,9 @@ function rgb_hex_string_to_real(_hex_str) {
 	var _str_len = string_length(_hex_str);
 	var _value = 0;
 	
-	for (var i=_str_len; i>0; i--) {
+	for (var _i=_str_len; _i>0; _i--) {
 		_value = _value << 4;
-		var _char = string_upper(string_copy(_hex_str, i, 1));
+		var _char = string_upper(string_copy(_hex_str, _i, 1));
 		
 		if (_char == "#") continue;
 		var _ord = ord(_char);

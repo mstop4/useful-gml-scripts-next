@@ -94,6 +94,34 @@ function ControlManagerPlayer(_control_manager) constructor {
 	
 	// Touch
 	
+	/// @desc Clears all input states
+	clear_all_input = method(self, function() {
+		for (var _i=0; _i<CONTROLS.MAX; _i++) {
+			ctrl_held[_i] = false;
+			ctrl_pressed[_i] = false;
+			ctrl_released[_i] = false;
+		}
+	
+		ctrl_any_pressed.control_type = CONTROL_TYPE.NONE;
+		ctrl_any_pressed.control_source = CONTROL_SOURCE.NONE;
+		ctrl_any_pressed.control_pressed = -1;
+		
+		for (var _i=0; _i<DPAD_DIRECTION.MAX; _i++) {
+			stick_dpad_held[_i] = false;
+			stick_dpad_pressed[_i] = false;
+			stick_dpad_released[_i] = false;
+		}
+		
+		axis_held.x = 0;
+		axis_held.y = 0;
+		axis_pressed.x = 0;
+		axis_pressed.y = 0;
+		stick_input.x = 0
+		stick_input.y = 0;
+		prev_stick_input.x = 0;
+		prev_stick_input.y = 0;
+	});
+	
 	/// @desc												 Sets a binding for a control.
 	/// @param {Enum.CONTROL_TYPE}	 _control_type
 	/// @param {Enum.CONTROL_SOURCE} _control_source
@@ -101,7 +129,7 @@ function ControlManagerPlayer(_control_manager) constructor {
 	/// @param {real}							   _index
 	/// @param {real}								 _value
 	/// @param {Enum.AXIS_DIRECTION} _axis_direction 
-	function set_binding(
+	set_binding = method(self, function(
 		_control_type,
 		_control_source,
 		_control,
@@ -124,13 +152,13 @@ function ControlManagerPlayer(_control_manager) constructor {
 			gamepad_map[_control].values[_index] = _value;
 			gamepad_map[_control].axis_drection = _axis_direction;
 		}
-	}
+	});
 	
 	/// @desc												 Removes a binding for a control.
 	/// @param {Enum.CONTROL_TYPE}	 _control_type
 	/// @param {Enum.CONTROLS}			 _control 
 	/// @param {real}							   _index
-	function remove_binding(_control_type, _control, _index) {
+	remove_binding = method(self, function(_control_type, _control, _index) {
 		if (_control_type == CONTROL_TYPE.KEYBOARD_AND_MOUSE) {
 			if (_index < 0 || _index >= array_length(keyboard_map[_control].values)) {
 				print("ControlManagerPlayer.remove_binding - index ", _index, " out of bounds");
@@ -146,22 +174,22 @@ function ControlManagerPlayer(_control_manager) constructor {
 			gamepad_map[_control].values[_index] = -1;
 			gamepad_map[_control].axis_drection = 0;
 		}
-	}
+	});
 	
 	/// @desc Removes all control bindings.
-	function clear_all_bindings() {
+	clear_all_bindings = method(self, function() {
 		for (var _i=0; _i<CONTROLS.MAX; _i++) {
 			keyboard_map[_i] = new Binding(KEYBOARD_MAX_BINDINGS_PER_CONTROL, CONTROL_SOURCE.KEYBOARD);
 			gamepad_map[_i] = new Binding(GAMEPAD_MAX_BINDINGS_PER_CONTROL, CONTROL_SOURCE.GAMEPAD);
 			touch_map[_i] = new Binding(1, CONTROL_SOURCE.KEYBOARD);
 		}
-	}
+	});
 	
 	/// @desc												 Gets bindings for a control.
 	/// @param {Enum.CONTROL_TYPE}	 _control_type
 	/// @param {Enum.CONTROLS}			 _control
 	/// @returns {any} FIXME: Should be Struct.Binding | real
-	function get_bindings(_control_type, _control) {
+	get_bindings = method(self, function(_control_type, _control) {
 		if (_control_type == CONTROL_TYPE.KEYBOARD_AND_MOUSE) {
 			return keyboard_map[_control];
 		} else if (_control_type == CONTROL_TYPE.GAMEPAD) {
@@ -169,19 +197,20 @@ function ControlManagerPlayer(_control_manager) constructor {
 		} else {
 			return -1;
 		}
-	}
+	});
 	
 	/// @desc					Assigns gamepad to a player slot.
 	/// @param {real} _index
-	function set_gamepad_slot(_index) {
+	set_gamepad_slot = method(self, function(_index) {
 		gamepad_slot = _index;
-		clear_all_input();
-	}
+		self.clear_all_input();
+	});
 	
-	/// @desc												Gets current state of a control.
-	/// @param {Enum.CONTROLS}			_control
-	/// @param {Enum.CONTROL_STATE}	_control_state
-	function get_control_state(_control, _control_state) {
+	/// @desc												  Gets current state of a control.
+	/// @param   {Enum.CONTROLS}			_control
+	/// @param   {Enum.CONTROL_STATE}	_control_state
+	/// @returns {Bool}
+	get_control_state = method(self, function(_control, _control_state) {
 		if (_control_state == CONTROL_STATE.HELD) {
 			return ctrl_held[_control];
 		} else if (_control_state == CONTROL_STATE.PRESSED) {
@@ -191,10 +220,10 @@ function ControlManagerPlayer(_control_manager) constructor {
 		} else {
 			return false;
 		}
-	}
+	});
 	
 	/// @desc Input processing loop.
-	function process_input() {
+	process_input = method(self, function() {
 		prev_stick_input.x = stick_input.x;
 		prev_stick_input.y = stick_input.y;
 
@@ -352,32 +381,5 @@ function ControlManagerPlayer(_control_manager) constructor {
 			axis_pressed.x = stick_dpad_pressed[DPAD_DIRECTION.RIGHT] - stick_dpad_pressed[DPAD_DIRECTION.LEFT]; 
 			axis_pressed.y = stick_dpad_pressed[DPAD_DIRECTION.DOWN] - stick_dpad_pressed[DPAD_DIRECTION.UP];
 		}
-	}
-
-	function clear_all_input() {
-		for (var _i=0; _i<CONTROLS.MAX; _i++) {
-			ctrl_held[_i] = false;
-			ctrl_pressed[_i] = false;
-			ctrl_released[_i] = false;
-		}
-	
-		ctrl_any_pressed.control_type = CONTROL_TYPE.NONE;
-		ctrl_any_pressed.control_source = CONTROL_SOURCE.NONE;
-		ctrl_any_pressed.control_pressed = -1;
-		
-		for (var _i=0; _i<DPAD_DIRECTION.MAX; _i++) {
-			stick_dpad_held[_i] = false;
-			stick_dpad_pressed[_i] = false;
-			stick_dpad_released[_i] = false;
-		}
-		
-		axis_held.x = 0;
-		axis_held.y = 0;
-		axis_pressed.x = 0;
-		axis_pressed.y = 0;
-		stick_input.x = 0
-		stick_input.y = 0;
-		prev_stick_input.x = 0;
-		prev_stick_input.y = 0;
-	}
+	});
 }
