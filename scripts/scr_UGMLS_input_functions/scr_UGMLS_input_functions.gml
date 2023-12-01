@@ -1,6 +1,6 @@
 /// @desc	 Maps native keycodes to JS keycodes.
 /// @param {real} _keycode
-translate_native_to_js_keycode = method(undefined, function(_keycode) {
+function translate_native_to_js_keycode(_keycode) {
 	switch (os_type) {
 		case os_macosx:
 			if (_keycode == 222) return vk_single_quote;
@@ -16,11 +16,11 @@ translate_native_to_js_keycode = method(undefined, function(_keycode) {
 			// Windows, Web, etc.
 			return _keycode;
 	}
-});
+}
 
 /// @desc  Converts keycode to name of key as a string.
 /// @param {real} _keycode 
-keycode_to_string = method(undefined, function(_keycode) {
+function keycode_to_string(_keycode) {
   // alphanumeric
   if ((_keycode >= ord("0") && _keycode <= ord("9")) || (_keycode >= ord("A") && _keycode <= ord("Z"))) {
       return string(chr(_keycode));
@@ -178,33 +178,33 @@ keycode_to_string = method(undefined, function(_keycode) {
 				return "???";
     }
   }
-});
+}
 
 /// @desc	 Converts keycode to image_index of keyboard icon
 /// @param {real}						_keycode
 /// @param {Asset.GMSprite} _icons
-get_keyboard_icon_index = method(undefined, function(_keycode, _icons) {
+function get_keyboard_icon_index(_keycode, _icons) {
 	if (_keycode < 0) return sprite_get_number(_icons) - 1;
 	var _js_keycode = translate_native_to_js_keycode(_keycode);
 	return global.ugmls_keyboard_icon_map[_js_keycode] == -1
 		? sprite_get_number(_icons) - 1
 		: global.ugmls_keyboard_icon_map[_js_keycode];
-});
+}
 
 /// @desc	 Converts keycode to image_index of keyboard icon
 /// @param {real}						_button_code
 /// @param {Asset.GMSprite} _icons
-get_gamepad_icon_index = method(undefined, function(_button_code, _icons) {
+function get_gamepad_icon_index(_button_code, _icons) {
 	var _offset_code = _button_code - 32768;
 	if (_offset_code < 0) return sprite_get_number(_icons) - 1;
 	return global.ugmls_gamepad_icon_map[_offset_code] == -1
 		? sprite_get_number(_icons) - 1
 		: global.ugmls_gamepad_icon_map[_offset_code];
-});
+}
 
 /// @desc	 Converts gamepad constant to name as a string
 /// @param {Constant.GamepadButton} _gp_constant 
-gamepad_constant_to_string = method(undefined, function(_gp_constant) {
+function gamepad_constant_to_string (_gp_constant) {
 	 switch (_gp_constant) {
 		case gp_padu:
 			return "UP";
@@ -242,4 +242,4 @@ gamepad_constant_to_string = method(undefined, function(_gp_constant) {
     default:
 			return "???";
 	 }
-});
+}
