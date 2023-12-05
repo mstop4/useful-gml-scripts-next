@@ -95,7 +95,7 @@ function ControlManagerPlayer(_control_manager) constructor {
 	// Touch
 	
 	/// @desc Clears all input states
-	static clear_all_input = method(self, function() {
+	clear_all_input = method(self, function() {
 		for (var _i=0; _i<CONTROLS.MAX; _i++) {
 			ctrl_held[_i] = false;
 			ctrl_pressed[_i] = false;
@@ -129,7 +129,7 @@ function ControlManagerPlayer(_control_manager) constructor {
 	/// @param {real}							   _index
 	/// @param {real}								 _value
 	/// @param {Enum.AXIS_DIRECTION} _axis_direction 
-	static set_binding = method(self, function(
+	set_binding = method(self, function(
 		_control_type,
 		_control_source,
 		_control,
@@ -158,7 +158,7 @@ function ControlManagerPlayer(_control_manager) constructor {
 	/// @param {Enum.CONTROL_TYPE}	 _control_type
 	/// @param {Enum.CONTROLS}			 _control 
 	/// @param {real}							   _index
-	static remove_binding = method(self, function(_control_type, _control, _index) {
+	remove_binding = method(self, function(_control_type, _control, _index) {
 		if (_control_type == CONTROL_TYPE.KEYBOARD_AND_MOUSE) {
 			if (_index < 0 || _index >= array_length(keyboard_map[_control].values)) {
 				print("ControlManagerPlayer.remove_binding - index ", _index, " out of bounds");
@@ -177,7 +177,7 @@ function ControlManagerPlayer(_control_manager) constructor {
 	});
 	
 	/// @desc Removes all control bindings.
-	static clear_all_bindings = method(self, function() {
+	clear_all_bindings = method(self, function() {
 		for (var _i=0; _i<CONTROLS.MAX; _i++) {
 			keyboard_map[_i] = new Binding(KEYBOARD_MAX_BINDINGS_PER_CONTROL, CONTROL_SOURCE.KEYBOARD);
 			gamepad_map[_i] = new Binding(GAMEPAD_MAX_BINDINGS_PER_CONTROL, CONTROL_SOURCE.GAMEPAD);
@@ -189,7 +189,7 @@ function ControlManagerPlayer(_control_manager) constructor {
 	/// @param   {Enum.CONTROL_TYPE}	 _control_type
 	/// @param   {Enum.CONTROLS}			 _control
 	/// @returns {any} FIXME: Should be Struct.Binding | real
-	static get_bindings = method(self, function(_control_type, _control) {
+	get_bindings = method(self, function(_control_type, _control) {
 		if (_control_type == CONTROL_TYPE.KEYBOARD_AND_MOUSE) {
 			return keyboard_map[_control];
 		} else if (_control_type == CONTROL_TYPE.GAMEPAD) {
@@ -201,7 +201,7 @@ function ControlManagerPlayer(_control_manager) constructor {
 	
 	/// @desc	 Assigns gamepad to a player slot.
 	/// @param {real} _index
-	static set_gamepad_slot = method(self, function(_index) {
+	set_gamepad_slot = method(self, function(_index) {
 		gamepad_slot = _index;
 		self.clear_all_input();
 	});
@@ -210,7 +210,7 @@ function ControlManagerPlayer(_control_manager) constructor {
 	/// @param   {Enum.CONTROLS}			_control
 	/// @param   {Enum.CONTROL_STATE}	_control_state
 	/// @returns {Bool}
-	static get_control_state = method(self, function(_control, _control_state) {
+	get_control_state = method(self, function(_control, _control_state) {
 		if (_control_state == CONTROL_STATE.HELD) {
 			return ctrl_held[_control];
 		} else if (_control_state == CONTROL_STATE.PRESSED) {
@@ -223,7 +223,7 @@ function ControlManagerPlayer(_control_manager) constructor {
 	});
 	
 	/// @desc Input processing loop.
-	static process_input = method(self, function() {
+	process_input = method(self, function() {
 		prev_stick_input.x = stick_input.x;
 		prev_stick_input.y = stick_input.y;
 
