@@ -10,7 +10,8 @@ function interpolate_hsv(_base_color1, _base_color2, _t) {
 	return make_color_hsv(_temp_hue, _temp_sat, _temp_val);
 }
 
-/// @desc    Converts RGB int/hex to BGR real
+/// @desc    Converts RGB int/hex to BGR real (Deprecated: use RGB hexcodes (e.g. #RRGGBB) or rgb_hex_string_to_real instead)
+/// @deprecated
 /// @param   {real} _rgb_colour colour
 /// @returns {real}
 function rgb_to_bgr(_rgb_colour) {
