@@ -1,16 +1,16 @@
-function menu_demo_on_selectable_confirm(_args) {
+menu_demo_on_selectable_confirm = method(self, function(_args) {
 	show_message(_args[0]);
-}
+});
 
-function menu_demo_on_valued_selectable_confirm(_item, _args) {
+menu_demo_on_valued_selectable_confirm = method(self, function(_item, _args) {
 	var _cur_value = _item.get_value();
 	if (_cur_value == _args[0]) _item.set_value(_args[1]);
 	else _item.set_value(_args[0]);
-}
+});
 
-function menu_demo_on_valued_selectable_change(_args) {
+menu_demo_on_valued_selectable_change = method(self, function(_args) {
 	show_message("Change!");
-}
+});
 
 my_player = inst_control_manager.get_player(0);
 

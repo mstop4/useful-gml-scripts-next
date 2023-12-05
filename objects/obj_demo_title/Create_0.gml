@@ -36,11 +36,11 @@ room_names = [
 ];
 
 
-function go_to_demo(_args) {
+go_to_demo = method(self, function(_args) {
 	io_clear();
 	inst_control_manager.get_player(0).clear_all_input();
 	room_goto(_args[0]);
-}
+});
 
 menu = instance_create_layer(32, 64, layer, obj_ugmls_column_menu);
 menu.column_menu_init({

@@ -1,7 +1,6 @@
-function menu_demo_on_confirm(_args) {
+menu_demo_on_confirm = method(self, function(_args) {
 	show_message(_args[0]);
-}
-
+});
 
 my_player = inst_control_manager.get_player(0);
 

@@ -3,7 +3,7 @@ my_player = inst_control_manager.get_player(_player_index);
 quit_timer = quit_timer_length;
 surf_quit_meter = surface_create(32, 32);
 
-function reset_all_control_bindings() {
+reset_all_control_bindings = method(self, function() {
 	self.my_player.set_binding(CONTROL_TYPE.KEYBOARD_AND_MOUSE, CONTROL_SOURCE.KEYBOARD, CONTROLS.UP, 0, vk_up);
 	self.my_player.set_binding(CONTROL_TYPE.KEYBOARD_AND_MOUSE, CONTROL_SOURCE.KEYBOARD, CONTROLS.DOWN, 0, vk_down);
 	self.my_player.set_binding(CONTROL_TYPE.KEYBOARD_AND_MOUSE, CONTROL_SOURCE.KEYBOARD, CONTROLS.LEFT, 0, vk_left);
@@ -50,6 +50,6 @@ function reset_all_control_bindings() {
 	self.my_player.set_binding(CONTROL_TYPE.GAMEPAD, CONTROL_SOURCE.GAMEPAD, CONTROLS.MENU_CONFIRM, 0, gp_face1);
 	self.my_player.set_binding(CONTROL_TYPE.GAMEPAD, CONTROL_SOURCE.GAMEPAD, CONTROLS.MENU_CANCEL, 0, gp_face2);
 	self.my_player.set_binding(CONTROL_TYPE.GAMEPAD, CONTROL_SOURCE.GAMEPAD, CONTROLS.DELETE_BINDING, 0, gp_select);
-}
+});
 
 self.reset_all_control_bindings();
