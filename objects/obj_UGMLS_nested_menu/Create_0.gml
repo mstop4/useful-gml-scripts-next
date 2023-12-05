@@ -71,7 +71,7 @@ add_submenu = method(self, function(_config) {
 	return _new;
 });
 
-items = ds_list_create();
+items = [];
 num_items = 0;
 pos = 0;
 active_item = noone;

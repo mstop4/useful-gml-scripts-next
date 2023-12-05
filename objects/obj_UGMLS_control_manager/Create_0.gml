@@ -1,4 +1,4 @@
-players = ds_list_create();
+players = [];
 num_players = 0;
 device_count = gamepad_get_device_count();
 gamepad_connected = array_create(device_count, false);
@@ -43,7 +43,7 @@ listen_for_gamepad_input = method(self, function() {
 	
 	if (_gamepad_index != -1) {
 		self.stop_gamepad_discovery_mode();
-		self.players[| self.gamepad_discovery_player_index].set_gamepad_slot(_gamepad_index);
+		self.players[self.gamepad_discovery_player_index].set_gamepad_slot(_gamepad_index);
 	}
 });
 
@@ -55,7 +55,7 @@ stop_gamepad_discovery_mode = method(self, function() {
 /// @desc Adds a new player to manager, returns player index.
 add_player = method(self, function() {
 	var _new_player = new ControlManagerPlayer(id);
-	ds_list_add(self.players, _new_player);
+	array_push(self.players, _new_player);
 	num_players++;
 	return num_players-1;
 });
@@ -63,8 +63,8 @@ add_player = method(self, function() {
 /// @desc					Gets player with the given index.
 /// @param {real} _index
 get_player = method(self, function(_index) {
-	if (ds_list_size(self.players) > _index) {
-		return self.players[| _index];
+	if (array_length(self.players) > _index) {
+		return self.players[_index];
 	}
 	
 	return noone;

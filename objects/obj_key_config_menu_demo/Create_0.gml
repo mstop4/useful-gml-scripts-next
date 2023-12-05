@@ -2,7 +2,7 @@ reset_bindings = method(id, function() {
 	io_clear();
 	self.my_player.clear_all_input();
 	inst_persistent_controller.reset_all_control_bindings();
-	var _num_items = ds_list_size(self.menu.items);
+	var _num_items = array_length(self.menu.items);
 		
 	for (var _i = 0; _i < _num_items; _i++) {
 		var _item = self.menu.items[_i];
