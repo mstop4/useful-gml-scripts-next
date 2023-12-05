@@ -1,4 +1,4 @@
-/// @desc					Maps native keycodes to JS keycodes.
+/// @desc	 Maps native keycodes to JS keycodes.
 /// @param {real} _keycode
 function translate_native_to_js_keycode(_keycode) {
 	switch (os_type) {
@@ -18,7 +18,7 @@ function translate_native_to_js_keycode(_keycode) {
 	}
 }
 
-/// @desc         Converts keycode to name of key as a string.
+/// @desc  Converts keycode to name of key as a string.
 /// @param {real} _keycode 
 function keycode_to_string(_keycode) {
   // alphanumeric
@@ -180,7 +180,7 @@ function keycode_to_string(_keycode) {
   }
 }
 
-/// @desc										Converts keycode to image_index of keyboard icon
+/// @desc	 Converts keycode to image_index of keyboard icon
 /// @param {real}						_keycode
 /// @param {Asset.GMSprite} _icons
 function get_keyboard_icon_index(_keycode, _icons) {
@@ -191,7 +191,7 @@ function get_keyboard_icon_index(_keycode, _icons) {
 		: global.ugmls_keyboard_icon_map[_js_keycode];
 }
 
-/// @desc										Converts keycode to image_index of keyboard icon
+/// @desc	 Converts keycode to image_index of keyboard icon
 /// @param {real}						_button_code
 /// @param {Asset.GMSprite} _icons
 function get_gamepad_icon_index(_button_code, _icons) {
@@ -202,9 +202,9 @@ function get_gamepad_icon_index(_button_code, _icons) {
 		: global.ugmls_gamepad_icon_map[_offset_code];
 }
 
-/// @desc														Converts gamepad constant to name as a string
+/// @desc	 Converts gamepad constant to name as a string
 /// @param {Constant.GamepadButton} _gp_constant 
-function gamepad_constant_to_string(_gp_constant) {
+function gamepad_constant_to_string (_gp_constant) {
 	 switch (_gp_constant) {
 		case gp_padu:
 			return "UP";

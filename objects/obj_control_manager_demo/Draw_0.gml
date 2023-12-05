@@ -30,6 +30,7 @@ for (var _i=0; _i<num_controls; _i++) {
 }
 
 draw_set_font(fnt_demo);
+draw_set_colour(c_white);
 draw_text(640, 416, "Press \"Page Up\" and \"Page Down\" to switch current gamepad slot");
 
 // for (i=0; i<8; i++) {

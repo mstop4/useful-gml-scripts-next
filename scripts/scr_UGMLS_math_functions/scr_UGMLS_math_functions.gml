@@ -1,19 +1,18 @@
-/// @desc										Returns a normalized copy of a Vector2.
+/// @desc	 Returns a normalized copy of a Vector2.
 /// @param {Struct.Vector2} _vec
 function normalize_2d(_vec) {
 	var _len = point_distance(0, 0, _vec.x, _vec.y);
 	return new Vector2(_vec.x / _len, _vec.y / _len);
 }
 
-
-/// @desc										Returns a normalized copy of a Vector3.
+/// @desc	Returns a normalized copy of a Vector3.
 /// @param {Struct.Vector3} _vec 
 function normalize_3d(_vec) {
 	var _len = point_distance_3d(0, 0, 0, _vec.x, _vec.y, _vec.z);
 	return new Vector3(_vec.x / _len, _vec.y / _len, _vec.z / _len);
 }
 
-/// @desc										Calculates cross product of two Vector3s.
+/// @desc	 Calculates cross product of two Vector3s.
 /// @param {Struct.Vector3} _vec1
 /// @param {Struct.Vector3} _vec2
 function cross_product(_vec1, _vec2) {
@@ -24,15 +23,15 @@ function cross_product(_vec1, _vec2) {
 	);
 }
 
-/// @desc										Calculates the z-component of the "cross product" of two Vector2s.
-/// @param {Struct.Vector2} _vec1
-/// @param {Struct.Vector2} _vec2
+/// @desc	   Calculates the z-component of the "cross product" of two Vector2s.
+/// @param   {Struct.Vector2} _vec1
+/// @param   {Struct.Vector2} _vec2
 /// @returns {real}
 function cross_product_2d(_vec1, _vec2) {
 	return _vec1.x*_vec2.y - _vec1.y*_vec2.x;
 }
 
-/// @desc										Calculates the normalized cross product of two Vector3s
+/// @desc  Calculates the normalized cross product of two Vector3s
 /// @param {Struct.Vector3} _vec1
 /// @param {Struct.Vector3} _vec2
 function cross_product_normalized(_vec1, _vec2) {
@@ -45,7 +44,7 @@ function cross_product_normalized(_vec1, _vec2) {
 	return normalize_3d(_xp);
 }
 
-/// @desc					Interpolate a value between min (1) and max (0). If the value falls outside this range, return 0.
+/// @desc	 Interpolate a value between min (1) and max (0). If the value falls outside this range, return 0.
 /// @param {real} _t   
 /// @param {real} _min 
 /// @param {real} _max
@@ -55,7 +54,7 @@ function pulse(_t, _min, _max) {
 		: 0;
 }
 
-/// @desc					Bilinear interpolation
+/// @desc	 Bilinear interpolation
 /// @param {real} _a
 /// @param {real} _b
 /// @param {real} _c
@@ -68,7 +67,7 @@ function blin(_a, _b, _c, _d, _w1, _w2) {
 	return lerp(_ab, _cd, _w2);
 }
 
-/// @desc         Allows values higher than max to go below, but not values lower than max to go above.
+/// @desc  Allows values higher than max to go below, but not values lower than max to go above.
 /// @param {real} _value 
 /// @param {real} _delta     
 /// @param {real} _max            
@@ -76,7 +75,7 @@ function soft_ceiling(_value, _delta, _max) {
 	return _value > _max && _delta > 0 ? min(_value, _max) : _value + _delta;
 }
 
-/// @desc         Allows values lower than min to go above, but not values higher than min to go below.
+/// @desc  Allows values lower than min to go above, but not values higher than min to go below.
 /// @param {real} _value 
 /// @param {real} _delta     
 /// @param {real} _min            
@@ -84,7 +83,7 @@ function soft_floor(_value, _delta, _min) {
 	return _value < _min && _delta < 0 ? max(_value, _min) : _value + _delta;
 }
 
-/// @desc         A combination of soft_ceiling and soft_floor.
+/// @desc  A combination of soft_ceiling and soft_floor.
 /// @param {real} _value 
 /// @param {real} _delta          
 /// @param {real} _min            
@@ -93,7 +92,7 @@ function soft_clamp(_value, _delta, _min, _max) {
 	return (_value > _max && _delta > 0) || (_value < _min && _delta < 0) ? clamp(_value, _min, _max) : _value + _delta;
 }
 
-/// @desc         Wraps a value to a positive number between min and max.
+/// @desc  Wraps a value to a positive number between min and max.
 /// @param {real} _value 
 /// @param {real} _min   
 /// @param {real} _max   

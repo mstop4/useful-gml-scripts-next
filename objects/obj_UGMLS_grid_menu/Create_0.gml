@@ -23,7 +23,7 @@ view_scroll_progress_x = new Tween(0, 0, -1, 1, TWEEN_LIMIT_MODE.CLAMP, true, fu
 //				 - {boolean} use_control_icons
 //				 - {Array<Asset.GMSprite>} keyboard_icons
 //				 - {Array<Asset.GMSprite>} gamepad_icons
-function grid_menu_init(_config) {
+grid_menu_init = method(self, function(_config) {
 	self.menu_base_init(_config);
 	
 	column_width = _config.column_width;
@@ -51,37 +51,37 @@ function grid_menu_init(_config) {
 	view_area.bottom = view_height < 1
 		? _config.height - 1
 		: _config.view_height - 1;
-}
+});
 
-function grid_menu_start_scroll_up() {
+start_scroll_up = method(self, function() {
 	view_scroll_progress_x.v = 0;
 	view_scroll_progress_x.d = 0;
 	view_scroll_progress_y.v = 1;
 	view_scroll_progress_y.d = -1/view_scroll_duration;
-}
+});
 
-function grid_menu_start_scroll_down() {
+start_scroll_down = method(self, function() {
 	view_scroll_progress_x.v = 0;
 	view_scroll_progress_x.d = 0;
 	view_scroll_progress_y.v = -1;
 	view_scroll_progress_y.d = 1/view_scroll_duration;
-}
+});
 
-function grid_menu_start_scroll_left() {
+start_scroll_left = method(self, function() {
 	view_scroll_progress_x.v = 1;
 	view_scroll_progress_x.d = -1/view_scroll_duration;
 	view_scroll_progress_y.v = 0;
 	view_scroll_progress_y.d = 0;
-}
+});
 
-function grid_menu_start_scroll_right() {
+start_scroll_right = method(self, function() {
 	view_scroll_progress_x.v = -1;
 	view_scroll_progress_x.d = 1/view_scroll_duration;
 	view_scroll_progress_y.v = 0;
 	view_scroll_progress_y.d = 0;
-}
+});
 
-function grid_menu_update_view() {
+update_view = method(self, function() {
 	var _changed = {
 		x: false,
 		y: false,
@@ -112,17 +112,17 @@ function grid_menu_update_view() {
 	}
 	
 	return _changed;
-}
+});
 
 /// @param {real} _x
 /// @param {real} _y
-function grid_menu_get_item_by_index(_x, _y) {
-	return self.items[# _x, _y];
-}
+get_item_by_index = method(self, function(_x, _y) {
+	return items[# _x, _y];
+});
 
 /// @param {string} _label
 /// @returns {any}
-function grid_menu_get_item_by_label(_label) {
+get_item_by_label = method(self, function(_label) {
 	var _width = ds_grid_width(items);
 	var _height = ds_grid_height(items);
 	
@@ -133,7 +133,7 @@ function grid_menu_get_item_by_label(_label) {
 	}
 	
 	return noone;
-}
+});
 
 /// @param {real} _x
 /// @param {real} _y
@@ -142,16 +142,16 @@ function grid_menu_get_item_by_label(_label) {
 //         - {function} on_confirm_func
 //         - {array}    on_confirm_args
 //         - {boolean}  silent_on_confirm
-function grid_menu_add_selectable(_x, _y, _config) {
+add_selectable = method(self, function(_x, _y, _config) {
 	if (_x < 0 || _x >= ds_grid_width(self.items)
 		|| _y < 0 || _y >= ds_grid_height(self.items))
 			return;
 	
 	var _new = new MenuSelectable(_config);
-	_new.parent_menu = self.id;
+	_new.parent_menu = id;
 	self.items[# _x, _y] = _new;
 	return _new;
-}
+});
 
 /// @param {real} _x
 /// @param {real} _y
@@ -164,16 +164,16 @@ function grid_menu_add_selectable(_x, _y, _config) {
 //         - {array}    on_change_args
 //         - {boolean}  silent_on_confirm
 //         - {boolean}  silent_on_change
-function grid_menu_add_valued_selectable(_x, _y, _config) {
+add_valued_selectable = method(self, function(_x, _y, _config) {
 	if (_x < 0 || _x >= ds_grid_width(items)
 		|| _y < 0 || _y >= ds_grid_height(items))
 			return;
 	
 	var _new = new MenuValuedSelectable(_config);
-	_new.parent_menu = self.id;
+	_new.parent_menu = id;
 	items[# _x, _y] = _new;
 	return _new;
-}
+});
 
 /// @param {real} _x
 /// @param {real} _y
@@ -187,16 +187,16 @@ function grid_menu_add_valued_selectable(_x, _y, _config) {
 //         - {array}    on_change_args
 //         - {boolean}  silent_on_confirm
 //         - {boolean}  silent_on_change
-function grid_menu_add_spinner(_x, _y, _config) {
+add_spinner = method(self, function(_x, _y, _config) {
 	if (_x < 0 || _x >= ds_grid_width(items)
 		|| _y < 0 || _y >= ds_grid_height(items))
 			return;
 	
 	var _new = new MenuSpinner(_config);
-	_new.parent_menu = self.id;
+	_new.parent_menu = id;
 	items[# _x, _y] = _new;
 	return _new;
-}
+});
 
 /// @param {real} _x
 /// @param {real} _y
@@ -209,28 +209,28 @@ function grid_menu_add_spinner(_x, _y, _config) {
 //         - {array}    on_change_args
 //         - {boolean}  silent_on_confirm
 //         - {boolean}  silent_on_change
-function grid_menu_add_key_config(_x, _y, _config) {
+add_key_config = method(self, function(_x, _y, _config) {
 	if (_x < 0 || _x >= ds_grid_width(items)
 		|| _y < 0 || _y >= ds_grid_height(items))
 			return;
 			
 	var _new = new MenuKeyConfig(_config);
-	_new.parent_menu = self.id;
+	_new.parent_menu = id;
 	items[# _x, _y] = _new;
 	return _new;
-}
+});
 
 /// @param {real} _x
 /// @param {real} _y
 /// @param {Struct} _config 
 //         - {string}   label
-function grid_menu_add_divider(_x, _y, _config) {
+grid_menu_add_divider = method(self, function(_x, _y, _config) {
 	if (_x < 0 || _x >= ds_grid_width(items)
 		|| _y < 0 || _y >= ds_grid_height(items))
 			return;
 			
 	var _new = new MenuDivider(_config);
-	_new.parent_menu = self.id;
+	_new.parent_menu = id;
 	items[# _x, _y] = _new;
 	return _new;
-}
+});

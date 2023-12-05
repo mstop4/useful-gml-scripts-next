@@ -1,4 +1,4 @@
-/// @desc												Get the closest intersection point between a line segment and the edge of a rectangle.
+/// @desc	 Get the closest intersection point between a line segment and the edge of a rectangle.
 /// @param {Struct.LineSegment} _line
 /// @param {Struct.Rectangle}		_bounding_box
 function get_edge_position(_line, _bounding_box) {
@@ -66,18 +66,18 @@ function get_edge_position(_line, _bounding_box) {
 	return _closest_pos;
 }
 
-/// @desc												 Returns which side of a line segment a point is on.
-///															 0 = on the line,
-///															 < 0 = below or left,
-///															 > 0 = above or right.
-/// @param	{Struct.LineSegment} _line
-/// @param	{Struct.Vector2}		 _p
+/// @desc	   Returns which side of a line segment a point is on.
+///					 0 = on the line,
+///					 < 0 = below or left,
+///					 > 0 = above or right.
+/// @param 	 {Struct.LineSegment} _line
+/// @param	 {Struct.Vector2}		 _p
 /// @returns {real}
 function point_which_side(_line, _p) {
 	return (_p.x - _line.a.x) * (_line.b.y - _line.a.y) - (_p.y - _line.a.y) * (_line.b.x - _line.a.x);
 }
 
-/// @desc										Removes redundant points in a Path
+/// @desc	 Removes redundant points in a Path
 /// @param {Asset.GMPath}   _path
 /// @param {Asset.GMObject} _obstacle
 function prune_path(_path, _obstacle) {
@@ -106,9 +106,9 @@ function prune_path(_path, _obstacle) {
 	}
 }
 
-/// @desc																	Finds the intersection point between two LineSegments
-/// @param {Struct.LineSegement}					_line1
-/// @param {Struct.LineSegement}					_line2
+/// @desc	  Finds the intersection point between two LineSegments
+/// @param  {Struct.LineSegement}	_line1
+/// @param  {Struct.LineSegement}	_line2
 /// @returns {Any} FIXME: should be Struct.Vector2 | real, but Feather doen't accept it for some reason
 function ray_line_intersect(_line1, _line2) {
 	var _ray_dir = point_direction(_line1.a.x, _line1.a.y, _line1.b.x, _line1.b.y);
@@ -133,8 +133,8 @@ function ray_line_intersect(_line1, _line2) {
 	return -1;
 }
 
-/// @desc         Calculates the reflected angle of a ray.
-///								Rr = Ri - 2 * N * (Ri . N)
+/// @desc  Calculates the reflected angle of a ray.
+///				 Rr = Ri - 2 * N * (Ri . N)
 /// @param {real} _incident_dir
 /// @param {real} _normal_dir
 function ray_reflect(_incident_dir, _normal_dir) {

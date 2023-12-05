@@ -25,7 +25,7 @@ global._ugmls_os_browser_strings[browser_opera] = "Opera";
 global._ugmls_os_browser_strings[browser_tizen] = "Tizen";
 global._ugmls_os_browser_strings[browser_windows_store] = "Windows App";
 
-/// @desc					Converts os_type enum value into a human-readable string.
+/// @desc	 Converts os_type enum value into a human-readable string.
 /// @param {real} _os_type
 function get_os_type_string(_os_type){
 	try {
@@ -35,7 +35,7 @@ function get_os_type_string(_os_type){
 	}
 }
 
-/// @desc					Converts os_version into a human-readable string.
+/// @desc	 Converts os_version into a human-readable string.
 /// @param {real} _os_version
 function get_os_version_string(_os_version) {
 	// Browser
@@ -62,7 +62,7 @@ function get_os_version_string(_os_version) {
 	return string(_os_version);
 }
 
-/// @desc													Converts os_browser enum value into a human-readable string.
+/// @desc	 Converts os_browser enum value into a human-readable string.
 /// @param {Constant.BrowserType} _os_browser
 function get_os_browser_string(_os_browser) {
 	if (_os_browser == browser_not_a_browser) {
@@ -76,8 +76,8 @@ function get_os_browser_string(_os_browser) {
 	}
 }
 
-/// @desc							Checks if game is running on Steam Deck and which gamepad slot the controls are connected to.
-///										Note: Doesn't work if called at the very start of the game. Wait a few steps before calling it.
+/// @desc		 Checks if game is running on Steam Deck and which gamepad slot the controls are connected to.
+///					 Note: Doesn't work if called at the very start of the game. Wait a few steps before calling it.
 /// @returns {Struct}
 function get_steam_deck_info() {
 	var _result = {

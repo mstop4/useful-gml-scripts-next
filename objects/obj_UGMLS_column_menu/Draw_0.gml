@@ -9,7 +9,7 @@ if (view_height > 0 && view_scroll_progress_y.v != 0) {
 }
 
 for (var _i=view_area.x; _i<=view_area.y; _i++) {
-	_item = items[| _i];
+	_item = items[_i];
 	
 	if (is_struct(_item)) {
 		if (view_height > 0) {
@@ -25,7 +25,7 @@ for (var _i=view_area.x; _i<=view_area.y; _i++) {
 		}
 		
 		var _is_focused = pos == _i;
-		self.menu_base_draw_item(_item, _x, _y + _y_offset, _is_focused);
+		self.draw_menu_item(_item, _x, _y + _y_offset, _is_focused);
 	}
 	_y += item_height + line_spacing;
 }
@@ -33,21 +33,21 @@ for (var _i=view_area.x; _i<=view_area.y; _i++) {
 if (view_height > 0) {
 	if (view_scroll_progress_y.v < 0 && view_area.x > 0) {
 		// Scroll up first element
-		_item = items[| view_area.x - 1];
+		_item = items[view_area.x - 1];
 		if (is_struct(_item)) {
 			draw_set_alpha(abs(view_scroll_progress_y.v));
 			
 			var _is_focused = pos == view_area.x - 1;
-			self.menu_base_draw_item(_item, _x, y - (item_height + line_spacing) + _y_offset, _is_focused);
+			self.draw_menu_item(_item, _x, y - (item_height + line_spacing) + _y_offset, _is_focused);
 		}
 	} else if (view_scroll_progress_y.v > 0 && view_area.y + 1 < num_items) {
 		// Scroll down last element
-		_item = items[| view_area.y + 1];
+		_item = items[view_area.y + 1];
 		if (is_struct(_item)) {
 			draw_set_alpha(abs(view_scroll_progress_y.v));
 			
 			var _is_focused = pos == view_area.y + 1;
-			self.menu_base_draw_item(_item, _x, _y + _y_offset + _is_focused);
+			self.draw_menu_item(_item, _x, _y + _y_offset + _is_focused);
 		}
 	}
 }

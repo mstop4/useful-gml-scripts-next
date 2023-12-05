@@ -1,4 +1,4 @@
-/// @desc											Draws circular progress meter on a surface.
+/// @desc	 Draws circular progress meter on a surface.
 /// @param {Id.Surface}				_surface
 /// @param {real}							_x          
 /// @param {real}							_y          
@@ -76,7 +76,7 @@ function draw_circle_meter(_surface, _x, _y, _radius, _start_angle, _direction, 
 	surface_reset_target();
 }
 
-/// @desc										  Draws curved arc progress meter on a surface.
+/// @desc	 Draws curved arc progress meter on a surface.
 /// @param {Id.Surface}				_surface
 /// @param {real}							_x               
 /// @param {real}							_y               
@@ -168,8 +168,8 @@ function draw_curved_meter(_surface, _x, _y, _inner_radius, _outer_radius, _min_
 	surface_reset_target();
 }
 
-/// @desc            Draws text with outline.
-///									 Note: Recommended for drawing text with non-SDF fonts only. For SDF fonts, use the outline effect.
+/// @desc  Draws text with outline.
+///				 Note: Recommended for drawing text with non-SDF fonts only. For SDF fonts, use the outline effect.
 /// @param {real}    _x          
 /// @param {real}    _y          
 /// @param {string}  _string        

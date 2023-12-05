@@ -11,7 +11,7 @@ enum TWEEN_LIMIT_MODE {
 	BOUNCE
 }
 
-/// @desc													 A value that changes every step.
+/// @desc	 A value that changes every step.
 /// @param {real}									 _value
 /// @param {real}									 _delta
 /// @param {real}									 _min_v
@@ -28,7 +28,7 @@ function Tween(_value, _delta, _min_v, _max_v, _limit_mode, _stop_outside_range,
 	stop_outside_range = _stop_outside_range;
 	outside_range_callback = _outside_range_callback;
 
-	static update = function() {
+	update = method(self, function() {
 		if (d != 0) {
 			var _old_v = v;
 			var _new_v = v + d;
@@ -93,5 +93,5 @@ function Tween(_value, _delta, _min_v, _max_v, _limit_mode, _stop_outside_range,
 				}
 			}
 		}
-	}
+	});
 }

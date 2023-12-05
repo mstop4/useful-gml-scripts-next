@@ -7,7 +7,7 @@
 ///								 - {Array<Asset.GMSprite>} keyboard_icons
 ///								 - {Array<Asset.GMSprite>} gamepad_icons
 ///								 - {number} control_icons_scale
-function menu_base_init(_config) {
+menu_base_init = method(self, function(_config) {
 	player_controller = _config.player_controller;
 	control_state = new MenuControlState(_config.player_controller);
 	var _old_font = draw_get_font();
@@ -34,20 +34,20 @@ function menu_base_init(_config) {
 	gamepad_icons_half_height = array_map(gamepad_icons, function(_sprite) {
 		return sprite_get_height(_sprite) / 2;
 	});
-}
+});
 
-function menu_base_start_scroll_up() {
+start_scroll_up = method(self, function() {
 	view_scroll_progress_y.v = 1;
 	view_scroll_progress_y.d = -1/view_scroll_duration;
-}
+});
 
-function menu_base_start_scroll_down() {
+start_scroll_down = method(self, function() {
 	view_scroll_progress_y.v = -1;
 	view_scroll_progress_y.d = 1/view_scroll_duration;
-}
+});
 
 /// @param {Struct.MenuSelectable} _item 
-function handle_selectable_confirm(_item) {
+handle_selectable_confirm = method(self, function(_item) {
 	if (!_item.enabled) return;
 	if (is_callable(_item.on_confirm_func)) {
 		_item.on_confirm_func(_item.on_confirm_args);
@@ -56,10 +56,10 @@ function handle_selectable_confirm(_item) {
 	if (!_item.silent_on_confirm && audio_exists(cursor_confirm_sfx)) {
 		audio_play_sound(cursor_confirm_sfx, 1, false);
 	}
-}
+});
 
 /// @param {Struct.MenuValuedSelectable} _item 
-function handle_valued_selectable_confirm(_item) {
+handle_valued_selectable_confirm = method(self, function(_item) {
 	if (!_item.enabled) return;
 	if (is_callable(_item.on_confirm_func)) {
 		_item.on_confirm_func(_item, _item.on_confirm_args);
@@ -68,10 +68,10 @@ function handle_valued_selectable_confirm(_item) {
 	if (!_item.silent_on_confirm && audio_exists(cursor_confirm_sfx)) {
 		audio_play_sound(cursor_confirm_sfx, 1, false);
 	}
-}
+});
 
 /// @param {Struct.MenuSpinner} _item 
-function handle_spinner_confirm(_item) {
+handle_spinner_confirm = method(self, function(_item) {
 	if (!_item.enabled) return;
 	if (is_callable(_item.on_confirm_func)) {
 		_item.on_confirm_func(_item.cur_index, _item.values[_item.cur_index], _item.on_confirm_args);
@@ -80,11 +80,11 @@ function handle_spinner_confirm(_item) {
 	if (!_item.silent_on_confirm && audio_exists(cursor_confirm_sfx)) {
 		audio_play_sound(cursor_confirm_sfx, 1, false);
 	}
-}
+});
 
 /// @param {Struct.MenuSpinner} _item
 /// @param {real}								_delta -1 or 1
-function handle_spinner_change(_item, _delta) {
+handle_spinner_change = method(self, function(_item, _delta) {
 	if (!_item.enabled) return;
 	var _num_values = array_length(_item.values);
 	_item.cur_index = wrap(_item.cur_index+_delta, 0, _num_values);
@@ -101,11 +101,11 @@ function handle_spinner_change(_item, _delta) {
 	if (!_item.silent_on_change && audio_exists(cursor_change_sfx)) {
 		audio_play_sound(cursor_change_sfx, 1, false);
 	}
-}
+});
 
 /// @param {Struct.MenuKeyConfig} _item
 /// @param {real}									_delta
-function handle_key_config_select(_item, _delta) {
+handle_key_config_select = method(self, function(_item, _delta) {
 	if (!_item.enabled) return;
 	var _num_values = KEYBOARD_MAX_BINDINGS_PER_CONTROL + GAMEPAD_MAX_BINDINGS_PER_CONTROL;
 	var _last_pressed = control_state.control_any_pressed();
@@ -120,10 +120,10 @@ function handle_key_config_select(_item, _delta) {
 	if (_item.current_binding_index != _original_value && !_item.silent_on_change && audio_exists(cursor_change_sfx)) {
 		audio_play_sound(cursor_change_sfx, 1, false);
 	}
-}
+});
 
 /// @param {Struct.MenuKeyConfig} _item
-function handle_key_config_confirm(_item) {
+handle_key_config_confirm = method(self, function(_item) {
 	if (!_item.enabled) return;
 	var _last_pressed = control_state.control_any_pressed();	
 	
@@ -135,7 +135,7 @@ function handle_key_config_confirm(_item) {
 			_item.current_binding_index = 0;
 		}
 		discovery_mode = MENU_DISCOVERY_MODE.SELECTING;
-		self.active_key_config = _item;
+		active_key_config = _item;
 	} else if (discovery_mode == MENU_DISCOVERY_MODE.SELECTING) {
 		// Selecting
 		var _binding_info = _item.get_binding_info();
@@ -147,19 +147,19 @@ function handle_key_config_confirm(_item) {
 		_item.discovery_binding_info = _binding_info;
 		io_clear();
 	}
-}
+});
 
 /// @param {Struct.MenuKeyConfig} _item
-function handle_key_config_cancel(_item) {
+handle_key_config_cancel = method(self, function(_item) {
 	if (!_item.enabled) return;
 	if (discovery_mode == MENU_DISCOVERY_MODE.SELECTING) {
 		discovery_mode = MENU_DISCOVERY_MODE.NONE;
-		self.active_key_config = -1;		
+		active_key_config = -1;		
 	}
-}
+});
 
 /// @param {Struct.MenuKeyConfig} _item
-function handle_key_config_delete(_item) {
+handle_key_config_delete = method(self, function(_item) {
 	if (!_item.enabled) return;
 	var _binding_info = _item.get_binding_info();
 	if (_binding_info.binding_locked) return;
@@ -182,11 +182,11 @@ function handle_key_config_delete(_item) {
 	if (active_key_config) {
 		active_key_config.discovery_binding_info = false;
 	}
-	self.active_key_config = -1;
-}
+	active_key_config = -1;
+});
 
 /// @param {Struct.MenuKeyConfig} _item
-function handle_key_config_discovery(_item) {
+handle_key_config_discovery = method(self, function(_item) {
 	if (!_item.enabled) return;
 	if (control_state.pressed_state[MENU_CONTROLS.CANCEL]) {
 		discovery_mode = MENU_DISCOVERY_MODE.SELECTING;
@@ -216,20 +216,20 @@ function handle_key_config_discovery(_item) {
 		discovery_mode = MENU_DISCOVERY_MODE.NONE;
 		active_key_config.discovery_binding_info = false;
 
-		if (is_callable(self.active_key_config.on_change_func)) {
-			self.active_key_config.on_change_func(_control_type, _last_pressed.control_source, active_key_config.control, _control_index, _last_pressed.control_pressed, self.active_key_config.on_change_args);
+		if (is_callable(active_key_config.on_change_func)) {
+			active_key_config.on_change_func(_control_type, _last_pressed.control_source, active_key_config.control, _control_index, _last_pressed.control_pressed, active_key_config.on_change_args);
 		}
 
-		self.active_key_config = -1;
+		active_key_config = -1;
 		io_clear();
 	}
-}
+});
 
 /// @param {Struct.MenuItem} _item
 /// @param {Real} _x
 /// @param {Real} _y
 /// @param {Bool} _is_focused
-function menu_base_draw_item(_item, _x, _y, _is_focused = false) {
+draw_menu_item = method(self, function(_item, _x, _y, _is_focused = false) {
 	var _type = _item.type;
 	if (_item.enabled) draw_set_colour(c_white);
 	else draw_set_colour(c_gray);
@@ -239,22 +239,22 @@ function menu_base_draw_item(_item, _x, _y, _is_focused = false) {
 	switch (_type) {
 		case "item":
 		case "selectable":
-			draw_set_font(self.menu_label_font);
+			draw_set_font(menu_label_font);
 			draw_text(_x, _y, _item.label);
 			break;
 			
 		case "valuedSelectable":
-			draw_set_font(self.menu_label_font);
+			draw_set_font(menu_label_font);
 			draw_text(_x, _y, _item.label);
-			draw_set_font(self.menu_value_font);
+			draw_set_font(menu_value_font);
 			draw_text(_x + label_width, _y + spinner_value_text_y_offset, _item.get_value());
 			break;
 			
 		case "spinner":
 			_item_value = _item.get_value();
-			draw_set_font(self.menu_label_font);
+			draw_set_font(menu_label_font);
 			draw_text(_x, _y, _item.label);
-			draw_set_font(self.menu_value_font);
+			draw_set_font(menu_value_font);
 			draw_text(_x + label_width, _y + spinner_value_text_y_offset, _item_value);
 		
 			if (_is_focused) {
@@ -280,11 +280,11 @@ function menu_base_draw_item(_item, _x, _y, _is_focused = false) {
 			break;
 			
 		case "keyconfig":
-			draw_set_font(self.menu_label_font);
+			draw_set_font(menu_label_font);
 			draw_text(_x, _y, _item.label);
 			var _cur_x = _x + label_width;
 			var _cur_binding_index = 0;
-			draw_set_font(self.menu_value_font);
+			draw_set_font(menu_value_font);
 		
 			// Draw keyboard bindings
 			for (var _i=0; _i<KEYBOARD_MAX_BINDINGS_PER_CONTROL; _i++) {
@@ -358,19 +358,19 @@ function menu_base_draw_item(_item, _x, _y, _is_focused = false) {
 		default:
 			draw_text(_x, _y, _item.label);
 	}
-}
+});
 
 /// @param {Id.Instance} _next_menu
 /// @param {Function}		 _on_switch_cb
 /// @param {Array<any>}  _on_switch_cb_args
-function menu_switch(_next_menu, _on_switch_cb, _on_switch_cb_args) {
-	self.menu_fade_out(_next_menu, _on_switch_cb, _on_switch_cb_args);
-}
+menu_switch = method(self, function(_next_menu, _on_switch_cb, _on_switch_cb_args) {
+	menu_fade_out(_next_menu, _on_switch_cb, _on_switch_cb_args);
+});
 
 /// @param {Id.Instance} _next_menu
 /// @param {Function}		 _on_end_cb
 /// @param {Array<any>}  _on_end_cb_args
-function menu_fade_out(_next_menu, _on_end_cb, _on_end_cb_args) {
+menu_fade_out = method(self, function(_next_menu, _on_end_cb, _on_end_cb_args) {
 	enabled = false;
 	next_menu = _next_menu;
 	on_fade_out_end = _on_end_cb;
@@ -378,15 +378,15 @@ function menu_fade_out(_next_menu, _on_end_cb, _on_end_cb_args) {
 	menu_alpha.v = 1;
 	menu_alpha.d = -1/menu_fade_time;
 	alarm[11] = menu_fade_time;
-}
+});
 
-function menu_fade_in() {
+menu_fade_in = method(self, function() {
 	enabled = false;
 	visible = true;
 	menu_alpha.v = 0;
 	menu_alpha.d = 1/menu_fade_time;
 	alarm[10] = menu_fade_time;
-}
+});
 
 enabled = true;
 

@@ -1,7 +1,7 @@
-/// @desc								Formats a long string so that it doesn't exceed max_width by adding line breaks where appropriate.
-/// @arg {string}				_str        
-/// @arg {real}					_max_width 
-/// @arg {Asset.GMFont} _font       
+/// @desc  Formats a long string so that it doesn't exceed max_width by adding line breaks where appropriate.
+/// @param {string}				_str        
+/// @param {real}					_max_width 
+/// @param {Asset.GMFont} _font       
 function dialogue_line_breaker(_str, _max_width, _font) {
 	var _old_font = draw_get_font();
 	draw_set_font(_font);
@@ -61,12 +61,12 @@ function dialogue_line_breaker(_str, _max_width, _font) {
 	return _out_str;
 }
 
-/// @desc								 Pads a string with char until it is a certain width (in pixels)
-/// @arg {string}				 _str
-/// @arg {string}				 _char
-/// @arg {Asset.GMFont}  _font
-/// @arg {real}					 _position
-/// @arg {real}					 _width
+/// @desc	 Pads a string with char until it is a certain width (in pixels)
+/// @param {string}				 _str
+/// @param {string}				 _char
+/// @param {Asset.GMFont}  _font
+/// @param {real}					 _position
+/// @param {real}					 _width
 function pad_string_width(_str, _char, _font, _position, _width) {
 	var _cur_font = draw_get_font();
 	draw_set_font(_font);
@@ -78,11 +78,11 @@ function pad_string_width(_str, _char, _font, _position, _width) {
 	return _str;
 }
 
-/// @desc								 Truncates a long string and add a suffix at the end.
-/// @arg {string}				 _string
-/// @arg {string}				 _suffix
-/// @arg {Asset.GMFont}  _font
-/// @arg {real}					 _max_width
+/// @desc	 Truncates a long string and add a suffix at the end.
+/// @param {string}				 _string
+/// @param {string}				 _suffix
+/// @param {Asset.GMFont}  _font
+/// @param {real}					 _max_width
 function hide_overflow(_string, _suffix, _font, _max_width) {
 	var _cur_font = draw_get_font();
 	var _cur_str = _suffix;

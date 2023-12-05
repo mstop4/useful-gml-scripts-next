@@ -1,3 +1,4 @@
+/// @desc  A line segment defined by two points "a" and "b"
 /// @param {real} _ax
 /// @param {real} _ay
 /// @param {real} _bx
@@ -7,6 +8,7 @@ function LineSegment(_ax, _ay, _bx, _by) constructor {
 	b = new Vector2(_bx, _by);
 }
 
+/// @desc  A rectangle defined by four sides: "top", "left", "bottom", and "right"
 /// @param {real} _left
 /// @param {real} _top
 /// @param {real} _right
@@ -17,28 +19,33 @@ function Rectangle(_left, _top, _right, _bottom) constructor {
 	right = _right;
 	bottom = _bottom;
 	
-	function width() {
-		return self.right - self.left;
-	}
+	/// @desc Width of rectangle
+	width = method(self, function() {
+		return right - left;
+	});
 	
-	function height() {
-		return self.bottom - self.top;
-	}
+	/// @desc Height of rectangle
+	height = method(self, function() {
+		return bottom - top;
+	});
 	
-	function left_edge() {
-		return new LineSegment(self.left, self.top, self.left, self.bottom);
-	}
+	/// @desc A LineSegment representing the left-side edge
+	left_edge = method(self, function() {
+		return new LineSegment(left, top, left, bottom);
+	});
 	
-	function top_edge() {
-		return new LineSegment(self.left, self.top, self.right, self.top);
-	}
+	/// @desc A LineSegment representing the top edge
+	top_edge = method(self, function() {
+		return new LineSegment(left, top, right, top);
+	});
 	
-	function right_edge() {
-		return new LineSegment(self.right, self.top, self.right, self.bottom);
-	}
+	/// @desc A LineSegment representing the right-side edge
+	right_edge = method(self, function() {
+		return new LineSegment(right, top, right, bottom);
+	});
 	
-	function bottom_edge() {
-		return new LineSegment(self.left, self.bottom, self.right, self.bottom);
-	}
-	// Feather restore GM1041
+	/// @desc A LineSegment representing the bottom edge
+	bottom_edge = method(self, function() {
+		return new LineSegment(left, bottom, right, bottom);
+	});
 }

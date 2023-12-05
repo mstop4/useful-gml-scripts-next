@@ -1,6 +1,6 @@
-function menu_demo_on_confirm(_args) {
+menu_demo_on_confirm = method(self, function(_args) {
 	show_message(_args[0]);
-}
+});
 
 my_player = inst_control_manager.get_player(0);
 
@@ -20,21 +20,21 @@ submenu[0].column_menu_init({
 	control_icons_scale: 1,
 });
 
-submenu[0].column_menu_add_selectable({ 
+submenu[0].add_selectable({ 
 	label: "Cat",
 	on_confirm_func: self.menu_demo_on_confirm,
 	on_confirm_args: ["Meow"],
 	silent_on_confirm: false
 });
 
-submenu[0].column_menu_add_selectable({ 
+submenu[0].add_selectable({ 
 	label: "Dog",
 	on_confirm_func: self.menu_demo_on_confirm,
 	on_confirm_args: ["Woof"],
 	silent_on_confirm: false
 });
 
-submenu[0].column_menu_add_spinner({ 
+submenu[0].add_spinner({ 
 	label: "Rating",
 	values: [0, 1, 2, 3, 4, 5],
 	init_index: 0,
@@ -63,28 +63,28 @@ submenu[1].column_menu_init({
 	control_icons_scale: 1,
 });
 
-submenu[1].column_menu_add_selectable({ 
+submenu[1].add_selectable({ 
 	label: "Broccoli",
 	on_confirm_func: self.menu_demo_on_confirm,
 	on_confirm_args: ["Chomp"],
 	silent_on_confirm: false
 });
 
-submenu[1].column_menu_add_selectable({ 
+submenu[1].add_selectable({ 
 	label: "Tomato",
 	on_confirm_func: self.menu_demo_on_confirm,
 	on_confirm_args: ["Splat"],
 	silent_on_confirm: false
 });
 
-submenu[1].column_menu_add_selectable({ 
+submenu[1].add_selectable({ 
 	label: "Potato",
 	on_confirm_func: self.menu_demo_on_confirm,
 	on_confirm_args: ["Mash"],
 	silent_on_confirm: false
 });
 
-submenu[1].column_menu_add_selectable({ 
+submenu[1].add_selectable({ 
 	label: "Carrot",
 	on_confirm_func: self.menu_demo_on_confirm,
 	on_confirm_args: ["Crunch"],
@@ -110,7 +110,7 @@ main_menu.nested_menu_init({
 	control_icons_scale: 1,
 });
 
-main_menu.nested_menu_add_submenu({
+main_menu.add_submenu({
 	submenu: submenu[0],
 	label: "Animals",
 	on_confirm_func: self.menu_demo_on_confirm,
@@ -118,7 +118,7 @@ main_menu.nested_menu_add_submenu({
 	silent_on_confirm: false
 });
 
-main_menu.nested_menu_add_submenu({
+main_menu.add_submenu({
 	submenu: submenu[1],
 	label: "Vegetables",
 	on_confirm_func: self.menu_demo_on_confirm,

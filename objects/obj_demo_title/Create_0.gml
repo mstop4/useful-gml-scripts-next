@@ -1,6 +1,7 @@
 rooms = [
 	room_control_manager_demo,
 	room_data_structures_demo,
+	room_debugging_demo,
 	room_drawing_demo,
 	room_easing_demo,
 	room_laser_demo,
@@ -19,6 +20,7 @@ num_rooms = array_length(rooms);
 room_names = [
 	"Control Manager",
 	"Data Structures",
+	"Debugging",
 	"Drawing",
 	"Easings",
 	"Geometry",
@@ -34,11 +36,11 @@ room_names = [
 ];
 
 
-function go_to_demo(_args) {
+go_to_demo = method(self, function(_args) {
 	io_clear();
 	inst_control_manager.get_player(0).clear_all_input();
 	room_goto(_args[0]);
-}
+});
 
 menu = instance_create_layer(32, 64, layer, obj_ugmls_column_menu);
 menu.column_menu_init({
@@ -58,7 +60,7 @@ menu.column_menu_init({
 menu.line_spacing = 8;
 
 for (var _i=0; _i<num_rooms; _i++) {
-	menu.column_menu_add_selectable({
+	menu.add_selectable({
 		label: room_names[_i],
 		on_confirm_func: self.go_to_demo,
 		on_confirm_args: [ rooms[_i] ],
