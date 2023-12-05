@@ -9,7 +9,7 @@ if (view_height > 0 && view_scroll_progress_y.v != 0) {
 }
 
 for (var _i=view_area.x; _i<=view_area.y; _i++) {
-	_item = items[| _i];
+	_item = items[_i];
 	
 	if (is_struct(_item)) {
 		if (view_height > 0) {
@@ -33,7 +33,7 @@ for (var _i=view_area.x; _i<=view_area.y; _i++) {
 if (view_height > 0) {
 	if (view_scroll_progress_y.v < 0 && view_area.x > 0) {
 		// Scroll up first element
-		_item = items[| view_area.x - 1];
+		_item = items[view_area.x - 1];
 		if (is_struct(_item)) {
 			draw_set_alpha(abs(view_scroll_progress_y.v));
 			
@@ -42,7 +42,7 @@ if (view_height > 0) {
 		}
 	} else if (view_scroll_progress_y.v > 0 && view_area.y + 1 < num_items) {
 		// Scroll down last element
-		_item = items[| view_area.y + 1];
+		_item = items[view_area.y + 1];
 		if (is_struct(_item)) {
 			draw_set_alpha(abs(view_scroll_progress_y.v));
 			

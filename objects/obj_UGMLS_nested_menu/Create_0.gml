@@ -18,14 +18,14 @@ nested_menu_init = method(self, function(_config) {
 
 /// @param {real} _index
 get_item_by_index = method(self, function(_index) {
-	return self.items[| _index];
+	return self.items[_index];
 });
 
 /// @param {string} _label
 /// @returns {any}
 get_item_by_label = method(self, function(_label) {
 	for (var _i=0; _i<num_items; _i++) {
-		if (items[| _i].label == _label) return submenu[| _i];
+		if (items[_i].label == _label) return submenu[_i];
 	}
 	
 	return noone;
@@ -60,7 +60,7 @@ toggle_submenu_by_index = method(self, function(_index) {
 //         - {boolean}			 silent_on_confirm
 add_submenu = method(self, function(_config) {
 	var _new = new NestedMenuSubmenu(_config);
-	ds_list_add(self.items, _new);
+	array_push(self.items, _new);
 	num_items++;
 	_new.parent_menu = self;
 	_new.submenu.enabled = false;

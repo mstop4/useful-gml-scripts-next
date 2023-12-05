@@ -1,6 +1,6 @@
 event_inherited();
 
-items = ds_list_create();
+items = [];
 num_items = 0;
 pos = 0;
 view_area = new Vector2(0, 0);
@@ -55,13 +55,13 @@ update_view_area = method(self, function() {
 
 /// @param {real} _index
 get_item_by_index = method(self, function(_index) {
-	return self.items[| _index];
+	return self.items[_index];
 });
 
 /// @param {string} _label
 get_item_by_label = method(self, function(_label) {
 	for (var _i=0; _i<num_items; _i++) {
-		if (self.items[| _i].label == _label) return self.items[| _i];
+		if (self.items[_i].label == _label) return self.items[_i];
 	}
 	return noone;
 });
@@ -73,7 +73,7 @@ get_item_by_label = method(self, function(_label) {
 //         - {boolean}  silent_on_confirm
 add_selectable = method(self, function(_config) {
 	var _new = new MenuSelectable(_config);
-	ds_list_add(self.items, _new);
+	array_push(self.items, _new);
 	num_items++;
 	_new.parent_menu = self.id;
 	self.update_view_area();
@@ -91,7 +91,7 @@ add_selectable = method(self, function(_config) {
 //         - {boolean}  silent_on_change
 add_valued_selectable = method(self, function(_config) {
 	var _new = new MenuValuedSelectable(_config);
-	ds_list_add(self.items, _new);
+	array_push(self.items, _new);
 	num_items++;
 	_new.parent_menu = self.id;
 	self.update_view_area();
@@ -110,7 +110,7 @@ add_valued_selectable = method(self, function(_config) {
 //         - {boolean}  silent_on_change
 add_spinner = method(self, function(_config) {
 	var _new = new MenuSpinner(_config);
-	ds_list_add(self.items, _new);
+	array_push(self.items, _new);
 	num_items++;
 	_new.parent_menu = self.id;
 	self.update_view_area();
@@ -128,7 +128,7 @@ add_spinner = method(self, function(_config) {
 //         - {boolean}  silent_on_change
 add_key_config = method(self, function(_config) {
 	var _new = new MenuKeyConfig(_config);
-	ds_list_add(self.items, _new);
+	array_push(self.items, _new);
 	num_items++;
 	_new.parent_menu = self.id;
 	self.update_view_area();
@@ -139,7 +139,7 @@ add_key_config = method(self, function(_config) {
 //         - {string}   label
 add_divider = method(self, function(_config) {
 	var _new = new MenuDivider(_config);
-	ds_list_add(items, _new);
+	array_push(items, _new);
 	num_items++;
 	_new.parent_menu = self.id;
 	update_view_area();

@@ -5,7 +5,7 @@ reset_bindings = method(id, function() {
 	var _num_items = ds_list_size(self.menu.items);
 		
 	for (var _i = 0; _i < _num_items; _i++) {
-		var _item = self.menu.items[| _i];
+		var _item = self.menu.items[_i];
 		if (_item.type != "keyconfig") return;
 
 		_item.kbm_bindings = duplicate_array(my_player.get_bindings(CONTROL_TYPE.KEYBOARD_AND_MOUSE, _item.control).values);

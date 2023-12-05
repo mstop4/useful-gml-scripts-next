@@ -3,7 +3,7 @@ if (!enabled) exit;
 control_state.poll_input();
 
 if (active_key_config != -1 && discovery_mode == MENU_DISCOVERY_MODE.DISCOVERING) {
-	var _item = items[| pos];	
+	var _item = items[pos];	
 	self.handle_key_config_discovery(_item);
 	exit;
 }
@@ -15,7 +15,7 @@ if (control_state.pressed_state[MENU_CONTROLS.UP]) {
 	
 		do {
 			pos = wrap(pos-1, 0, num_items);
-			_item = items[| pos];
+			_item = items[pos];
 		} until ((is_struct(_item)
 			&& _item.type != "divider")
 			|| _cur_pos == pos)
@@ -33,7 +33,7 @@ if (control_state.pressed_state[MENU_CONTROLS.DOWN]) {
 	
 		do {
 			pos = wrap(pos+1, 0, num_items);
-			_item = items[| pos];
+			_item = items[pos];
 		} until ((is_struct(_item)
 			&& _item.type != "divider")
 			|| _cur_pos == pos)
@@ -45,7 +45,7 @@ if (control_state.pressed_state[MENU_CONTROLS.DOWN]) {
 }
 
 if (control_state.pressed_state[MENU_CONTROLS.LEFT]) {
-	var _item = items[| pos];
+	var _item = items[pos];
 
 	if (_item.type == "spinner")
 		self.handle_spinner_change(_item, -1);
@@ -56,7 +56,7 @@ if (control_state.pressed_state[MENU_CONTROLS.LEFT]) {
 }
 
 if (control_state.pressed_state[MENU_CONTROLS.RIGHT]) {
-	var _item = items[| pos];
+	var _item = items[pos];
 
 	if (_item.type == "spinner")
 		self.handle_spinner_change(_item, 1);
@@ -67,7 +67,7 @@ if (control_state.pressed_state[MENU_CONTROLS.RIGHT]) {
 }
 
 if (control_state.pressed_state[MENU_CONTROLS.CONFIRM]) {
-	var _item = items[| pos];
+	var _item = items[pos];
 	
 	if (_item.type == "menu") {
 		if (active_item == noone) {
@@ -97,7 +97,7 @@ if (control_state.pressed_state[MENU_CONTROLS.CANCEL]) {
 		exit;
 	}
 
-	var _item = items[| pos];	
+	var _item = items[pos];	
 		
 	if (_item.type == "keyconfig"
 			&& active_key_config == _item)
@@ -105,7 +105,7 @@ if (control_state.pressed_state[MENU_CONTROLS.CANCEL]) {
 }
 
 if (control_state.pressed_state[MENU_CONTROLS.DELETE_BINDING]) {
-	var _item = items[| pos];	
+	var _item = items[pos];	
 		
 	if (_item.type == "keyconfig")
 		self.handle_key_config_delete(_item);
