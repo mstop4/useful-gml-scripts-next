@@ -17,13 +17,13 @@ nested_menu_init = method(self, function(_config) {
 });
 
 /// @param {real} _index
-nested_menu_get_item_by_index = method(self, function(_index) {
-	return items[| _index];
+get_item_by_index = method(self, function(_index) {
+	return self.items[| _index];
 });
 
 /// @param {string} _label
 /// @returns {any}
-nested_menu_get_item_by_label = method(self, function(_label) {
+get_item_by_label = method(self, function(_label) {
 	for (var _i=0; _i<num_items; _i++) {
 		if (items[| _i].label == _label) return submenu[| _i];
 	}
@@ -32,12 +32,12 @@ nested_menu_get_item_by_label = method(self, function(_label) {
 });
 
 /// @param {real} _index -1 = toggle root menu
-nested_menu_toggle_submenu_by_index = method(self, function(_index) {
+toggle_submenu_by_index = method(self, function(_index) {
 	if (_index < -1 || _index >= num_items) return;
 		active_item = noone;
 	
 	for (var _i=0; _i<num_items; _i++) {
-		var _item = nested_menu_get_item_by_index(_i);
+		var _item = get_item_by_index(_i);
 		var _submenu = _item.submenu;
 		if (_index == _i) {
 			_submenu.enabled = true;
@@ -58,7 +58,7 @@ nested_menu_toggle_submenu_by_index = method(self, function(_index) {
 //         - {function}			 on_confirm_func
 //         - {array}				 on_confirm_args
 //         - {boolean}			 silent_on_confirm
-nested_menu_add_submenu = method(self, function(_config) {
+add_submenu = method(self, function(_config) {
 	var _new = new NestedMenuSubmenu(_config);
 	ds_list_add(self.items, _new);
 	num_items++;
@@ -67,7 +67,7 @@ nested_menu_add_submenu = method(self, function(_config) {
 	_new.submenu.visible = false;
 	_new.submenu.x = x + column_width;
 	_new.submenu.y = y;
-	self.column_menu_update_view_area();
+	self.update_view_area();
 	return _new;
 });
 

@@ -60,7 +60,7 @@ menu.column_menu_init({
 menu.line_spacing = 8;
 
 for (var _i=0; _i<num_rooms; _i++) {
-	menu.column_menu_add_selectable({
+	menu.add_selectable({
 		label: room_names[_i],
 		on_confirm_func: self.go_to_demo,
 		on_confirm_args: [ rooms[_i] ],

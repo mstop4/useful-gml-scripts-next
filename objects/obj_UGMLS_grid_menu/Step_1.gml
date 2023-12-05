@@ -20,8 +20,8 @@ if (control_state.pressed_state[MENU_CONTROLS.UP]) {
 			&& _item.type != "divider")
 			|| _cur_pos == pos.y)		
 
-		var _should_scroll = self.grid_menu_update_view().y && (pos.y < _cur_pos);
-		if (_should_scroll) self.grid_menu_start_scroll_up();
+		var _should_scroll = self.update_view().y && (pos.y < _cur_pos);
+		if (_should_scroll) self.start_scroll_up();
 		audio_play_sound(cursor_move_sfx, 1, false);
 	}
 }
@@ -38,8 +38,8 @@ if (control_state.pressed_state[MENU_CONTROLS.DOWN]) {
 			&& _item.type != "divider")
 			|| _cur_pos == pos.y)		
 	
-		var _should_scroll = self.grid_menu_update_view().y && (pos.y > _cur_pos);
-		if (_should_scroll) self.grid_menu_start_scroll_down();
+		var _should_scroll = self.update_view().y && (pos.y > _cur_pos);
+		if (_should_scroll) self.start_scroll_down();
 		audio_play_sound(cursor_move_sfx, 1, false);
 	}
 }
@@ -68,8 +68,8 @@ if (control_state.pressed_state[MENU_CONTROLS.LEFT]) {
 			&& _item.type != "divider")
 			|| _cur_pos == pos.x)		
 	
-	var _should_scroll = self.grid_menu_update_view().x && (pos.x < _cur_pos);
-	if (_should_scroll) self.grid_menu_start_scroll_left();
+	var _should_scroll = self.update_view().x && (pos.x < _cur_pos);
+	if (_should_scroll) self.start_scroll_left();
 	audio_play_sound(cursor_move_sfx, 1, false);
 }
 
@@ -97,8 +97,8 @@ if (control_state.pressed_state[MENU_CONTROLS.RIGHT]) {
 			&& _item.type != "divider")
 			|| _cur_pos == pos.x)		
 	
-	var _should_scroll = self.grid_menu_update_view().x && (pos.x > _cur_pos);
-	if (_should_scroll) self.grid_menu_start_scroll_right();
+	var _should_scroll = self.update_view().x && (pos.x > _cur_pos);
+	if (_should_scroll) self.start_scroll_right();
 	audio_play_sound(cursor_move_sfx, 1, false);
 }
 

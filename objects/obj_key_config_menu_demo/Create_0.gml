@@ -45,7 +45,7 @@ menu.column_menu_init({
 });
 
 for (var _i=CONTROLS.UP; _i<=CONTROLS.RIGHT; _i++) {
-	menu.column_menu_add_key_config({ 
+	menu.add_key_config({ 
 		label: control_labels[_i],
 		control: _i,
 		initial_kbm_bindings: duplicate_array(my_player.get_bindings(CONTROL_TYPE.KEYBOARD_AND_MOUSE, _i).values),
@@ -59,7 +59,7 @@ for (var _i=CONTROLS.UP; _i<=CONTROLS.RIGHT; _i++) {
 	});
 }
 
-var _cancel_rebinding = menu.column_menu_add_key_config({ 
+var _cancel_rebinding = menu.add_key_config({ 
 	label: "Cancel Rebinding",
 	control: CONTROLS.MENU_CANCEL,
 	initial_kbm_bindings: duplicate_array(my_player.get_bindings(CONTROL_TYPE.KEYBOARD_AND_MOUSE, CONTROLS.MENU_CANCEL).values),
@@ -72,7 +72,7 @@ var _cancel_rebinding = menu.column_menu_add_key_config({
 	silent_on_change: false
 });
 
-var _remove_binding = menu.column_menu_add_key_config({ 
+var _remove_binding = menu.add_key_config({ 
 	label: "Remove Binding",
 	control: CONTROLS.DELETE_BINDING,
 	initial_kbm_bindings: duplicate_array(my_player.get_bindings(CONTROL_TYPE.KEYBOARD_AND_MOUSE, CONTROLS.DELETE_BINDING).values),
@@ -85,7 +85,7 @@ var _remove_binding = menu.column_menu_add_key_config({
 	silent_on_change: false
 });
 
-menu.column_menu_add_selectable({
+menu.add_selectable({
 	label: "Reset All Bindings",
 	on_confirm_func: self.reset_bindings,
 	on_confirm_args: [],

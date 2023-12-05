@@ -289,5 +289,5 @@ function MenuKeyConfig(_config) : MenuItem(_config) constructor {
 		return -1;
 	});
 	
-	//verify_locked_bindings();
+	verify_locked_bindings();
 }

@@ -53,35 +53,35 @@ grid_menu_init = method(self, function(_config) {
 		: _config.view_height - 1;
 });
 
-grid_menu_start_scroll_up = method(self, function() {
+start_scroll_up = method(self, function() {
 	view_scroll_progress_x.v = 0;
 	view_scroll_progress_x.d = 0;
 	view_scroll_progress_y.v = 1;
 	view_scroll_progress_y.d = -1/view_scroll_duration;
 });
 
-grid_menu_start_scroll_down = method(self, function() {
+start_scroll_down = method(self, function() {
 	view_scroll_progress_x.v = 0;
 	view_scroll_progress_x.d = 0;
 	view_scroll_progress_y.v = -1;
 	view_scroll_progress_y.d = 1/view_scroll_duration;
 });
 
-grid_menu_start_scroll_left = method(self, function() {
+start_scroll_left = method(self, function() {
 	view_scroll_progress_x.v = 1;
 	view_scroll_progress_x.d = -1/view_scroll_duration;
 	view_scroll_progress_y.v = 0;
 	view_scroll_progress_y.d = 0;
 });
 
-grid_menu_start_scroll_right = method(self, function() {
+start_scroll_right = method(self, function() {
 	view_scroll_progress_x.v = -1;
 	view_scroll_progress_x.d = 1/view_scroll_duration;
 	view_scroll_progress_y.v = 0;
 	view_scroll_progress_y.d = 0;
 });
 
-grid_menu_update_view = method(self, function() {
+update_view = method(self, function() {
 	var _changed = {
 		x: false,
 		y: false,
@@ -116,13 +116,13 @@ grid_menu_update_view = method(self, function() {
 
 /// @param {real} _x
 /// @param {real} _y
-grid_menu_get_item_by_index = method(self, function(_x, _y) {
+get_item_by_index = method(self, function(_x, _y) {
 	return items[# _x, _y];
 });
 
 /// @param {string} _label
 /// @returns {any}
-grid_menu_get_item_by_label = method(self, function(_label) {
+get_item_by_label = method(self, function(_label) {
 	var _width = ds_grid_width(items);
 	var _height = ds_grid_height(items);
 	
@@ -142,7 +142,7 @@ grid_menu_get_item_by_label = method(self, function(_label) {
 //         - {function} on_confirm_func
 //         - {array}    on_confirm_args
 //         - {boolean}  silent_on_confirm
-grid_menu_add_selectable = method(self, function(_x, _y, _config) {
+add_selectable = method(self, function(_x, _y, _config) {
 	if (_x < 0 || _x >= ds_grid_width(self.items)
 		|| _y < 0 || _y >= ds_grid_height(self.items))
 			return;
@@ -164,7 +164,7 @@ grid_menu_add_selectable = method(self, function(_x, _y, _config) {
 //         - {array}    on_change_args
 //         - {boolean}  silent_on_confirm
 //         - {boolean}  silent_on_change
-grid_menu_add_valued_selectable = method(self, function(_x, _y, _config) {
+add_valued_selectable = method(self, function(_x, _y, _config) {
 	if (_x < 0 || _x >= ds_grid_width(items)
 		|| _y < 0 || _y >= ds_grid_height(items))
 			return;
@@ -187,7 +187,7 @@ grid_menu_add_valued_selectable = method(self, function(_x, _y, _config) {
 //         - {array}    on_change_args
 //         - {boolean}  silent_on_confirm
 //         - {boolean}  silent_on_change
-grid_menu_add_spinner = method(self, function(_x, _y, _config) {
+add_spinner = method(self, function(_x, _y, _config) {
 	if (_x < 0 || _x >= ds_grid_width(items)
 		|| _y < 0 || _y >= ds_grid_height(items))
 			return;
@@ -209,7 +209,7 @@ grid_menu_add_spinner = method(self, function(_x, _y, _config) {
 //         - {array}    on_change_args
 //         - {boolean}  silent_on_confirm
 //         - {boolean}  silent_on_change
-grid_menu_add_key_config = method(self, function(_x, _y, _config) {
+add_key_config = method(self, function(_x, _y, _config) {
 	if (_x < 0 || _x >= ds_grid_width(items)
 		|| _y < 0 || _y >= ds_grid_height(items))
 			return;

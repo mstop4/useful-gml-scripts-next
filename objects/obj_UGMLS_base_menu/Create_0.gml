@@ -36,12 +36,12 @@ menu_base_init = method(self, function(_config) {
 	});
 });
 
-menu_base_start_scroll_up = method(self, function() {
+start_scroll_up = method(self, function() {
 	view_scroll_progress_y.v = 1;
 	view_scroll_progress_y.d = -1/view_scroll_duration;
 });
 
-menu_base_start_scroll_down = method(self, function() {
+start_scroll_down = method(self, function() {
 	view_scroll_progress_y.v = -1;
 	view_scroll_progress_y.d = 1/view_scroll_duration;
 });
@@ -229,7 +229,7 @@ handle_key_config_discovery = method(self, function(_item) {
 /// @param {Real} _x
 /// @param {Real} _y
 /// @param {Bool} _is_focused
-menu_base_draw_item = method(self, function(_item, _x, _y, _is_focused = false) {
+draw_menu_item = method(self, function(_item, _x, _y, _is_focused = false) {
 	var _type = _item.type;
 	if (_item.enabled) draw_set_colour(c_white);
 	else draw_set_colour(c_gray);

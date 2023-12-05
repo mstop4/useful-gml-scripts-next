@@ -20,8 +20,8 @@ if (control_state.pressed_state[MENU_CONTROLS.UP]) {
 			&& _item.type != "divider")
 			|| _cur_pos == pos)
 
-		var _should_scroll = self.column_menu_update_view() && (pos < _cur_pos);
-		if (_should_scroll) self.menu_base_start_scroll_up();
+		var _should_scroll = self.update_view() && (pos < _cur_pos);
+		if (_should_scroll) self.start_scroll_up();
 		audio_play_sound(cursor_move_sfx, 1, false);
 	}
 }
@@ -38,8 +38,8 @@ if (control_state.pressed_state[MENU_CONTROLS.DOWN]) {
 			&& _item.type != "divider")
 			|| _cur_pos == pos)
 
-		var _should_scroll = self.column_menu_update_view() && (pos > _cur_pos);
-		if (_should_scroll) self.menu_base_start_scroll_down();
+		var _should_scroll = self.update_view() && (pos > _cur_pos);
+		if (_should_scroll) self.start_scroll_down();
 		audio_play_sound(cursor_move_sfx, 1, false);
 	}
 }
@@ -71,7 +71,7 @@ if (control_state.pressed_state[MENU_CONTROLS.CONFIRM]) {
 	
 	if (_item.type == "menu") {
 		if (active_item == noone) {
-			self.nested_menu_toggle_submenu_by_index(pos);
+			self.toggle_submenu_by_index(pos);
 			player_controller.clear_all_input();
 		}
 	}
@@ -92,7 +92,7 @@ if (control_state.pressed_state[MENU_CONTROLS.CANCEL]) {
 		var _submenu = active_item.submenu;
 		if (_submenu.active_key_config != -1) exit;
 		
-		nested_menu_toggle_submenu_by_index(-1);
+		toggle_submenu_by_index(-1);
 		player_controller.clear_all_input();
 		exit;
 	}

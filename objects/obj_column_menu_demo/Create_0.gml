@@ -32,7 +32,7 @@ menu.column_menu_init({
 
 menu.label_width = 96;
 
-menu.column_menu_add_selectable({ 
+menu.add_selectable({ 
 	label: "Item 1",
 	on_confirm_func: self.menu_demo_on_selectable_confirm,
 	on_confirm_args: ["Foo"],
@@ -49,7 +49,7 @@ menu.column_menu_add_selectable({
 //         - {boolean}  silent_on_confirm
 //         - {boolean}  silent_on_change
 
-menu.column_menu_add_spinner({ 
+menu.add_spinner({ 
 	label: "Item 2",
 	values: ["A", 1, "B", 2, "C", 3],
 	init_index: 0,
@@ -61,28 +61,28 @@ menu.column_menu_add_spinner({
 	silent_on_change: false
 });
 
-menu.column_menu_add_selectable({ 
+menu.add_selectable({ 
 	label: "Item 3",
 	on_confirm_func: self.menu_demo_on_selectable_confirm,
 	on_confirm_args: ["Baz"],
 	silent_on_confirm: false
 });
 
-menu.column_menu_add_selectable({ 
+menu.add_selectable({ 
 	label: "Item 4",
 	on_confirm_func: self.menu_demo_on_selectable_confirm,
 	on_confirm_args: ["Qux"],
 	silent_on_confirm: false
 });
 
-menu.column_menu_add_selectable({ 
+menu.add_selectable({ 
 	label: "Item 5",
 	on_confirm_func: self.menu_demo_on_selectable_confirm,
 	on_confirm_args: ["Foo"],
 	silent_on_confirm: false
 });
 
-menu.column_menu_add_spinner({ 
+menu.add_spinner({ 
 	label: "Item 6",
 	values: ["A", 1, "B", 2, "C", 3],
 	init_index: 0,
@@ -94,14 +94,14 @@ menu.column_menu_add_spinner({
 	silent_on_change: false
 });
 
-menu.column_menu_add_selectable({ 
+menu.add_selectable({ 
 	label: "Item 7",
 	on_confirm_func: self.menu_demo_on_selectable_confirm,
 	on_confirm_args: ["Baz"],
 	silent_on_confirm: false
 });
 
-vs_item = menu.column_menu_add_valued_selectable({ 
+vs_item = menu.add_valued_selectable({ 
 	label: "Item 8",
 	init_value: "Qux",
 	on_confirm_func: self.menu_demo_on_valued_selectable_confirm,

@@ -20,8 +20,8 @@ if (control_state.pressed_state[MENU_CONTROLS.UP]) {
 			&& _item.type != "divider")
 			|| _cur_pos == pos)
 		
-		var _should_scroll = self.column_menu_update_view() && (pos < _cur_pos);
-		if (_should_scroll) self.menu_base_start_scroll_up();
+		var _should_scroll = self.update_view() && (pos < _cur_pos);
+		if (_should_scroll) self.start_scroll_up();
 		audio_play_sound(cursor_move_sfx, 1, false);
 	}
 }
@@ -38,8 +38,8 @@ if (control_state.pressed_state[MENU_CONTROLS.DOWN]) {
 			&& _item.type != "divider")
 			|| _cur_pos == pos)		
 		
-		var _should_scroll = self.column_menu_update_view() && (pos > _cur_pos);
-		if (_should_scroll) self.menu_base_start_scroll_down();
+		var _should_scroll = self.update_view() && (pos > _cur_pos);
+		if (_should_scroll) self.start_scroll_down();
 		audio_play_sound(cursor_move_sfx, 1, false);
 	}
 }
