@@ -7,7 +7,7 @@
 ///								 - {Array<Asset.GMSprite>} keyboard_icons
 ///								 - {Array<Asset.GMSprite>} gamepad_icons
 ///								 - {number} control_icons_scale
-menu_base_init = method(self, function(_config) {
+function menu_base_init(_config) {
 	player_controller = _config.player_controller;
 	control_state = new MenuControlState(_config.player_controller);
 	var _old_font = draw_get_font();
@@ -34,20 +34,20 @@ menu_base_init = method(self, function(_config) {
 	gamepad_icons_half_height = array_map(gamepad_icons, function(_sprite) {
 		return sprite_get_height(_sprite) / 2;
 	});
-});
+}
 
-start_scroll_up = method(self, function() {
+function start_scroll_up() {
 	view_scroll_progress_y.v = 1;
 	view_scroll_progress_y.d = -1/view_scroll_duration;
-});
+}
 
-start_scroll_down = method(self, function() {
+function start_scroll_down() {
 	view_scroll_progress_y.v = -1;
 	view_scroll_progress_y.d = 1/view_scroll_duration;
-});
+}
 
 /// @param {Struct.MenuSelectable} _item 
-handle_selectable_confirm = method(self, function(_item) {
+function handle_selectable_confirm(_item) {
 	if (!_item.enabled) return;
 	if (is_callable(_item.on_confirm_func)) {
 		_item.on_confirm_func(_item.on_confirm_args);
@@ -56,10 +56,10 @@ handle_selectable_confirm = method(self, function(_item) {
 	if (!_item.silent_on_confirm && audio_exists(cursor_confirm_sfx)) {
 		audio_play_sound(cursor_confirm_sfx, 1, false);
 	}
-});
+}
 
 /// @param {Struct.MenuValuedSelectable} _item 
-handle_valued_selectable_confirm = method(self, function(_item) {
+function handle_valued_selectable_confirm(_item) {
 	if (!_item.enabled) return;
 	if (is_callable(_item.on_confirm_func)) {
 		_item.on_confirm_func(_item, _item.on_confirm_args);
@@ -68,10 +68,10 @@ handle_valued_selectable_confirm = method(self, function(_item) {
 	if (!_item.silent_on_confirm && audio_exists(cursor_confirm_sfx)) {
 		audio_play_sound(cursor_confirm_sfx, 1, false);
 	}
-});
+}
 
 /// @param {Struct.MenuSpinner} _item 
-handle_spinner_confirm = method(self, function(_item) {
+function handle_spinner_confirm(_item) {
 	if (!_item.enabled) return;
 	if (is_callable(_item.on_confirm_func)) {
 		_item.on_confirm_func(_item.cur_index, _item.values[_item.cur_index], _item.on_confirm_args);
@@ -80,11 +80,11 @@ handle_spinner_confirm = method(self, function(_item) {
 	if (!_item.silent_on_confirm && audio_exists(cursor_confirm_sfx)) {
 		audio_play_sound(cursor_confirm_sfx, 1, false);
 	}
-});
+}
 
 /// @param {Struct.MenuSpinner} _item
 /// @param {real}								_delta -1 or 1
-handle_spinner_change = method(self, function(_item, _delta) {
+function handle_spinner_change(_item, _delta) {
 	if (!_item.enabled) return;
 	var _num_values = array_length(_item.values);
 	_item.cur_index = wrap(_item.cur_index+_delta, 0, _num_values);
@@ -101,11 +101,11 @@ handle_spinner_change = method(self, function(_item, _delta) {
 	if (!_item.silent_on_change && audio_exists(cursor_change_sfx)) {
 		audio_play_sound(cursor_change_sfx, 1, false);
 	}
-});
+}
 
 /// @param {Struct.MenuKeyConfig} _item
 /// @param {real}									_delta
-handle_key_config_select = method(self, function(_item, _delta) {
+function handle_key_config_select(_item, _delta) {
 	if (!_item.enabled) return;
 	var _num_values = KEYBOARD_MAX_BINDINGS_PER_CONTROL + GAMEPAD_MAX_BINDINGS_PER_CONTROL;
 	var _last_pressed = control_state.control_any_pressed();
@@ -120,10 +120,10 @@ handle_key_config_select = method(self, function(_item, _delta) {
 	if (_item.current_binding_index != _original_value && !_item.silent_on_change && audio_exists(cursor_change_sfx)) {
 		audio_play_sound(cursor_change_sfx, 1, false);
 	}
-});
+}
 
 /// @param {Struct.MenuKeyConfig} _item
-handle_key_config_confirm = method(self, function(_item) {
+function handle_key_config_confirm(_item) {
 	if (!_item.enabled) return;
 	var _last_pressed = control_state.control_any_pressed();	
 	
@@ -147,19 +147,19 @@ handle_key_config_confirm = method(self, function(_item) {
 		_item.discovery_binding_info = _binding_info;
 		io_clear();
 	}
-});
+}
 
 /// @param {Struct.MenuKeyConfig} _item
-handle_key_config_cancel = method(self, function(_item) {
+function handle_key_config_cancel(_item) {
 	if (!_item.enabled) return;
 	if (discovery_mode == MENU_DISCOVERY_MODE.SELECTING) {
 		discovery_mode = MENU_DISCOVERY_MODE.NONE;
 		active_key_config = -1;		
 	}
-});
+}
 
 /// @param {Struct.MenuKeyConfig} _item
-handle_key_config_delete = method(self, function(_item) {
+function handle_key_config_delete(_item) {
 	if (!_item.enabled) return;
 	var _binding_info = _item.get_binding_info();
 	if (_binding_info.binding_locked) return;
@@ -183,10 +183,10 @@ handle_key_config_delete = method(self, function(_item) {
 		active_key_config.discovery_binding_info = false;
 	}
 	active_key_config = -1;
-});
+}
 
 /// @param {Struct.MenuKeyConfig} _item
-handle_key_config_discovery = method(self, function(_item) {
+function handle_key_config_discovery(_item) {
 	if (!_item.enabled) return;
 	if (control_state.pressed_state[MENU_CONTROLS.CANCEL]) {
 		discovery_mode = MENU_DISCOVERY_MODE.SELECTING;
@@ -223,13 +223,13 @@ handle_key_config_discovery = method(self, function(_item) {
 		active_key_config = -1;
 		io_clear();
 	}
-});
+}
 
 /// @param {Struct.MenuItem} _item
 /// @param {Real} _x
 /// @param {Real} _y
 /// @param {Bool} _is_focused
-draw_menu_item = method(self, function(_item, _x, _y, _is_focused = false) {
+function draw_menu_item(_item, _x, _y, _is_focused = false) {
 	var _type = _item.type;
 	if (_item.enabled) draw_set_colour(c_white);
 	else draw_set_colour(c_gray);
@@ -358,19 +358,19 @@ draw_menu_item = method(self, function(_item, _x, _y, _is_focused = false) {
 		default:
 			draw_text(_x, _y, _item.label);
 	}
-});
+}
 
 /// @param {Id.Instance} _next_menu
 /// @param {Function}		 _on_switch_cb
 /// @param {Array<any>}  _on_switch_cb_args
-menu_switch = method(self, function(_next_menu, _on_switch_cb, _on_switch_cb_args) {
+function menu_switch(_next_menu, _on_switch_cb, _on_switch_cb_args) {
 	menu_fade_out(_next_menu, _on_switch_cb, _on_switch_cb_args);
-});
+}
 
 /// @param {Id.Instance} _next_menu
 /// @param {Function}		 _on_end_cb
 /// @param {Array<any>}  _on_end_cb_args
-menu_fade_out = method(self, function(_next_menu, _on_end_cb, _on_end_cb_args) {
+function menu_fade_out(_next_menu, _on_end_cb, _on_end_cb_args) {
 	enabled = false;
 	next_menu = _next_menu;
 	on_fade_out_end = _on_end_cb;
@@ -378,15 +378,15 @@ menu_fade_out = method(self, function(_next_menu, _on_end_cb, _on_end_cb_args) {
 	menu_alpha.v = 1;
 	menu_alpha.d = -1/menu_fade_time;
 	alarm[11] = menu_fade_time;
-});
+}
 
-menu_fade_in = method(self, function() {
+function menu_fade_in() {
 	enabled = false;
 	visible = true;
 	menu_alpha.v = 0;
 	menu_alpha.d = 1/menu_fade_time;
 	alarm[10] = menu_fade_time;
-});
+}
 
 enabled = true;
 

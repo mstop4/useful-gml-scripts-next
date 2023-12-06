@@ -23,7 +23,7 @@ view_scroll_progress_x = new Tween(0, 0, -1, 1, TWEEN_LIMIT_MODE.CLAMP, true, fu
 //				 - {boolean} use_control_icons
 //				 - {Array<Asset.GMSprite>} keyboard_icons
 //				 - {Array<Asset.GMSprite>} gamepad_icons
-grid_menu_init = method(self, function(_config) {
+function grid_menu_init(_config) {
 	self.menu_base_init(_config);
 	
 	column_width = _config.column_width;
@@ -51,37 +51,37 @@ grid_menu_init = method(self, function(_config) {
 	view_area.bottom = view_height < 1
 		? _config.height - 1
 		: _config.view_height - 1;
-});
+}
 
-start_scroll_up = method(self, function() {
+function start_scroll_up() {
 	view_scroll_progress_x.v = 0;
 	view_scroll_progress_x.d = 0;
 	view_scroll_progress_y.v = 1;
 	view_scroll_progress_y.d = -1/view_scroll_duration;
-});
+}
 
-start_scroll_down = method(self, function() {
+function start_scroll_down() {
 	view_scroll_progress_x.v = 0;
 	view_scroll_progress_x.d = 0;
 	view_scroll_progress_y.v = -1;
 	view_scroll_progress_y.d = 1/view_scroll_duration;
-});
+}
 
-start_scroll_left = method(self, function() {
+function start_scroll_left() {
 	view_scroll_progress_x.v = 1;
 	view_scroll_progress_x.d = -1/view_scroll_duration;
 	view_scroll_progress_y.v = 0;
 	view_scroll_progress_y.d = 0;
-});
+}
 
-start_scroll_right = method(self, function() {
+function start_scroll_right() {
 	view_scroll_progress_x.v = -1;
 	view_scroll_progress_x.d = 1/view_scroll_duration;
 	view_scroll_progress_y.v = 0;
 	view_scroll_progress_y.d = 0;
-});
+}
 
-update_view = method(self, function() {
+function update_view() {
 	var _changed = {
 		x: false,
 		y: false,
@@ -112,17 +112,17 @@ update_view = method(self, function() {
 	}
 	
 	return _changed;
-});
+}
 
 /// @param {real} _x
 /// @param {real} _y
-get_item_by_index = method(self, function(_x, _y) {
+function get_item_by_index(_x, _y) {
 	return items[# _x, _y];
-});
+}
 
 /// @param {string} _label
 /// @returns {any}
-get_item_by_label = method(self, function(_label) {
+function get_item_by_label(_label) {
 	var _width = ds_grid_width(items);
 	var _height = ds_grid_height(items);
 	
@@ -133,7 +133,7 @@ get_item_by_label = method(self, function(_label) {
 	}
 	
 	return noone;
-});
+}
 
 /// @param {real} _x
 /// @param {real} _y
@@ -142,7 +142,7 @@ get_item_by_label = method(self, function(_label) {
 //         - {function} on_confirm_func
 //         - {array}    on_confirm_args
 //         - {boolean}  silent_on_confirm
-add_selectable = method(self, function(_x, _y, _config) {
+function add_selectable(_x, _y, _config) {
 	if (_x < 0 || _x >= ds_grid_width(self.items)
 		|| _y < 0 || _y >= ds_grid_height(self.items))
 			return;
@@ -151,7 +151,7 @@ add_selectable = method(self, function(_x, _y, _config) {
 	_new.parent_menu = id;
 	self.items[# _x, _y] = _new;
 	return _new;
-});
+}
 
 /// @param {real} _x
 /// @param {real} _y
@@ -164,7 +164,7 @@ add_selectable = method(self, function(_x, _y, _config) {
 //         - {array}    on_change_args
 //         - {boolean}  silent_on_confirm
 //         - {boolean}  silent_on_change
-add_valued_selectable = method(self, function(_x, _y, _config) {
+function add_valued_selectable(_x, _y, _config) {
 	if (_x < 0 || _x >= ds_grid_width(items)
 		|| _y < 0 || _y >= ds_grid_height(items))
 			return;
@@ -173,7 +173,7 @@ add_valued_selectable = method(self, function(_x, _y, _config) {
 	_new.parent_menu = id;
 	items[# _x, _y] = _new;
 	return _new;
-});
+}
 
 /// @param {real} _x
 /// @param {real} _y
@@ -187,7 +187,7 @@ add_valued_selectable = method(self, function(_x, _y, _config) {
 //         - {array}    on_change_args
 //         - {boolean}  silent_on_confirm
 //         - {boolean}  silent_on_change
-add_spinner = method(self, function(_x, _y, _config) {
+function add_spinner(_x, _y, _config) {
 	if (_x < 0 || _x >= ds_grid_width(items)
 		|| _y < 0 || _y >= ds_grid_height(items))
 			return;
@@ -196,7 +196,7 @@ add_spinner = method(self, function(_x, _y, _config) {
 	_new.parent_menu = id;
 	items[# _x, _y] = _new;
 	return _new;
-});
+}
 
 /// @param {real} _x
 /// @param {real} _y
@@ -209,7 +209,7 @@ add_spinner = method(self, function(_x, _y, _config) {
 //         - {array}    on_change_args
 //         - {boolean}  silent_on_confirm
 //         - {boolean}  silent_on_change
-add_key_config = method(self, function(_x, _y, _config) {
+function add_key_config(_x, _y, _config) {
 	if (_x < 0 || _x >= ds_grid_width(items)
 		|| _y < 0 || _y >= ds_grid_height(items))
 			return;
@@ -218,13 +218,13 @@ add_key_config = method(self, function(_x, _y, _config) {
 	_new.parent_menu = id;
 	items[# _x, _y] = _new;
 	return _new;
-});
+}
 
 /// @param {real} _x
 /// @param {real} _y
 /// @param {Struct} _config 
 //         - {string}   label
-add_divider = method(self, function(_x, _y, _config) {
+function add_divider(_x, _y, _config) {
 	if (_x < 0 || _x >= ds_grid_width(items)
 		|| _y < 0 || _y >= ds_grid_height(items))
 			return;
@@ -233,4 +233,4 @@ add_divider = method(self, function(_x, _y, _config) {
 	_new.parent_menu = id;
 	items[# _x, _y] = _new;
 	return _new;
-});
+}

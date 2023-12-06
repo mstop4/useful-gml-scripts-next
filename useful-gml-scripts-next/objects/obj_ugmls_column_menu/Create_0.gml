@@ -17,7 +17,7 @@ view_area = new Vector2(0, 0);
 //         - {sound}  cursor_move_sfx
 //         - {sound}  cursor_change_sfx
 //         - {sound}  cursor_confirm_sfx
-column_menu_init = method(self, function(_config) {
+function column_menu_init(_config) {
 	self.menu_base_init(_config);
 	
   view_height = _config.view_height;
@@ -28,9 +28,9 @@ column_menu_init = method(self, function(_config) {
 	cursor_move_sfx = _config.cursor_move_sfx;
 	cursor_change_sfx = _config.cursor_change_sfx;
 	cursor_confirm_sfx = _config.cursor_confirm_sfx;
-});
+}
 
-update_view = method(self, function() {
+function update_view() {
 	var _changed = false;
 
 	if (view_height > 0) {
@@ -45,40 +45,40 @@ update_view = method(self, function() {
 		}
 	}
 	return _changed;
-});
+}
 
-update_view_area = method(self, function() {
+function update_view_area() {
 	view_area.y = view_height < 1
 		? num_items - 1
 		: min(num_items, pos + view_height - 1);
-});
+}
 
 /// @param {real} _index
-get_item_by_index = method(self, function(_index) {
+function get_item_by_index(_index) {
 	return self.items[_index];
-});
+}
 
 /// @param {string} _label
-get_item_by_label = method(self, function(_label) {
+function get_item_by_label(_label) {
 	for (var _i=0; _i<num_items; _i++) {
 		if (self.items[_i].label == _label) return self.items[_i];
 	}
 	return noone;
-});
+}
 
 /// @param {Struct} _config 
 //         - {string}   label
 //         - {function} on_confirm_func
 //         - {array}    on_confirm_args
 //         - {boolean}  silent_on_confirm
-add_selectable = method(self, function(_config) {
+function add_selectable(_config) {
 	var _new = new MenuSelectable(_config);
 	array_push(self.items, _new);
 	num_items++;
 	_new.parent_menu = self.id;
 	self.update_view_area();
 	return _new;
-});
+}
 
 /// @param {Struct} _config 
 //         - {string}   label
@@ -89,14 +89,14 @@ add_selectable = method(self, function(_config) {
 //         - {array}    on_change_args
 //         - {boolean}  silent_on_confirm
 //         - {boolean}  silent_on_change
-add_valued_selectable = method(self, function(_config) {
+function add_valued_selectable(_config) {
 	var _new = new MenuValuedSelectable(_config);
 	array_push(self.items, _new);
 	num_items++;
 	_new.parent_menu = self.id;
 	self.update_view_area();
 	return _new;
-});
+}
 
 /// @param {Struct} _config 
 //         - {string}   label
@@ -108,14 +108,14 @@ add_valued_selectable = method(self, function(_config) {
 //         - {array}    on_change_args
 //         - {boolean}  silent_on_confirm
 //         - {boolean}  silent_on_change
-add_spinner = method(self, function(_config) {
+function add_spinner(_config) {
 	var _new = new MenuSpinner(_config);
 	array_push(self.items, _new);
 	num_items++;
 	_new.parent_menu = self.id;
 	self.update_view_area();
 	return _new;
-});
+}
 
 /// @param {Struct} _config 
 //         - {string}   label
@@ -126,22 +126,22 @@ add_spinner = method(self, function(_config) {
 //         - {array}    on_change_args
 //         - {boolean}  silent_on_confirm
 //         - {boolean}  silent_on_change
-add_key_config = method(self, function(_config) {
+function add_key_config(_config) {
 	var _new = new MenuKeyConfig(_config);
 	array_push(self.items, _new);
 	num_items++;
 	_new.parent_menu = self.id;
 	self.update_view_area();
 	return _new;
-});
+}
 
 /// @param {Struct} _config 
 //         - {string}   label
-add_divider = method(self, function(_config) {
+function add_divider(_config) {
 	var _new = new MenuDivider(_config);
 	array_push(items, _new);
 	num_items++;
 	_new.parent_menu = self.id;
 	update_view_area();
 	return _new;
-});
+}

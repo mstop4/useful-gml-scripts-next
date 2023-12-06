@@ -11,28 +11,28 @@ event_inherited();
 //				 - {bool} use_control_icons
 //				 - {Array<Asset.GMSprite>} keyboard_icons
 //				 - {Array<Asset.GMSprite>} gamepad_icons
-nested_menu_init = method(self, function(_config) {
+function nested_menu_init(_config) {
 	self.column_menu_init(_config);
 	column_width = _config.column_width;
-});
+}
 
 /// @param {real} _index
-get_item_by_index = method(self, function(_index) {
+function get_item_by_index(_index) {
 	return self.items[_index];
-});
+}
 
 /// @param {string} _label
 /// @returns {any}
-get_item_by_label = method(self, function(_label) {
+function get_item_by_label(_label) {
 	for (var _i=0; _i<num_items; _i++) {
 		if (items[_i].label == _label) return submenu[_i];
 	}
 	
 	return noone;
-});
+}
 
 /// @param {real} _index -1 = toggle root menu
-toggle_submenu_by_index = method(self, function(_index) {
+function toggle_submenu_by_index(_index) {
 	if (_index < -1 || _index >= num_items) return;
 		active_item = noone;
 	
@@ -50,7 +50,7 @@ toggle_submenu_by_index = method(self, function(_index) {
 	}
 
 	active_item_index = _index;
-});
+}
 
 /// @param {Struct} _config 
 //				 - {obj_menu_base} submenu
@@ -58,7 +58,7 @@ toggle_submenu_by_index = method(self, function(_index) {
 //         - {function}			 on_confirm_func
 //         - {array}				 on_confirm_args
 //         - {boolean}			 silent_on_confirm
-add_submenu = method(self, function(_config) {
+function add_submenu(_config) {
 	var _new = new NestedMenuSubmenu(_config);
 	array_push(self.items, _new);
 	num_items++;
@@ -69,7 +69,7 @@ add_submenu = method(self, function(_config) {
 	_new.submenu.y = y;
 	self.update_view_area();
 	return _new;
-});
+}
 
 items = [];
 num_items = 0;

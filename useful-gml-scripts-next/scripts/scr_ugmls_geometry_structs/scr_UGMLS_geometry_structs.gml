@@ -20,32 +20,32 @@ function Rectangle(_left, _top, _right, _bottom) constructor {
 	bottom = _bottom;
 	
 	/// @desc Width of rectangle
-	width = method(self, function() {
+	function width() {
 		return right - left;
-	});
+	}
 	
 	/// @desc Height of rectangle
-	height = method(self, function() {
+	function height () {
 		return bottom - top;
-	});
+	}
 	
 	/// @desc A LineSegment representing the left-side edge
-	left_edge = method(self, function() {
+	function left_edge() {
 		return new LineSegment(left, top, left, bottom);
-	});
+	}
 	
 	/// @desc A LineSegment representing the top edge
-	top_edge = method(self, function() {
+	function top_edge() {
 		return new LineSegment(left, top, right, top);
-	});
+	}
 	
 	/// @desc A LineSegment representing the right-side edge
-	right_edge = method(self, function() {
+	function right_edge() {
 		return new LineSegment(right, top, right, bottom);
-	});
+	}
 	
 	/// @desc A LineSegment representing the bottom edge
-	bottom_edge = method(self, function() {
+	function bottom_edge() {
 		return new LineSegment(left, bottom, right, bottom);
-	});
+	}
 }

@@ -28,7 +28,7 @@ function Tween(_value, _delta, _min_v, _max_v, _limit_mode, _stop_outside_range,
 	stop_outside_range = _stop_outside_range;
 	outside_range_callback = _outside_range_callback;
 
-	update = method(self, function() {
+	function update() {
 		if (d != 0) {
 			var _old_v = v;
 			var _new_v = v + d;
@@ -93,5 +93,5 @@ function Tween(_value, _delta, _min_v, _max_v, _limit_mode, _stop_outside_range,
 				}
 			}
 		}
-	});
+	}
 }
