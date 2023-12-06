@@ -224,7 +224,7 @@ add_key_config = method(self, function(_x, _y, _config) {
 /// @param {real} _y
 /// @param {Struct} _config 
 //         - {string}   label
-grid_menu_add_divider = method(self, function(_x, _y, _config) {
+add_divider = method(self, function(_x, _y, _config) {
 	if (_x < 0 || _x >= ds_grid_width(items)
 		|| _y < 0 || _y >= ds_grid_height(items))
 			return;

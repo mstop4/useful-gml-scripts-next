@@ -198,8 +198,14 @@ function ControlManagerPlayer(_control_manager) constructor {
 			return -1;
 		}
 	});
+
+	/// @desc	 Returns gamepad slot of player.
+	/// @param {real} _index
+	get_gamepad_slot = method(self, function () {
+		return gamepad_slot;
+	});
 	
-	/// @desc	 Assigns gamepad to a player slot.
+	/// @desc	 Assigns gamepad slot to player.
 	/// @param {real} _index
 	set_gamepad_slot = method(self, function(_index) {
 		gamepad_slot = _index;

@@ -99,7 +99,7 @@ function MenuValuedSelectable(_config) : MenuSpinnerBase(_config) constructor {
 	value = _config.init_value;
 	
 	get_full_label = method(self, function() {
-		return concat(label, ": ", value);
+		return $"{label}: {value}";
 	});
 	
 	get_value = method(self, function() {
@@ -154,7 +154,7 @@ function MenuSpinner(_config) : MenuSpinnerBase(_config) constructor {
 	cur_index = clamp(_config.init_index, 0, array_length(values) - 1);
 	
 	get_full_label = method(self, function() {
-		return concat(label, ": ", values[cur_index]);
+		return return $"{label}: {values[cur_index]}";
 	});
 	
 	get_value = method(self, function() {
