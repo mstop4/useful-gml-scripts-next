@@ -75,3 +75,4 @@ items = [];
 num_items = 0;
 pos = 0;
 active_item = noone;
+active_item_index = -1;
