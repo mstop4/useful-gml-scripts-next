@@ -9,7 +9,7 @@ draw_text(640, 128, "Gamepads Detected: " + string(inst_control_manager.num_game
 draw_text(640, 192, "Current Slot: " + string(current_gamepad_index) + "/" + string(inst_control_manager.device_count - 1));
 draw_text(640, 224, "Gamepad Connected: " + (inst_control_manager.gamepad_connected[current_gamepad_index] ? "Yes" : "No"));
 draw_text(640, 256, "GUID: " + gamepad_get_guid(current_gamepad_index));
-draw_text(640, 286, "Description: " + gamepad_get_description(current_gamepad_index));
+draw_text(640, 288, "Description: " + gamepad_get_description(current_gamepad_index));
 
 if (os_type == os_linux) {
 	draw_text(640, 320, "Is On Steam Deck: " + (inst_control_manager.is_on_steam_deck() ? "Yes" : "No"));

@@ -49,6 +49,21 @@ function array_find(_array, _value) {
 	return -1;
 }
 
+/// @desc  Creates an array containing numbers from _a to _b inclusive, each _step units apart
+/// @param {Real} _a
+/// @param {Real} _b
+/// @param {Real} _step
+function create_numeric_sequence_array(_a, _b, _step) {
+	var _arr = [];
+	var _signed_step = abs(_step) * sign(_b - _a);
+	for (var _i=_a; _i<_b; _i+=_signed_step) {
+		array_push(_arr, _i);
+	}
+	
+	array_push(_arr, _b);
+	return _arr;
+}
+
 /// @desc	 Creates a new copy of a given array.
 /// @param {Array} _array
 function duplicate_array(_array) {
@@ -58,6 +73,8 @@ function duplicate_array(_array) {
 }
 
 /// @desc	 Randomly shuffles the elements in a given array.
+///        Deprecated: use array_shuffle instead
+/// @deprecated
 /// @param {Array} _array
 function shuffle_array(_array) {
   var _current_index = array_length(_array);
@@ -80,7 +97,7 @@ function shuffle_array(_array) {
 
 /// @desc		 Parses a JSON with Comments from file, stripping out the comments.
 /// @param   {String} _filename
-/// @returns {Struct}
+/// @returns {Struct|Array}
 function file_jsonc_parse(_filename) {
 	var _jsonc_file = file_text_open_read(_filename);
 	if (_jsonc_file == -1) return {};

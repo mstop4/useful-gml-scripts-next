@@ -24,3 +24,4 @@ current_gamepad_index = inst_control_manager.is_on_steam_deck()
 	: 0;
 
 my_player.set_gamepad_slot(current_gamepad_index);
+gamepad_map_string = gamepad_get_mapping(current_gamepad_index);
