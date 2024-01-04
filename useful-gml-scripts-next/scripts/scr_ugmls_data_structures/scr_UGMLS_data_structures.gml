@@ -60,7 +60,24 @@ function create_numeric_sequence_array(_a, _b, _step) {
 		array_push(_arr, _i);
 	}
 	
-	array_push(_arr, _b);
+/// @desc  Creates an array containing numbers from _a to _b (inclusive by default), each _step units apart
+/// @param {Real} _a
+/// @param {Real} _b
+/// @param {Real} _step
+/// @param {Bool} [_inclusive]
+function create_numeric_sequence_array(_a, _b, _step, _inclusive = true) {
+	var _arr = [];
+	var _signed_step = abs(_step) * sign(_b - _a);
+	for (var _i=_a; _i<_b; _i+=_signed_step) {
+		array_push(_arr, _i);
+	}
+	
+	if (_inclusive) {
+		array_push(_arr, _b);
+	}
+	return _arr;
+}
+
 	return _arr;
 }
 
