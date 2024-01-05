@@ -64,21 +64,20 @@ function create_numeric_sequence_array(_a, _b, _step) {
 /// @param {Real} _a
 /// @param {Real} _b
 /// @param {Real} _step
-/// @param {Bool} [_inclusive]
-function create_numeric_sequence_array(_a, _b, _step, _inclusive = true) {
+/// @param {Bool} [_include_b]
+/// @param {Bool} [_shuffle]
+function create_numeric_sequence_array(_a, _b, _step, _include_b = true, _shuffle = false) {
 	var _arr = [];
 	var _signed_step = abs(_step) * sign(_b - _a);
 	for (var _i=_a; _i<_b; _i+=_signed_step) {
 		array_push(_arr, _i);
 	}
 	
-	if (_inclusive) {
+	if (_include_b) {
 		array_push(_arr, _b);
 	}
-	return _arr;
-}
-
-	return _arr;
+	
+	return _shuffle ? array_shuffle(_arr) : _arr;
 }
 
 /// @desc	 Creates a new copy of a given array.
