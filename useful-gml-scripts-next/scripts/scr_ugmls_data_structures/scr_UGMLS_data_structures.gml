@@ -48,17 +48,6 @@ function array_find(_array, _value) {
 	
 	return -1;
 }
-
-/// @desc  Creates an array containing numbers from _a to _b inclusive, each _step units apart
-/// @param {Real} _a
-/// @param {Real} _b
-/// @param {Real} _step
-function create_numeric_sequence_array(_a, _b, _step) {
-	var _arr = [];
-	var _signed_step = abs(_step) * sign(_b - _a);
-	for (var _i=_a; _i<_b; _i+=_signed_step) {
-		array_push(_arr, _i);
-	}
 	
 /// @desc  Creates an array containing numbers from _a to _b (inclusive by default), each _step units apart
 /// @param {Real} _a
@@ -80,12 +69,51 @@ function create_numeric_sequence_array(_a, _b, _step, _include_b = true, _shuffl
 	return _shuffle ? array_shuffle(_arr) : _arr;
 }
 
-/// @desc	 Creates a new copy of a given array.
+/// @desc	 Creates a new shallow copy of a given array.
 /// @param {Array} _array
 function duplicate_array(_array) {
 	var _new_array = array_create(array_length(_array));
 	array_copy(_new_array, 0, _array, 0, array_length(_array));
 	return _new_array;
+}
+
+/// @desc Returns a deep copy of an array or struct
+/// @param {Array|Struct} _obj
+function deep_clone(_obj) {
+	var _copy_obj;
+	
+	if (is_callable(_obj)) {
+		// Function or Method
+		_copy_obj = _obj;
+	} else if (is_array(_obj)) {
+		// Array
+		_copy_obj = array_create(array_length(_obj));
+		for (var _i=0; _i<array_length(_obj); _i++) {
+			_copy_obj[_i] = deep_clone(_obj[_i]);
+		}
+	} else if (is_struct(_obj)) {
+		// Struct
+		_copy_obj = {};
+		var _obj_keys = struct_get_names(_obj);
+		
+		for (var _i=0; _i<array_length(_obj_keys); _i++) {
+			var _val = _obj[$ _obj_keys[_i]];
+			
+			if (is_callable(_val)) {
+				if (method_get_self(_val) == _obj) {
+					_copy_obj[$ _obj_keys[_i]] = method(_copy_obj, _val);
+				} else {
+					_copy_obj[$ _obj_keys[_i]] = _val;
+				}
+			} else {
+				_copy_obj[$ _obj_keys[_i]] = deep_clone(_val);
+			}
+		}
+	} else {
+		_copy_obj = _obj;
+	}
+	
+	return _copy_obj;
 }
 
 /// @desc	 Randomly shuffles the elements in a given array.
