@@ -5,10 +5,23 @@ function grids_are_equal(_grid1, _grid2) {
 	return ds_grid_write(_grid1) == ds_grid_write(_grid2);
 }
 
-/// @desc	 Chooses a random element from an array.
+/// @desc	 Chooses a random element from an array, but does not remove it.
 /// @param {Array} _array
 function choose_from_array(_array) {
 	return _array[irandom(array_length(_array)-1)];
+}
+
+/// @desc	 Chooses a random element from an arrray and removes it from the array.
+/// @param {Array} _array
+function pick_out_from_array(_array) {
+	var _index = irandom(array_length(_array)-1);
+	var _choice = _array[_index];
+	array_delete(_array, _index, 1);
+	
+	return {
+		value: _choice,
+		index: _index
+	};
 }
 
 /// @desc	 Checks if Array a is a subset of array b.
@@ -48,7 +61,7 @@ function array_find(_array, _value) {
 	
 	return -1;
 }
-	
+
 /// @desc  Creates an array containing numbers from _a to _b (inclusive by default), each _step units apart
 /// @param {Real} _a
 /// @param {Real} _b
@@ -77,43 +90,38 @@ function duplicate_array(_array) {
 	return _new_array;
 }
 
-/// @desc Returns a deep copy of an array or struct
+/// @desc Returns a deep clone of an array or struct
 /// @param {Array|Struct} _obj
 function deep_clone(_obj) {
-	var _copy_obj;
-	
-	if (is_callable(_obj)) {
-		// Function or Method
-		_copy_obj = _obj;
-	} else if (is_array(_obj)) {
+	if (is_array(_obj)) {
 		// Array
-		_copy_obj = array_create(array_length(_obj));
+		var _copy_obj = array_create(array_length(_obj));
+		
 		for (var _i=0; _i<array_length(_obj); _i++) {
 			_copy_obj[_i] = deep_clone(_obj[_i]);
 		}
+		
+		return _copy_obj;
 	} else if (is_struct(_obj)) {
+		if (is_method(_obj)) {
+			// Method
+			return _obj;
+		}
+
 		// Struct
-		_copy_obj = {};
+		var _copy_obj = {};
 		var _obj_keys = struct_get_names(_obj);
 		
 		for (var _i=0; _i<array_length(_obj_keys); _i++) {
 			var _val = _obj[$ _obj_keys[_i]];
-			
-			if (is_callable(_val)) {
-				if (method_get_self(_val) == _obj) {
-					_copy_obj[$ _obj_keys[_i]] = method(_copy_obj, _val);
-				} else {
-					_copy_obj[$ _obj_keys[_i]] = _val;
-				}
-			} else {
-				_copy_obj[$ _obj_keys[_i]] = deep_clone(_val);
-			}
+			_copy_obj[$ _obj_keys[_i]] = deep_clone(_val);
 		}
+
+		return _copy_obj;
 	} else {
-		_copy_obj = _obj;
+		// Value
+		return _obj;
 	}
-	
-	return _copy_obj;
 }
 
 /// @desc	 Randomly shuffles the elements in a given array.
