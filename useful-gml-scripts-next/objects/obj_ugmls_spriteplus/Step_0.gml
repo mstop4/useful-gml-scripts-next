@@ -1,0 +1,1 @@
+if (follow_parent) self._update_position();
