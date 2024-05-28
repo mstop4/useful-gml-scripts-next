@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "scr_ugmls_easings_quadratic",
-  "isCompatibility": false,
-  "isDnD": false,
-  "parent": {
-    "name": "Easings",
-    "path": "folders/Useful GML Script Library/Standalone/Math/Easings.yy",
+  "$GMScript":"",
+  "%Name":"scr_ugmls_easings_quadratic",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_ugmls_easings_quadratic",
+  "parent":{
+    "name":"Easings",
+    "path":"folders/Useful GML Script Library/Standalone/Math/Easings.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

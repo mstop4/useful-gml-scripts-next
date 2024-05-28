@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "scr_ugmls_nested_menu_structs",
-  "isCompatibility": false,
-  "isDnD": false,
-  "parent": {
-    "name": "Nested Menu",
-    "path": "folders/Useful GML Script Library/Components/Menu System/Nested Menu.yy",
+  "$GMScript":"",
+  "%Name":"scr_ugmls_nested_menu_structs",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_ugmls_nested_menu_structs",
+  "parent":{
+    "name":"Nested Menu",
+    "path":"folders/Useful GML Script Library/Components/Menu System/Nested Menu.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

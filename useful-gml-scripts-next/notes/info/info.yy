@@ -1,9 +1,11 @@
 {
-  "resourceType": "GMNotes",
-  "resourceVersion": "1.1",
-  "name": "info",
-  "parent": {
-    "name": "useful-gml-scripts-next",
-    "path": "useful-gml-scripts-next.yyp",
+  "$GMNotes":"",
+  "%Name":"info",
+  "name":"info",
+  "parent":{
+    "name":"useful-gml-scripts-next",
+    "path":"useful-gml-scripts-next.yyp",
   },
+  "resourceType":"GMNotes",
+  "resourceVersion":"2.0",
 }

@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "scr_ugmls_input_constants",
-  "isCompatibility": false,
-  "isDnD": false,
-  "parent": {
-    "name": "Input",
-    "path": "folders/Useful GML Script Library/Standalone/Input.yy",
+  "$GMScript":"",
+  "%Name":"scr_ugmls_input_constants",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_ugmls_input_constants",
+  "parent":{
+    "name":"Input",
+    "path":"folders/Useful GML Script Library/Standalone/Input.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }
