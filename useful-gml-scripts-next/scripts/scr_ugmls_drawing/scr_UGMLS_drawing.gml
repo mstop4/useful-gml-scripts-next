@@ -26,10 +26,10 @@ function draw_circle_meter(_surface, _x, _y, _radius, _start_angle, _direction, 
 		draw_primitive_begin_texture(pr_trianglestrip, _texture);
 		
 		for (var _i=0; _i<=360; _i+=_step_size) {
-			draw_vertex_texture_color(_radius,_radius, 0.5, 0.5, _back_color, 1);
+			draw_vertex_texture_color(_x,_y, 0.5, 0.5, _back_color, 1);
 			
 			draw_vertex_texture_color(
-				_radius + dcos(_i)*_radius, _radius - dsin(_i)*_radius,
+				_x + dcos(_i)*_radius, _y - dsin(_i)*_radius,
 				0.5 + dcos(_i) * 0.5, 0.5 - dsin(_i) * 0.5,_back_color, 1);
 		}
 		draw_primitive_end();
@@ -39,10 +39,10 @@ function draw_circle_meter(_surface, _x, _y, _radius, _start_angle, _direction, 
     
 		for (var _i=0; _i<=360*_percentage; _i+=_step_size) {
 			var _angle = _actual_start_angle + _i * _direction;
-			draw_vertex_texture_color(_radius,_radius, 0.5, 0.5, _front_color, 1);
+			draw_vertex_texture_color(_x, _y, 0.5, 0.5, _front_color, 1);
 			
 			draw_vertex_texture_color(
-				_radius + dcos(_angle)*_radius, _radius - dsin(_angle)*_radius,
+				_x + dcos(_angle)*_radius, _y - dsin(_angle)*_radius,
 				0.5 + dcos(_angle) * 0.5, 0.5 - dsin(_angle) * 0.5,_front_color, 1);
 		}
 		draw_primitive_end();
@@ -51,10 +51,10 @@ function draw_circle_meter(_surface, _x, _y, _radius, _start_angle, _direction, 
 		draw_primitive_begin(pr_trianglestrip);
 		
 		for (var _i=0; _i<=360; _i+=_step_size) {
-			draw_vertex_color(_radius, _radius, _back_color, 1);
+			draw_vertex_color(_x, _y, _back_color, 1);
 			
 			draw_vertex_color(
-				_radius + dcos(_i)*_radius, _radius - dsin(_i)*_radius,
+				_x + dcos(_i)*_y, _radius - dsin(_i)*_radius,
 				_back_color, 1);
 		}
 		draw_primitive_end();
@@ -64,10 +64,10 @@ function draw_circle_meter(_surface, _x, _y, _radius, _start_angle, _direction, 
     
 		for (var _i=0; _i<=360*_percentage; _i+=_step_size) {
 			var _angle = _actual_start_angle + _i * _direction;
-			draw_vertex_color(_radius, _radius, _front_color, 1);
+			draw_vertex_color(_x, _y, _front_color, 1);
 			
 			draw_vertex_color(
-				_radius + dcos(_angle)*_radius, _radius - dsin(_angle)*_radius,
+				_x + dcos(_angle)*_radius, _y - dsin(_angle)*_radius,
 				_front_color, 1);
 		}
 		draw_primitive_end();
@@ -109,11 +109,11 @@ function draw_curved_meter(_surface, _x, _y, _inner_radius, _outer_radius, _min_
 		
 		for (var _i=_min_angle; _i<=_max_angle; _i+=_step_size) {
 			draw_vertex_texture_color(
-				_outer_radius + dcos(_i)*_outer_radius, _outer_radius - dsin(_i)*_outer_radius,
+				_x + dcos(_i)*_outer_radius, _y - dsin(_i)*_outer_radius,
 				0.5 + dcos(_i) * 0.5, 0.5 - dsin(_i) * 0.5, _back_color, 1);
 				
 			draw_vertex_texture_color(
-				_outer_radius + dcos(_i)*_inner_radius, _outer_radius - dsin(_i)*_inner_radius,
+				_x + dcos(_i)*_inner_radius, _y - dsin(_i)*_inner_radius,
 				0.5 + dcos(_i) * 0.5 * _inner_outer_ratio, 0.5 - dsin(_i) * 0.5 * _inner_outer_ratio, _back_color, 1);
 		}
 		draw_primitive_end();
@@ -125,11 +125,11 @@ function draw_curved_meter(_surface, _x, _y, _inner_radius, _outer_radius, _min_
 			var _angle = _actual_start_angle + _i * _direction;
 			
 			draw_vertex_texture_color(
-				_outer_radius + dcos(_angle)*_outer_radius, _outer_radius - dsin(_angle)*_outer_radius,
+				_x + dcos(_angle)*_outer_radius, _y - dsin(_angle)*_outer_radius,
 				0.5 + dcos(_angle) * 0.5, 0.5 - dsin(_angle) * 0.5, _front_color, 1);
 				
 			draw_vertex_texture_color(
-				_outer_radius + dcos(_angle)*_inner_radius, _outer_radius - dsin(_angle)*_inner_radius,
+				_x + dcos(_angle)*_inner_radius, _y - dsin(_angle)*_inner_radius,
 				0.5 + dcos(_angle) * 0.5 * _inner_outer_ratio, 0.5 - dsin(_angle) * 0.5 * _inner_outer_ratio, _front_color, 1);
 		}
 		draw_primitive_end();
@@ -139,11 +139,11 @@ function draw_curved_meter(_surface, _x, _y, _inner_radius, _outer_radius, _min_
 		
 		for (var _i=_min_angle; _i<=_max_angle; _i+=_step_size) {
 			draw_vertex_color(
-				_outer_radius + dcos(_i)*_outer_radius, _outer_radius - dsin(_i)*_outer_radius,
+				_x + dcos(_i)*_outer_radius, _y - dsin(_i)*_outer_radius,
 				_back_color, 1);
 				
 			draw_vertex_color(
-				_outer_radius + dcos(_i)*_inner_radius, _outer_radius - dsin(_i)*_inner_radius,
+				_x + dcos(_i)*_inner_radius, _y - dsin(_i)*_inner_radius,
 				_back_color, 1);
 		}
 		draw_primitive_end();
@@ -155,11 +155,11 @@ function draw_curved_meter(_surface, _x, _y, _inner_radius, _outer_radius, _min_
 			var _angle = _actual_start_angle + _i * _direction;
 			
 			draw_vertex_color(
-				_outer_radius + dcos(_angle)*_outer_radius, _outer_radius - dsin(_angle)*_outer_radius,
+				_x + dcos(_angle)*_outer_radius, _y - dsin(_angle)*_outer_radius,
 				_front_color, 1);
 				
 			draw_vertex_color(
-				_outer_radius + dcos(_angle)*_inner_radius, _outer_radius - dsin(_angle)*_inner_radius,
+				_x + dcos(_angle)*_inner_radius, _y - dsin(_angle)*_inner_radius,
 				_front_color, 1);
 		}
 		draw_primitive_end();
