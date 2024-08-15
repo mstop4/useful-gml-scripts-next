@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"scr_ugmls_geometry_structs",
   "isCompatibility":false,
   "isDnD":false,

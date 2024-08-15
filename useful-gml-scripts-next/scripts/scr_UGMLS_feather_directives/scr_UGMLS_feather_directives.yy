@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"scr_UGMLS_feather_directives",
   "isCompatibility":false,
   "isDnD":false,

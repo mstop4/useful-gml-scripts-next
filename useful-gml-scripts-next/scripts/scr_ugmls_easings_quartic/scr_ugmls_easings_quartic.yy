@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"scr_ugmls_easings_quartic",
   "isCompatibility":false,
   "isDnD":false,
