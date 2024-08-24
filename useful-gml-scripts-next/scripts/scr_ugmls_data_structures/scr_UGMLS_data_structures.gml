@@ -91,7 +91,8 @@ function duplicate_array(_array) {
 }
 
 /// @desc Returns a deep clone of an array or struct
-/// @param {Array|Struct} _obj
+/// @param {Array,Struct} _obj
+/// @returns {Any}
 function deep_clone(_obj) {
 	if (is_array(_obj)) {
 		// Array
@@ -149,7 +150,7 @@ function shuffle_array(_array) {
 
 /// @desc		 Parses a JSON with Comments from file, stripping out the comments.
 /// @param   {String} _filename
-/// @returns {Struct|Array}
+/// @param	 {Any}
 function file_jsonc_parse(_filename) {
 	var _jsonc_file = file_text_open_read(_filename);
 	if (_jsonc_file == -1) return {};
