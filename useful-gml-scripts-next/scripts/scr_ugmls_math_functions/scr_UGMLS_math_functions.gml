@@ -44,6 +44,14 @@ function cross_product_normalized(_vec1, _vec2) {
 	return normalize_3d(_xp);
 }
 
+/// @desc  Returns the normalized value of an angle (between 0 and 359 degrees)
+/// @param {real} _angle
+function normalize_angle(_angle) {
+	while (_angle < 0) _angle += 360;
+	while (_angle > 360) _angle -= 360;
+	return _angle;
+}
+
 /// @desc	 Interpolate a value between min (1) and max (0). If the value falls outside this range, return 0.
 /// @param {real} _t   
 /// @param {real} _min 
