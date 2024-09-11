@@ -1,16 +1,16 @@
 {
   "$GMObject":"",
-  "%Name":"obj_ugmls_nudger",
+  "%Name":"obj_signal_ball",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_ugmls_nudger",
+  "name":"obj_signal_ball",
   "overriddenProperties":[],
   "parent":{
-    "name":"Nudger",
-    "path":"folders/Useful GML Script Library/Components/Nudger.yy",
+    "name":"Signal Manager",
+    "path":"folders/Demos/Signal Manager.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -27,13 +27,15 @@
   "physicsShapePoints":[],
   "physicsStartAwake":true,
   "properties":[
-    {"$GMObjectProperty":"v1","%Name":"inst_id","filters":[],"listItems":[],"multiselect":false,"name":"inst_id","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"-4","varType":1,},
-    {"$GMObjectProperty":"v1","%Name":"super_nudge_dist","filters":[],"listItems":[],"multiselect":false,"name":"super_nudge_dist","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"10","varType":0,},
+    {"$GMObjectProperty":"v1","%Name":"speed_multiplier","filters":[],"listItems":[],"multiselect":false,"name":"speed_multiplier","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"8","varType":0,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"spr_signal_dispatcher",
+    "path":"sprites/spr_signal_dispatcher/spr_signal_dispatcher.yy",
+  },
   "spriteMaskId":null,
-  "visible":false,
+  "visible":true,
 }
