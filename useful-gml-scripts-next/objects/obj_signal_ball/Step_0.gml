@@ -1,3 +1,5 @@
+// Make ball bounce against the edges of the game window,
+// each time it does, dispatch the "change_colour" signal
 if (x + x_spd < sprite_width / 2) {
 	x = sprite_width / 2;
 	x_spd *= -1;

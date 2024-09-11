@@ -3,6 +3,7 @@ y_spd = choose(-1, 1) * speed_multiplier;
 x = irandom_range(sprite_width / 2, room_width - sprite_width / 2);
 y = irandom_range(sprite_height / 2, room_height - sprite_height / 2);
 
+/// @desc Listener for "change_colour" signal
 function change_colour() {
 	image_index = wrap(image_index + 1, 0, image_number - 1);
 }
