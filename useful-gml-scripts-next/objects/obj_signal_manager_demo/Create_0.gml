@@ -1,0 +1,1 @@
+signal_manager = new SignalManager();

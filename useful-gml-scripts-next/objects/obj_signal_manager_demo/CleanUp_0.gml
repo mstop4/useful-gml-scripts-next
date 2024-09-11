@@ -1,0 +1,1 @@
+delete signal_manager;

@@ -12,6 +12,7 @@ rooms = [
 	room_grid_menu_demo,
 	room_nested_menu_demo,
 	room_key_config_menu_demo,
+	room_signal_manager_demo,
 	room_strings_demo,
 	room_web_demo,
 	room_system_info
@@ -32,6 +33,7 @@ room_names = [
 	"Grid Menu",
 	"Nested Menu",
 	"Control Config Menu",
+	"Signal Manager Menu",
 	"Strings",
 	"Web",
 	"System Info"
