@@ -1,0 +1,3 @@
+G:/Github/useful-gml-scripts-next/useful-gml-scripts-next/Build/build/CMakeFiles/useful-gml-scripts-next.dir
+G:/Github/useful-gml-scripts-next/useful-gml-scripts-next/Build/build/CMakeFiles/edit_cache.dir
+G:/Github/useful-gml-scripts-next/useful-gml-scripts-next/Build/build/CMakeFiles/rebuild_cache.dir
