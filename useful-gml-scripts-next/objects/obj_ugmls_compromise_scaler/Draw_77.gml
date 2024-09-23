@@ -7,6 +7,6 @@ surface_reset_target();
 
 gpu_set_texfilter(true);
 
-draw_surface_stretched(upscale_surf, 0, 0, screen_size.x, screen_size.y);
+draw_surface_stretched(upscale_surf, 0, 0, cur_window_size.x, cur_window_size.y);
 gpu_set_colorwriteenable(1, 1 ,1, 1);
 gpu_set_texfilter(false);
