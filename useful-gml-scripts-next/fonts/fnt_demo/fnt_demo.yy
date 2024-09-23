@@ -315,7 +315,7 @@
   "name":"fnt_demo",
   "parent":{
     "name":"Fonts",
-    "path":"folders/Fonts.yy",
+    "path":"folders/Demos/Assets/Fonts.yy",
   },
   "pointRounding":0,
   "ranges":[

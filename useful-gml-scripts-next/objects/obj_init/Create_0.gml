@@ -1,5 +1,17 @@
 randomise();
 
+font_enable_effects(fnt_pixel_title, true, {
+  outlineEnable: true,
+  outlineDistance: 1,
+  outlineColour: c_black
+});
+
+font_enable_effects(fnt_pixel_demo, true, {
+  outlineEnable: true,
+  outlineDistance: 1,
+  outlineColour: c_black
+});
+
 // Feather ignore GM1043
 start_timer = time_source_create(time_source_game, 1, time_source_units_frames, function() {
 	inst_control_manager.init_steam_deck_info();

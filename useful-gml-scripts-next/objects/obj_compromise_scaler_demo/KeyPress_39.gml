@@ -1,0 +1,1 @@
+change_resolution(1);
