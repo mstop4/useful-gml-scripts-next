@@ -37,7 +37,7 @@ room_names = [
 	"Nested Menu",
 	"Control Config Menu",
 	"Column Flex Menu",
-	"Signal Manager Menu",
+	"Signal Manager",
 	"Strings",
 	"Web",
 	"System Info"

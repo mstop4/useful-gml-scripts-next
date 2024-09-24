@@ -32,6 +32,49 @@ function update_layout() {
 	flexpanel_calculate_layout(root_node, room_width, room_height, flexpanel_direction.LTR);
 }
 
+/// @param {Struct.FlexMenuItem} _item
+/// @param {real} _i
+function draw_menu_item(_item, _i) {
+	var _node = _item.node;
+	var _node_pos = flexpanel_node_layout_get_position(_node, false);
+	var _node_label = flexpanel_node_get_name(_node);
+	var _node_label_height = string_height(_node_label);
+	
+	// Border
+	if (item_draw_border) {
+		draw_rectangle(_node_pos.left, _node_pos.top, _node_pos.left + _node_pos.width, _node_pos.top + _node_pos.height, true);
+	}
+
+	// Contents
+	switch (_item.type) {
+		case FLEX_MENU_ITEM_TYPE.ITEM:
+		case FLEX_MENU_ITEM_TYPE.SELECTABLE:
+		case FLEX_MENU_ITEM_TYPE.DIVIDER:
+			draw_text(_node_pos.left + _node_pos.paddingLeft, _node_pos.top + _node_pos.paddingTop, _node_label);
+			break;
+			
+		default:
+			draw_text(_node_pos.left + _node_pos.paddingLeft, _node_pos.top + _node_pos.paddingTop, $"Unknown Item: {_node_label}");
+	}
+	
+	// Cursor
+	if (pos == _i) {
+		draw_sprite(cursor_spr, 0, _node_pos.left - cursor_width, _node_pos.top  + _node_label_height / 2);
+	}
+}
+
+/// @param {Struct.FlexMenuSelectable} _item
+function handle_selectable_confirm(_item) {
+	if (!_item.enabled) return;
+	if (is_callable(_item.on_confirm_func)) {
+		_item.on_confirm_func(_item.on_confirm_args);
+	}
+
+	if (!_item.silent_on_confirm && audio_exists(cursor_confirm_sfx)) {
+		audio_play_sound(cursor_confirm_sfx, 1, false);
+	}
+}
+
 function destroy() {
 	flexpanel_delete_node(root_node, true);
 }

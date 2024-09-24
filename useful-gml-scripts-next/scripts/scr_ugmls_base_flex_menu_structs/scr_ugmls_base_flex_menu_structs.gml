@@ -15,6 +15,12 @@ enum FLEX_MENU_DISCOVERY_MODE {
 	DISCOVERING
 }
 
+enum FLEX_MENU_ITEM_TYPE {
+	ITEM,
+	DIVIDER,
+	SELECTABLE
+}
+
 function FlexMenuControlState(_player_inst = noone) constructor {
 	pressed_state = [];
 	held_state = [];
@@ -60,7 +66,7 @@ function FlexMenuControlState(_player_inst = noone) constructor {
 //         - {Id.Instance} parent_menu
 //         - {}            node
 function FlexMenuItem(_config) constructor {
-	type = "item";
+	type = FLEX_MENU_ITEM_TYPE.ITEM;
 	node = _config.node;
 	parent_menu = _config.parent_menu;
 	enabled = true;
@@ -70,4 +76,27 @@ function FlexMenuItem(_config) constructor {
 	}
 
 	function destroy() {}
+}
+
+/// @func  FlexMenuDivider(config)
+/// @param _config 
+//         - {Id.Instance} parent_menu
+//         - {}            node
+function FlexMenuDivider(_config) : FlexMenuItem(_config) constructor {
+	type = FLEX_MENU_ITEM_TYPE.DIVIDER;
+}
+
+/// @func  FlexMenuSelectable(config)
+/// @param _config 
+//         - {Id.Instance} parent_menu
+//         - {}            node
+//         - {string}      label
+//         - {function}    on_confirm_func
+//         - {array}       on_confirm_args
+//         - {boolean}     silent_on_confirm
+function FlexMenuSelectable(_config) : FlexMenuItem(_config) constructor {
+	type = FLEX_MENU_ITEM_TYPE.SELECTABLE;
+	on_confirm_func = _config.on_confirm_func;
+	on_confirm_args = _config.on_confirm_args;
+	silent_on_confirm = _config.silent_on_confirm;
 }
