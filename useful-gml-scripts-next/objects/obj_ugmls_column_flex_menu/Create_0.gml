@@ -83,3 +83,35 @@ function add_selectable(_config, _update_layout = false) {
 		update_layout();
 	}
 }
+
+/// @param {Struct} _config
+//       - {string}      label
+//       - {any}				 init_value
+//       - {function} on_confirm_func
+//       - {array}    on_confirm_args
+//       - {function} on_change_func
+//       - {array}    on_change_args
+//       - {boolean}  silent_on_confirm
+//       - {boolean}  silent_on_change
+/// @param {bool} _update_layout
+function add_valued_selectable(_config, _update_layout = false) {
+	var _node = _create_node(_config.label);
+	
+	var _item = new FlexMenuValuedSelectable({
+		parent_menu: id,
+		node: _node,
+		init_value: _config.init_value,
+		on_confirm_func: _config.on_confirm_func,
+		on_confirm_args: _config.on_confirm_args,
+		on_change_func: _config.on_change_func,
+		on_change_args: _config.on_change_args,
+		silent_on_confirm: _config.silent_on_confirm,
+		silent_on_change: _config.silent_on_change,
+	});
+	
+	_insert_item(_node, _item);
+	
+	if (_update_layout) {
+		update_layout();
+	}
+}

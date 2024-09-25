@@ -47,6 +47,9 @@
         "GMSound",
       ],"listItems":[],"multiselect":false,"name":"cursor_confirm_sfx","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"","varType":5,},
     {"$GMObjectProperty":"v1","%Name":"cursor_width","filters":[],"listItems":[],"multiselect":false,"name":"cursor_width","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"32","varType":0,},
+    {"$GMObjectProperty":"v1","%Name":"value_change_sfx","filters":[
+        "GMSound",
+      ],"listItems":[],"multiselect":false,"name":"value_change_sfx","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"","varType":5,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",

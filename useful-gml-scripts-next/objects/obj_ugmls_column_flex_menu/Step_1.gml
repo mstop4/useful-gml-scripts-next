@@ -47,19 +47,5 @@ if (control_state.pressed_state[MENU_CONTROLS.DOWN]) {
 }
 
 if (control_state.pressed_state[MENU_CONTROLS.CONFIRM]) {
-	var _item = items[pos];
-	
-	switch (_item.type) {
-		case FLEX_MENU_ITEM_TYPE.SELECTABLE:
-			handle_selectable_confirm(_item);
-	}
-	
-	/*if (_item.type == "spinner")
-		self.handle_spinner_confirm(_item);
-		
-	else if (_item.type == "valuedSelectable")
-		self.handle_valued_selectable_confirm(_item);
-		
-	else if (_item.type == "keyconfig")
-		self.handle_key_config_confirm(_item);*/
+	items[pos].handle_confirm();
 }

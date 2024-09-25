@@ -53,6 +53,11 @@ function draw_menu_item(_item, _i) {
 			draw_text(_node_pos.left + _node_pos.paddingLeft, _node_pos.top + _node_pos.paddingTop, _node_label);
 			break;
 			
+		case FLEX_MENU_ITEM_TYPE.VALUED_SELECTABLE:
+			var _item_value = _item.value;
+			draw_text(_node_pos.left + _node_pos.paddingLeft, _node_pos.top + _node_pos.paddingTop, $"{_node_label}: {_item_value}");
+			break;
+			
 		default:
 			draw_text(_node_pos.left + _node_pos.paddingLeft, _node_pos.top + _node_pos.paddingTop, $"Unknown Item: {_node_label}");
 	}
@@ -60,18 +65,6 @@ function draw_menu_item(_item, _i) {
 	// Cursor
 	if (pos == _i) {
 		draw_sprite(cursor_spr, 0, _node_pos.left - cursor_width, _node_pos.top  + _node_label_height / 2);
-	}
-}
-
-/// @param {Struct.FlexMenuSelectable} _item
-function handle_selectable_confirm(_item) {
-	if (!_item.enabled) return;
-	if (is_callable(_item.on_confirm_func)) {
-		_item.on_confirm_func(_item.on_confirm_args);
-	}
-
-	if (!_item.silent_on_confirm && audio_exists(cursor_confirm_sfx)) {
-		audio_play_sound(cursor_confirm_sfx, 1, false);
 	}
 }
 

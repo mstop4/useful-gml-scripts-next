@@ -18,7 +18,9 @@ enum FLEX_MENU_DISCOVERY_MODE {
 enum FLEX_MENU_ITEM_TYPE {
 	ITEM,
 	DIVIDER,
-	SELECTABLE
+	SELECTABLE,
+	SPINNER_BASE,
+	VALUED_SELECTABLE
 }
 
 function FlexMenuControlState(_player_inst = noone) constructor {
@@ -64,7 +66,7 @@ function FlexMenuControlState(_player_inst = noone) constructor {
 /// @func  FlexMenuItem(config)
 /// @param _config
 //         - {Id.Instance} parent_menu
-//         - {}            node
+//         - {Pointer.FlexPanelNode} node
 function FlexMenuItem(_config) constructor {
 	type = FLEX_MENU_ITEM_TYPE.ITEM;
 	node = _config.node;
@@ -74,6 +76,10 @@ function FlexMenuItem(_config) constructor {
 	function set_enabled(_enabled) {
 		enabled = _enabled;
 	}
+	
+	function get_label() {
+		return flexpanel_node_get_name(node);
+	}
 
 	function destroy() {}
 }
@@ -81,7 +87,7 @@ function FlexMenuItem(_config) constructor {
 /// @func  FlexMenuDivider(config)
 /// @param _config 
 //         - {Id.Instance} parent_menu
-//         - {}            node
+//         - {Pointer.FlexPanelNode} node
 function FlexMenuDivider(_config) : FlexMenuItem(_config) constructor {
 	type = FLEX_MENU_ITEM_TYPE.DIVIDER;
 }
@@ -89,7 +95,7 @@ function FlexMenuDivider(_config) : FlexMenuItem(_config) constructor {
 /// @func  FlexMenuSelectable(config)
 /// @param _config 
 //         - {Id.Instance} parent_menu
-//         - {}            node
+//         - {Pointer.FlexPanelNode} node
 //         - {string}      label
 //         - {function}    on_confirm_func
 //         - {array}       on_confirm_args
@@ -99,4 +105,74 @@ function FlexMenuSelectable(_config) : FlexMenuItem(_config) constructor {
 	on_confirm_func = _config.on_confirm_func;
 	on_confirm_args = _config.on_confirm_args;
 	silent_on_confirm = _config.silent_on_confirm;
+	
+	handle_confirm = method(self, function() {
+		if (!enabled) return;
+		if (is_callable(on_confirm_func)) {
+			on_confirm_func(self, on_confirm_args);
+		}
+
+		if (!silent_on_confirm && audio_exists(parent_menu.cursor_confirm_sfx)) {
+			audio_play_sound(parent_menu.cursor_confirm_sfx, 1, false);
+		}
+	});
+}
+
+/// @func  FlexMenuValuedSelectable(config)
+/// @param _config 
+//         - {string}   label
+//         - {string}   init_value
+//         - {function} on_confirm_func
+//         - {array}    on_confirm_args
+//         - {function} on_change_func
+//         - {array}    on_change_args
+//         - {boolean}  silent_on_confirm
+//         - {boolean}  silent_on_change
+function FlexMenuValuedSelectable(_config) : FlexMenuSpinnerBase(_config) constructor {
+	type = FLEX_MENU_ITEM_TYPE.VALUED_SELECTABLE;
+	value = _config.init_value;
+
+	function get_value() {
+		return value;
+	}
+	
+	function set_value(_value) {
+		value = _value;
+		if (is_callable(on_change_func)) {
+			on_change_func(self, on_change_args);
+		}
+
+		if (!silent_on_change && audio_exists(parent_menu.value_change_sfx)) {
+			audio_play_sound(parent_menu.value_change_sfx, 1, false);
+		}
+	}
+	
+	function handle_confirm() {
+		if (!enabled) return;
+		if (is_callable(on_confirm_func)) {
+			on_confirm_func(self, on_confirm_args);
+		}
+
+		if (!silent_on_confirm && audio_exists(parent_menu.cursor_confirm_sfx)) {
+			audio_play_sound(parent_menu.cursor_confirm_sfx, 1, false);
+		}
+	}
+}
+
+/// @func  FlexMenuSpinnerBase(config)
+/// @param _config 
+//         - {Id.Instance} parent_menu
+//         - {Pointer.FlexPanelNode} node
+//         - {string}   label
+//         - {function} on_confirm_func
+//         - {array}    on_confirm_args
+//         - {function} on_change_func
+//         - {array}    on_change_args
+//         - {boolean}  silent_on_confirm
+//         - {boolean}  silent_on_change
+function FlexMenuSpinnerBase(_config) : FlexMenuSelectable(_config) constructor {
+	type = FLEX_MENU_ITEM_TYPE.SPINNER_BASE;
+	on_change_func = _config.on_change_func;
+	on_change_args = _config.on_change_args;
+	silent_on_change = _config.silent_on_change;
 }
