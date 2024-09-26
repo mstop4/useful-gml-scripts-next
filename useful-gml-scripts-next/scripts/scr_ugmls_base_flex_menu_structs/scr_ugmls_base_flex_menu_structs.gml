@@ -20,7 +20,8 @@ enum FLEX_MENU_ITEM_TYPE {
 	DIVIDER,
 	SELECTABLE,
 	SPINNER_BASE,
-	VALUED_SELECTABLE
+	VALUED_SELECTABLE,
+	SPINNER,
 }
 
 function FlexMenuControlState(_player_inst = noone) constructor {
@@ -66,10 +67,12 @@ function FlexMenuControlState(_player_inst = noone) constructor {
 /// @func  FlexMenuItem(config)
 /// @param _config
 //         - {Id.Instance} parent_menu
-//         - {Pointer.FlexPanelNode} node
+//				 - {string} label
+//         - {Pointer.FlexPanelNode} root_node
 function FlexMenuItem(_config) constructor {
 	type = FLEX_MENU_ITEM_TYPE.ITEM;
-	node = _config.node;
+	label = _config.label;
+	root_node = _config.root_node;
 	parent_menu = _config.parent_menu;
 	enabled = true;
 	
@@ -78,7 +81,7 @@ function FlexMenuItem(_config) constructor {
 	}
 	
 	function get_label() {
-		return flexpanel_node_get_name(node);
+		return flexpanel_node_get_name(root_node);
 	}
 
 	function destroy() {}
@@ -87,7 +90,8 @@ function FlexMenuItem(_config) constructor {
 /// @func  FlexMenuDivider(config)
 /// @param _config 
 //         - {Id.Instance} parent_menu
-//         - {Pointer.FlexPanelNode} node
+//				 - {string} label
+//         - {Pointer.FlexPanelNode} root_node
 function FlexMenuDivider(_config) : FlexMenuItem(_config) constructor {
 	type = FLEX_MENU_ITEM_TYPE.DIVIDER;
 }
@@ -95,7 +99,8 @@ function FlexMenuDivider(_config) : FlexMenuItem(_config) constructor {
 /// @func  FlexMenuSelectable(config)
 /// @param _config 
 //         - {Id.Instance} parent_menu
-//         - {Pointer.FlexPanelNode} node
+//				 - {string} label
+//         - {Pointer.FlexPanelNode} root_node
 //         - {string}      label
 //         - {function}    on_confirm_func
 //         - {array}       on_confirm_args
@@ -120,7 +125,11 @@ function FlexMenuSelectable(_config) : FlexMenuItem(_config) constructor {
 
 /// @func  FlexMenuValuedSelectable(config)
 /// @param _config 
-//         - {string}   label
+//         - {Id.Instance} parent_menu
+//				 - {string} label
+//         - {Pointer.FlexPanelNode} root_node
+// 				 - {Pointer.FlexPanelNode} label_node
+// 				 - {Pointer.FlexPanelNode} value_node
 //         - {string}   init_value
 //         - {function} on_confirm_func
 //         - {array}    on_confirm_args
@@ -131,7 +140,11 @@ function FlexMenuSelectable(_config) : FlexMenuItem(_config) constructor {
 function FlexMenuValuedSelectable(_config) : FlexMenuSpinnerBase(_config) constructor {
 	type = FLEX_MENU_ITEM_TYPE.VALUED_SELECTABLE;
 	value = _config.init_value;
-
+	label_node = _config.label_node;
+	left_node = _config.left_node;
+	value_node = _config.value_node;
+	right_node = _config.right_node;
+	
 	function get_value() {
 		return value;
 	}
@@ -162,8 +175,8 @@ function FlexMenuValuedSelectable(_config) : FlexMenuSpinnerBase(_config) constr
 /// @func  FlexMenuSpinnerBase(config)
 /// @param _config 
 //         - {Id.Instance} parent_menu
-//         - {Pointer.FlexPanelNode} node
-//         - {string}   label
+//				 - {string} label
+//         - {Pointer.FlexPanelNode} root_node
 //         - {function} on_confirm_func
 //         - {array}    on_confirm_args
 //         - {function} on_change_func

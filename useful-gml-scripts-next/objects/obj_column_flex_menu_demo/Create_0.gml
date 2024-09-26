@@ -8,6 +8,7 @@ menu = instance_create_layer(32, 64, "Instances", obj_ugmls_column_flex_menu, {
 	cursor_spr: spr_arrow,
 	cursor_move_sfx: snd_menu_move,
 	cursor_confirm_sfx: snd_menu_move,
+	spinner_scroll_arrows_spr: spr_scroll_arrow,
 	value_change_sfx: snd_menu_move
 });
 
