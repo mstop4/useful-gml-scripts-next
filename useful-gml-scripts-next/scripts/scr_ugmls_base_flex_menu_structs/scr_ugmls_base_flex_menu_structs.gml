@@ -22,6 +22,7 @@ enum FLEX_MENU_ITEM_TYPE {
 	SPINNER_BASE,
 	VALUED_SELECTABLE,
 	SPINNER,
+	KEY_CONFIG
 }
 
 function FlexMenuControlState(_player_inst = noone) constructor {
@@ -130,7 +131,7 @@ function FlexMenuSelectable(_config) : FlexMenuItem(_config) constructor {
 //         - {Pointer.FlexPanelNode} root_node
 // 				 - {Pointer.FlexPanelNode} label_node
 // 				 - {Pointer.FlexPanelNode} value_node
-//         - {string}   init_value
+//         - {any}   init_value
 //         - {function} on_confirm_func
 //         - {array}    on_confirm_args
 //         - {function} on_change_func
@@ -152,7 +153,7 @@ function FlexMenuValuedSelectable(_config) : FlexMenuSpinnerBase(_config) constr
 	function set_value(_value) {
 		value = _value;
 		if (is_callable(on_change_func)) {
-			on_change_func(self, on_change_args);
+			on_change_func(self, value, on_change_args);
 		}
 
 		if (!silent_on_change && audio_exists(parent_menu.value_change_sfx)) {
@@ -163,7 +164,7 @@ function FlexMenuValuedSelectable(_config) : FlexMenuSpinnerBase(_config) constr
 	function handle_confirm() {
 		if (!enabled) return;
 		if (is_callable(on_confirm_func)) {
-			on_confirm_func(self, on_confirm_args);
+			on_confirm_func(self, value, on_confirm_args);
 		}
 
 		if (!silent_on_confirm && audio_exists(parent_menu.cursor_confirm_sfx)) {
@@ -188,4 +189,66 @@ function FlexMenuSpinnerBase(_config) : FlexMenuSelectable(_config) constructor 
 	on_change_func = _config.on_change_func;
 	on_change_args = _config.on_change_args;
 	silent_on_change = _config.silent_on_change;
+}
+
+/// @func  FlexMenuValuedSelectable(config)
+/// @param _config 
+//         - {Id.Instance} parent_menu
+//				 - {string} label
+//         - {Pointer.FlexPanelNode} root_node
+// 				 - {Pointer.FlexPanelNode} label_node
+// 				 - {Pointer.FlexPanelNode} value_node
+//         - {array}    values
+//         - {real}     init_index
+//         - {function} on_confirm_func
+//         - {array}    on_confirm_args
+//         - {function} on_change_func
+//         - {array}    on_change_args
+//         - {boolean}  silent_on_confirm
+//         - {boolean}  silent_on_change
+function FlexMenuSpinner(_config) : FlexMenuSpinnerBase(_config) constructor {
+	type = FLEX_MENU_ITEM_TYPE.SPINNER;
+	var _num_values = array_length(_config.values);
+	values = array_create(_num_values);
+	array_copy(values, 0, _config.values, 0, _num_values);
+	cur_index = clamp(_config.init_index, 0, _num_values - 1);
+	label_node = _config.label_node;
+	left_node = _config.left_node;
+	value_node = _config.value_node;
+	right_node = _config.right_node;
+	
+	function get_value() {
+		return values[cur_index];
+	}
+	
+	function handle_change(_delta) {
+		if (!enabled) return;
+		var _num_values = array_length(values);
+		cur_index = wrap(cur_index + _delta, 0, _num_values);
+		
+		if (is_callable(on_change_func)) {
+			on_change_func(
+				self,
+				cur_index,
+				values[cur_index],
+				_delta,
+				on_change_args
+			);
+		}
+		
+		if (!silent_on_change && audio_exists(parent_menu.value_change_sfx)) {
+			audio_play_sound(parent_menu.value_change_sfx, 1, false);
+		}
+	}
+	
+	function handle_confirm() {
+		if (!enabled) return;
+		if (is_callable(on_confirm_func)) {
+			on_confirm_func(self, cur_index, values[cur_index], on_confirm_args);
+		}
+
+		if (!silent_on_confirm && audio_exists(parent_menu.cursor_confirm_sfx)) {
+			audio_play_sound(parent_menu.cursor_confirm_sfx, 1, false);
+		}
+	}
 }

@@ -46,6 +46,38 @@ if (control_state.pressed_state[MENU_CONTROLS.DOWN]) {
 	}
 }
 
+if (control_state.pressed_state[MENU_CONTROLS.LEFT]) {
+	var _item = items[pos];
+
+	switch (_item.type) {
+		case FLEX_MENU_ITEM_TYPE.SPINNER:	
+			_item.handle_change(-1);
+			break;
+			
+		/*case FLEX_MENU_ITEM_TYPE.KEY_CONFIG:
+			if (active_key_config == _item) {
+				_item.handle_select(_item, -1)
+			}
+			break;*/
+	}
+}
+
+if (control_state.pressed_state[MENU_CONTROLS.RIGHT]) {
+	var _item = items[pos];
+
+	switch (_item.type) {
+		case FLEX_MENU_ITEM_TYPE.SPINNER:	
+			_item.handle_change(1);
+			break;
+			
+		/*case FLEX_MENU_ITEM_TYPE.KEY_CONFIG:
+			if (active_key_config == _item) {
+				_item.handle_select(_item, 1)
+			}
+			break;*/
+	}
+}
+
 if (control_state.pressed_state[MENU_CONTROLS.CONFIRM]) {
 	items[pos].handle_confirm();
 }

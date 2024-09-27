@@ -111,3 +111,42 @@ function add_valued_selectable(_config, _update_layout = false) {
 		update_layout();
 	}
 }
+
+/// @param {Struct} _config
+//       - {string}      label
+//       - {array}       values
+//       - {any}				 init_index
+//       - {function} on_confirm_func
+//       - {array}    on_confirm_args
+//       - {function} on_change_func
+//       - {array}    on_change_args
+//       - {boolean}  silent_on_confirm
+//       - {boolean}  silent_on_change
+/// @param {bool} _update_layout
+function add_spinner(_config, _update_layout = false) {
+	var _nodes = _create_spinner_node(	_config.label);
+
+	var _item = new FlexMenuSpinner({
+		parent_menu: id,
+		label: _config.label,
+		root_node: _nodes.root,
+		label_node: _nodes.label,
+		left_node: _nodes.left,
+		value_node: _nodes.value,
+		right_node: _nodes.right,
+		values: _config.values,
+		init_index: _config.init_index,
+		on_confirm_func: _config.on_confirm_func,
+		on_confirm_args: _config.on_confirm_args,
+		on_change_func: _config.on_change_func,
+		on_change_args: _config.on_change_args,
+		silent_on_confirm: _config.silent_on_confirm,
+		silent_on_change: _config.silent_on_change,
+	});
+	
+	_insert_item(_nodes.root, _item);
+	
+	if (_update_layout) {
+		update_layout();
+	}
+}

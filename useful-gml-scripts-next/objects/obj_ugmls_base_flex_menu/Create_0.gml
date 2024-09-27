@@ -94,7 +94,7 @@ function update_layout() {
 /// @param {Struct.FlexMenuSpinnerBase} _item
 /// @param {string} _item_label
 function _draw_spinner_base(_item, _item_label) {
-	var _item_value = _item.value;
+	var _item_value = _item.get_value();
 	var _label_node_pos = flexpanel_node_layout_get_position(_item.label_node, false);
 	var _value_node_pos = flexpanel_node_layout_get_position(_item.value_node, false);
 	var _left_node_pos = flexpanel_node_layout_get_position(_item.left_node, false);

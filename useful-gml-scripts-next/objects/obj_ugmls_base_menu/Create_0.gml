@@ -92,7 +92,7 @@ function handle_spinner_change(_item, _delta) {
 	if (is_callable(_item.on_change_func)) {
 		_item.on_change_func(
 			_item.cur_index,
-			_item.values[_item.cur_index],
+			_item.get_value(),
 			_delta,
 			_item.on_change_args
 		);

@@ -25,16 +25,14 @@ menu.add_selectable({
 menu.add_valued_selectable({
 	label: "Bar",
 	init_value: 5,
-	on_confirm_func: function(_item, _args) {
+	on_confirm_func: function(_item, _value, _args) {
 		var _label = _item.get_label();
-		var _value = _item.value;
 		show_message_async($"{_label}: Value={_value}, {_args[0]}, {_args[1]}");
 		_item.set_value(_item.value + 1);
 	},
 	on_confirm_args: [1, 2],
-	on_change_func: function(_item, _args) {
+	on_change_func: function(_item, _value, _args) {
 		var _label = _item.get_label();
-		var _value = _item.value;
 		show_debug_message($"{_label} Change: Value={_value} {_args[0]}");
 	},
 	on_change_args: ["a", "b"],
@@ -46,13 +44,21 @@ menu.add_divider({
 	label: "-----"
 });
 
-menu.add_selectable({
+menu.add_spinner({
 	label: "Baz",
-	on_confirm_func: function(_item, _args) {
+	values: [0, 1, 2, 3, 4, 5],
+	init_index: 0,
+	on_confirm_func: function(_item, _i, _value, _args) {
 		var _label = _item.get_label();
 		show_message_async($"{_label}: {_args[2]}")
 	},
 	on_confirm_args: [1, 2, 3],
-	silent_on_confirm: false
+	on_change_func: function(_item, _i, _value, _delta, _args) {
+		var _label = _item.get_label();
+		show_debug_message($"{_label} Change: Value={_value} {_args[0]}");
+	},
+	on_change_args: ["a", "b"],
+	silent_on_confirm: false,
+	silent_on_change: false
 });
 menu.update_layout();
