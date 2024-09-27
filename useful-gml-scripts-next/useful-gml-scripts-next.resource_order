@@ -84,6 +84,7 @@
     {"name":"room_control_manager_demo","order":1,"path":"rooms/room_control_manager_demo/room_control_manager_demo.yy",},
     {"name":"room_debugging_demo","order":1,"path":"rooms/room_debugging_demo/room_debugging_demo.yy",},
     {"name":"room_drawing_demo","order":2,"path":"rooms/room_drawing_demo/room_drawing_demo.yy",},
+    {"name":"scr_helpers","order":3,"path":"scripts/scr_helpers/scr_helpers.yy",},
     {"name":"scr_ugmls_base_flex_menu_structs","order":1,"path":"scripts/scr_ugmls_base_flex_menu_structs/scr_ugmls_base_flex_menu_structs.yy",},
     {"name":"scr_ugmls_base_menu_structs","order":1,"path":"scripts/scr_ugmls_base_menu_structs/scr_ugmls_base_menu_structs.yy",},
     {"name":"scr_ugmls_colours","order":2,"path":"scripts/scr_ugmls_colours/scr_ugmls_colours.yy",},

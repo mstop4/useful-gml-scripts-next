@@ -85,17 +85,17 @@ function get_player(_index) {
 /// @desc Calls get_steam_deck_info from system scripts and stores results locally.
 ///       Note: Doesn't work if called at the very start of the game. Wait a few steps before calling it.
 function init_steam_deck_info() {
-	steam_deck_info = get_steam_deck_info();
+	global.ugmls_steam_deck_info = get_steam_deck_info();
 }
 
 /// @desc		 Checks if the game is currently running on a Steam Deck.
 /// @returns {bool}
 function is_on_steam_deck() {
-	return self.steam_deck_info.is_on_steam_deck;
+	return global.ugmls_steam_deck_info.is_on_steam_deck;
 }
 
 /// @desc		 Gets the gamepad index of Steam Deck's built-in controls.
 /// @returns {real}
 function get_steam_deck_gamepad_index() {
-	return self.steam_deck_info.gamepad_index;
+	return global.ugmls_steam_deck_info.gamepad_index;
 }

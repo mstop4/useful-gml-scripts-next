@@ -10,7 +10,7 @@ os_info = -1;
 gl_vendor = "";
 gl_version = "";
 gl_renderer = "";
-steam_deck_info = -1;
+global.ugmls_steam_deck_info = -1;
 
 if (os_type == os_linux) {
 	os_info = os_get_info();
@@ -22,7 +22,4 @@ if (os_type == os_linux) {
 	}
 	
 	ds_map_destroy(os_info);
-	
-	// Feather disable once GM1043
-	steam_deck_info = get_steam_deck_info();
 }

@@ -140,6 +140,7 @@
     {"id":{"name":"room_system_info","path":"rooms/room_system_info/room_system_info.yy",},},
     {"id":{"name":"room_title","path":"rooms/room_title/room_title.yy",},},
     {"id":{"name":"room_web_demo","path":"rooms/room_web_demo/room_web_demo.yy",},},
+    {"id":{"name":"scr_helpers","path":"scripts/scr_helpers/scr_helpers.yy",},},
     {"id":{"name":"scr_ugmls_base_flex_menu_structs","path":"scripts/scr_ugmls_base_flex_menu_structs/scr_ugmls_base_flex_menu_structs.yy",},},
     {"id":{"name":"scr_ugmls_base_menu_structs","path":"scripts/scr_ugmls_base_menu_structs/scr_ugmls_base_menu_structs.yy",},},
     {"id":{"name":"scr_ugmls_colours","path":"scripts/scr_ugmls_colours/scr_ugmls_colours.yy",},},
