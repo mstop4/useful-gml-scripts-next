@@ -150,3 +150,42 @@ function add_spinner(_config, _update_layout = false) {
 		update_layout();
 	}
 }
+
+/// @param {Struct} _config
+//       - {string}      label
+//       - {real}        control
+//       - {array}			 initial_kbm_bindings
+//       - {array}			 initial_gamepad_bindings
+//       - {function} on_confirm_func
+//       - {array}    on_confirm_args
+//       - {function} on_change_func
+//       - {array}    on_change_args
+//       - {boolean}  silent_on_confirm
+//       - {boolean}  silent_on_change
+/// @param {bool} _update_layout
+function add_key_config(_config, _update_layout = false) {
+	var _nodes = _create_key_config_node(	_config.label, KEYBOARD_MAX_BINDINGS_PER_CONTROL + GAMEPAD_MAX_BINDINGS_PER_CONTROL);
+
+	var _item = new FlexMenuKeyConfig({
+		parent_menu: id,
+		label: _config.label,
+		root_node: _nodes.root,
+		label_node: _nodes.label,
+		binding_nodes: _nodes.bindings,
+		control: _config.control,
+		initial_kbm_bindings: _config.initial_kbm_bindings,
+		initial_gamepad_bindings: _config.initial_gamepad_bindings,
+		on_confirm_func: _config.on_confirm_func,
+		on_confirm_args: _config.on_confirm_args,
+		on_change_func: _config.on_change_func,
+		on_change_args: _config.on_change_args,
+		silent_on_confirm: _config.silent_on_confirm,
+		silent_on_change: _config.silent_on_change,
+	});
+	
+	_insert_item(_nodes.root, _item);
+	
+	if (_update_layout) {
+		update_layout();
+	}
+}

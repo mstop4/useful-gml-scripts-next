@@ -87,6 +87,45 @@ function _create_spinner_node(_name) {
 	};
 }
 
+/// @param {string} _name
+/// @param {real} _num_bindings
+function _create_key_config_node(_name, _num_bindings) {
+	var _root_node = flexpanel_create_node({
+		name: $"{_name}_root",
+		width: item_width,
+		height: item_height,
+		padding: item_padding,
+		margin: item_margin,
+		marginLeft: item_margin + cursor_width,
+		flexDirection: "row"
+	});
+	
+	var _label_node = flexpanel_create_node({
+		name: $"{_name}_label",
+		flexGrow: 1
+	});
+	
+	flexpanel_node_insert_child(_root_node, _label_node, 0);
+	
+	var _binding_nodes = [];
+	
+	for (var _i=0; _i<_num_bindings; _i++) {
+		var _binding_node = flexpanel_create_node({
+			name: $"{_name}_binding_{_i}",
+			width: item_height
+		});
+		
+		flexpanel_node_insert_child(_root_node, _binding_node, _i + 1);
+		array_push(_binding_nodes, _binding_node);
+	}
+	
+	return {
+		root: _root_node,
+		label: _label_node,
+		bindings: _binding_nodes
+	};
+}
+
 function update_layout() {
 	flexpanel_calculate_layout(root_node, room_width, room_height, flexpanel_direction.LTR);
 }
@@ -160,6 +199,38 @@ function _draw_spinner_arrows(_item) {
 	);
 }
 
+/// @param {Struct.FlexMenuKeyConfig} _item
+function _draw_key_config(_item) {
+	var _label_node = _item.label_node;
+	var _label_node_pos = flexpanel_node_layout_get_position(_label_node, false);
+	
+	if (item_draw_border) {
+		draw_rectangle(_label_node_pos.left,
+			_label_node_pos.top,
+			_label_node_pos.left + _label_node_pos.width,
+			_label_node_pos.top + _label_node_pos.height,
+			true
+		);
+	}
+	
+	var _binding_nodes = _item.binding_nodes;
+	var _num_nodes = array_length(_binding_nodes); 
+	
+	for (var _i=0; _i<_num_nodes; _i++) {
+		var _cur_node = _binding_nodes[_i];
+		var _cur_node_pos = flexpanel_node_layout_get_position(_cur_node, false);
+		
+		if (item_draw_border) {
+			draw_rectangle(_cur_node_pos.left,
+				_cur_node_pos.top,
+				_cur_node_pos.left + _cur_node_pos.width,
+				_cur_node_pos.top + _cur_node_pos.height,
+				true
+			);
+		}
+	}
+}
+
 /// @param {Struct.FlexMenuItem} _item
 /// @param {real} _i
 function draw_menu_item(_item, _i) {
@@ -193,8 +264,12 @@ function draw_menu_item(_item, _i) {
 			_draw_spinner_arrows(_item);
 			break;
 			
+		case FLEX_MENU_ITEM_TYPE.KEY_CONFIG:
+			_draw_key_config(_item);
+			break;
+			
 		default:
-			draw_text(_node_pos.left + _node_pos.paddingLeft, _node_pos.top + _node_pos.paddingTop, $"Unknown Item: {_node_label}");
+			draw_text(_node_pos.left + _node_pos.paddingLeft, _node_pos.top + _node_pos.paddingTop, $"Unknown Item: {_item_label}");
 	}
 	
 	// Cursor

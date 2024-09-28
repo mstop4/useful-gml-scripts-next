@@ -129,7 +129,9 @@ function FlexMenuSelectable(_config) : FlexMenuItem(_config) constructor {
 //         - {Id.Instance} parent_menu
 //				 - {string} label
 //         - {Pointer.FlexPanelNode} root_node
+//         - {Pointer.FlexPanelNode} left_node
 // 				 - {Pointer.FlexPanelNode} label_node
+// 				 - {Pointer.FlexPanelNode} right_node
 // 				 - {Pointer.FlexPanelNode} value_node
 //         - {any}   init_value
 //         - {function} on_confirm_func
@@ -141,10 +143,6 @@ function FlexMenuSelectable(_config) : FlexMenuItem(_config) constructor {
 function FlexMenuValuedSelectable(_config) : FlexMenuSpinnerBase(_config) constructor {
 	type = FLEX_MENU_ITEM_TYPE.VALUED_SELECTABLE;
 	value = _config.init_value;
-	label_node = _config.label_node;
-	left_node = _config.left_node;
-	value_node = _config.value_node;
-	right_node = _config.right_node;
 	
 	function get_value() {
 		return value;
@@ -178,6 +176,10 @@ function FlexMenuValuedSelectable(_config) : FlexMenuSpinnerBase(_config) constr
 //         - {Id.Instance} parent_menu
 //				 - {string} label
 //         - {Pointer.FlexPanelNode} root_node
+//         - {Pointer.FlexPanelNode} left_node
+// 				 - {Pointer.FlexPanelNode} label_node
+// 				 - {Pointer.FlexPanelNode} right_node
+// 				 - {Pointer.FlexPanelNode} value_node
 //         - {function} on_confirm_func
 //         - {array}    on_confirm_args
 //         - {function} on_change_func
@@ -186,6 +188,10 @@ function FlexMenuValuedSelectable(_config) : FlexMenuSpinnerBase(_config) constr
 //         - {boolean}  silent_on_change
 function FlexMenuSpinnerBase(_config) : FlexMenuSelectable(_config) constructor {
 	type = FLEX_MENU_ITEM_TYPE.SPINNER_BASE;
+	label_node = _config.label_node;
+	left_node = _config.left_node;
+	value_node = _config.value_node;
+	right_node = _config.right_node;
 	on_change_func = _config.on_change_func;
 	on_change_args = _config.on_change_args;
 	silent_on_change = _config.silent_on_change;
@@ -196,7 +202,9 @@ function FlexMenuSpinnerBase(_config) : FlexMenuSelectable(_config) constructor 
 //         - {Id.Instance} parent_menu
 //				 - {string} label
 //         - {Pointer.FlexPanelNode} root_node
+//         - {Pointer.FlexPanelNode} left_node
 // 				 - {Pointer.FlexPanelNode} label_node
+// 				 - {Pointer.FlexPanelNode} right_node
 // 				 - {Pointer.FlexPanelNode} value_node
 //         - {array}    values
 //         - {real}     init_index
@@ -212,10 +220,6 @@ function FlexMenuSpinner(_config) : FlexMenuSpinnerBase(_config) constructor {
 	values = array_create(_num_values);
 	array_copy(values, 0, _config.values, 0, _num_values);
 	cur_index = clamp(_config.init_index, 0, _num_values - 1);
-	label_node = _config.label_node;
-	left_node = _config.left_node;
-	value_node = _config.value_node;
-	right_node = _config.right_node;
 	
 	function get_value() {
 		return values[cur_index];
@@ -251,4 +255,258 @@ function FlexMenuSpinner(_config) : FlexMenuSpinnerBase(_config) constructor {
 			audio_play_sound(parent_menu.cursor_confirm_sfx, 1, false);
 		}
 	}
+}
+
+/// @func  MenuKeyConfig(config)
+/// @param _config 
+//         - {Id.Instance} parent_menu
+//				 - {string} label
+//         - {Pointer.FlexPanelNode} root_node
+//         - {Pointer.FlexPanelNode} label_node
+//         - {array}		binding_nodes
+//         - {function} on_confirm_func
+//         - {array}    on_confirm_args
+//         - {function} on_change_func
+//         - {array}    on_change_args
+//         - {boolean}  silent_on_confirm
+//         - {boolean}  silent_on_change
+//         - {}         control
+//         - {array}    initial_kbm_bindings
+//         - {array}    initial_gamepad_bindings
+/// @returns {Any}
+function FlexMenuKeyConfig(_config) : FlexMenuSelectable(_config) constructor {
+	type = FLEX_MENU_ITEM_TYPE.KEY_CONFIG;
+	label_node = _config.label_node;
+	binding_nodes = _config.binding_nodes;
+	on_change_func = _config.on_change_func;
+	on_change_args = _config.on_change_args;
+	silent_on_change = _config.silent_on_change;
+	control = _config.control;
+	kbm_bindings = _config.initial_kbm_bindings;
+	gamepad_bindings = _config.initial_gamepad_bindings;
+	current_binding_index = 0;
+	locked_kbm_bindings = array_create(array_length(_config.initial_kbm_bindings), false);
+	locked_gamepad_bindings = array_create(array_length(_config.initial_gamepad_bindings), false);
+	discovery_binding_info = false;
+	
+	function get_binding_info() {
+		if (current_binding_index < 0) return false;
+		if (current_binding_index >= GAMEPAD_MAX_BINDINGS_PER_CONTROL + KEYBOARD_MAX_BINDINGS_PER_CONTROL) return false;
+		
+		if (current_binding_index < KEYBOARD_MAX_BINDINGS_PER_CONTROL) {
+			return {
+				control_type: CONTROL_TYPE.KEYBOARD_AND_MOUSE,
+				control_index: current_binding_index,
+				binding_locked: locked_kbm_bindings[current_binding_index]
+			}
+		} else {
+			var _true_index = current_binding_index - KEYBOARD_MAX_BINDINGS_PER_CONTROL;
+			return {
+				control_type: CONTROL_TYPE.GAMEPAD,
+				control_index: _true_index,
+				binding_locked: locked_gamepad_bindings[_true_index]
+			}
+		}
+	}
+	
+	function get_text_value(_control_type, _index) {
+		if (_control_type == CONTROL_TYPE.KEYBOARD_AND_MOUSE) {
+			if (_index >= array_length(kbm_bindings)) {
+				return "-";
+			} else if (discovery_binding_info
+				&& discovery_binding_info.control_type == _control_type
+				&& discovery_binding_info.control_index == _index) {
+				return "_";
+			} else {
+				return keycode_to_string(kbm_bindings[_index]);
+			}
+		} else if (_control_type == CONTROL_TYPE.GAMEPAD) {
+			if (_index >= array_length(gamepad_bindings)) {
+				return "-";
+			} else if (discovery_binding_info
+				&& discovery_binding_info.control_type == _control_type
+				&& discovery_binding_info.control_index == _index) {
+				return "_";
+			} else {
+				return gamepad_constant_to_string(gamepad_bindings[_index]);
+			}
+		} else {
+			return "???";
+		}
+	}
+	
+	function get_icon_index(_control_type, _index) {
+		if (_control_type == CONTROL_TYPE.KEYBOARD_AND_MOUSE) {
+			var _icons = parent_menu.keyboard_icons[parent_menu.keyboard_icons_index];
+			if (_index >= array_length(kbm_bindings)) {
+				return sprite_get_number(_icons) - 1;
+			} else if (discovery_binding_info
+				&& discovery_binding_info.control_type == _control_type
+				&& discovery_binding_info.control_index == _index) {
+				return sprite_get_number(_icons) - 2;
+			} else {
+				return get_keyboard_icon_index(kbm_bindings[_index], _icons);
+			}
+		} else if (_control_type == CONTROL_TYPE.GAMEPAD) {
+			var _icons = parent_menu.gamepad_icons[parent_menu.gamepad_icons_index];
+			if (_index >= array_length(gamepad_bindings)) {
+				return sprite_get_number(_icons) - 1;
+			} else if (discovery_binding_info
+				&& discovery_binding_info.control_type == _control_type
+				&& discovery_binding_info.control_index == _index) {
+				return sprite_get_number(_icons) - 2;
+			} else {
+				return get_gamepad_icon_index(gamepad_bindings[_index], _icons);
+			}
+		} else {
+			return 0;
+		}
+	}
+	
+	function verify_locked_bindings() {
+		var _len = array_length(kbm_bindings);
+		for (var _i=0; _i<_len; _i++) {
+			locked_kbm_bindings[_i] = array_find(global.ugmls_disallowed_keyboard_controls, kbm_bindings[_i]) != -1;
+		}
+		
+		_len = array_length(gamepad_bindings);
+		for (var _i=0; _i<_len; _i++) {
+			locked_gamepad_bindings[_i] = array_find(global.ugmls_disallowed_gamepad_controls, gamepad_bindings[_i]) != -1;
+		}
+	}
+	
+	function set_binding_locked(_control_type, _index, _locked) {
+		if (_control_type == CONTROL_TYPE.KEYBOARD_AND_MOUSE) {
+			locked_kbm_bindings[_index] = _locked;
+		} else if (_control_type == CONTROL_TYPE.GAMEPAD) {
+			locked_gamepad_bindings[_index] = _locked;
+		}
+	}
+	
+	function get_binding_locked(_control_type, _index) {
+		if (_control_type == CONTROL_TYPE.KEYBOARD_AND_MOUSE) {
+			return locked_kbm_bindings[_index];
+		} else if (_control_type == CONTROL_TYPE.GAMEPAD) {
+			return locked_gamepad_bindings[_index];
+		}
+		return -1;
+	}
+	
+	/// @param {real}		_delta
+	function handle_select(_delta) {
+		if (!enabled) return;
+		var _num_values = KEYBOARD_MAX_BINDINGS_PER_CONTROL + GAMEPAD_MAX_BINDINGS_PER_CONTROL;
+		var _last_pressed = control_state.control_any_pressed();
+		var _binding_info;
+		var _original_value = current_binding_index;
+
+		do {
+			current_binding_index = wrap(current_binding_index + _delta, 0, _num_values);
+			_binding_info = get_binding_info();
+		} until (current_binding_index == _original_value || _last_pressed.control_type == _binding_info.control_type)
+
+		if (current_binding_index != _original_value && !silent_on_change && audio_exists(parent.menu.cursor_change_sfx)) {
+			audio_play_sound(parent.menu.cursor_change_sfx, 1, false);
+		}
+	}
+
+	function handle_confirm() {
+		// TODO: on_confirm_func is currently not used
+		if (!enabled) return;
+		var _last_pressed = parent_menu.control_state.control_any_pressed();	
+	
+		if (discovery_mode == MENU_DISCOVERY_MODE.NONE) {
+			// Not selected
+			if (_last_pressed.control_type == CONTROL_TYPE.GAMEPAD) {
+				current_binding_index = KEYBOARD_MAX_BINDINGS_PER_CONTROL;
+			} else {
+				current_binding_index = 0;
+			}
+			parent_menu.discovery_mode = MENU_DISCOVERY_MODE.SELECTING;
+			parent_menu.active_key_config = self;
+		} else if (parent_menu.discovery_mode == MENU_DISCOVERY_MODE.SELECTING) {
+			// Selecting
+			var _binding_info = get_binding_info();
+		
+			if (_last_pressed.control_type != _binding_info.control_type) return;		
+			if (_binding_info.binding_locked) return;
+
+			parent_menu.discovery_mode = MENU_DISCOVERY_MODE.DISCOVERING;
+			discovery_binding_info = _binding_info;
+			io_clear();
+		}
+	}
+
+	function handle_cancel() {
+		if (!enabled) return;
+		if (parent_menu.discovery_mode == MENU_DISCOVERY_MODE.SELECTING) {
+			parent_menu.discovery_mode = MENU_DISCOVERY_MODE.NONE;
+			parent_menu.active_key_config = -1;		
+		}
+	}
+
+	function handle_delete() {
+		if (!enabled) return;
+		var _binding_info = get_binding_info();
+		if (_binding_info.binding_locked) return;
+	
+		var _control_index = _binding_info.control_index;
+		var _control_type = _binding_info.control_type;
+		var _binding_key = "";
+
+		if (_control_type == CONTROL_TYPE.KEYBOARD_AND_MOUSE) {
+			_binding_key = kbm_bindings;
+		} else if (_control_type == CONTROL_TYPE.GAMEPAD) {
+			_binding_key = gamepad_bindings;
+		} else {
+			return;
+		}
+	
+		_binding_key[_control_index] = -1;
+		parent_menu.player_controller.remove_binding(_control_type, control, _control_index);
+		parent_menu.discovery_mode = MENU_DISCOVERY_MODE.NONE;
+		discovery_binding_info = false;
+		parent_menu.active_key_config = -1;
+	}
+
+	function handle_discovery() {
+		if (!enabled) return;
+		if (parent_menu.control_state.pressed_state[MENU_CONTROLS.CANCEL]) {
+			parent_menu.discovery_mode = MENU_DISCOVERY_MODE.SELECTING;
+			discovery_binding_info = false;
+			return;
+		}
+
+		var _control_type = discovery_binding_info.control_type;
+		var _last_pressed = parent_menu.control_state.control_any_pressed();		
+	
+		if (_last_pressed != -1 && _last_pressed.control_type == _control_type) {
+			var _control_index = discovery_binding_info.control_index;
+			var _binding_key = "";		
+		
+			if (_control_type == CONTROL_TYPE.KEYBOARD_AND_MOUSE) {
+				if (array_find(global.ugmls_disallowed_keyboard_controls, _last_pressed.control_pressed) != -1) return;
+				_binding_key = kbm_bindings;
+			} else if (_control_type == CONTROL_TYPE.GAMEPAD) {
+				if (array_find(global.ugmls_disallowed_gamepad_controls, _last_pressed.control_pressed) != -1) return;
+				_binding_key = gamepad_bindings;
+			} else {
+				return;
+			}		
+		
+			_binding_key[_control_index] = _last_pressed.control_pressed;
+			parent_menu.player_controller.set_binding(_control_type, _last_pressed.control_source, control, _control_index, _last_pressed.control_pressed);
+			parent_menu.discovery_mode = MENU_DISCOVERY_MODE.NONE;
+			discovery_binding_info = false;
+
+			if (is_callable(on_change_func)) {
+				on_change_func(self, _control_type, _last_pressed.control_source, control, _control_index, _last_pressed.control_pressed, on_change_args);
+			}
+
+			parent_menu.active_key_config = -1;
+			io_clear();
+		}
+	}
+	
+	verify_locked_bindings();
 }

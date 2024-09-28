@@ -1,4 +1,7 @@
-my_player = inst_control_manager.get_player(0);
+control_manager = instance_create_layer(0, 0, layer, obj_ugmls_control_manager);
+control_manager.add_player();
+my_player = control_manager.get_player(0);
+reset_all_control_bindings(my_player);
 
 menu = instance_create_layer(32, 64, "Instances", obj_ugmls_column_flex_menu, {
 	player_controller: my_player,
@@ -9,7 +12,11 @@ menu = instance_create_layer(32, 64, "Instances", obj_ugmls_column_flex_menu, {
 	cursor_move_sfx: snd_menu_move,
 	cursor_confirm_sfx: snd_menu_move,
 	spinner_scroll_arrows_spr: spr_scroll_arrow,
-	value_change_sfx: snd_menu_move
+	value_change_sfx: snd_menu_move,
+	use_control_icons: true,
+	keyboard_icons: [spr_keyboard_icons],
+	gamepad_icons: [spr_xbox_series_gamepad_icons],
+	control_icons_scale: 1
 });
 
 menu.add_selectable({
@@ -61,4 +68,21 @@ menu.add_spinner({
 	silent_on_confirm: false,
 	silent_on_change: false
 });
+
+menu.add_key_config({ 
+	label: "Key",
+	control: CONTROLS.INTERACT,
+	initial_kbm_bindings: duplicate_array(my_player.get_bindings(CONTROL_TYPE.KEYBOARD_AND_MOUSE, CONTROLS.INTERACT).values),
+	initial_gamepad_bindings: duplicate_array(my_player.get_bindings(CONTROL_TYPE.GAMEPAD, CONTROLS.INTERACT).values),
+	on_change_func: function(_item, _type, _source, _control, _index, _pressed, _args) {
+		var _label = _item.get_label();
+		show_debug_message($"{_label} Change: Type={_type} Source={_source} Control={_control} Index={_index} Pressed:{_pressed} {_args[0]}");
+	},
+	on_change_args: ["Arg?"],
+	on_confirm_func: -1,
+	on_confirm_args: [-1],
+	silent_on_confirm: false,
+	silent_on_change: false
+});
+
 menu.update_layout();

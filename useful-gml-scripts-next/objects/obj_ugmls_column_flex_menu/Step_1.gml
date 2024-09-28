@@ -2,13 +2,10 @@ if (!enabled) exit;
 
 control_state.poll_input();
 
-/*
 if (active_key_config != -1 && discovery_mode == MENU_DISCOVERY_MODE.DISCOVERING) {
-	var _item = items[pos];	
-	self.handle_key_config_discovery(_item);
+	active_key_config.handle_discovery();
 	exit;
 }
-*/
 
 if (control_state.pressed_state[MENU_CONTROLS.UP]) {
 	if (active_key_config == -1) {
@@ -54,11 +51,11 @@ if (control_state.pressed_state[MENU_CONTROLS.LEFT]) {
 			_item.handle_change(-1);
 			break;
 			
-		/*case FLEX_MENU_ITEM_TYPE.KEY_CONFIG:
+		case FLEX_MENU_ITEM_TYPE.KEY_CONFIG:
 			if (active_key_config == _item) {
-				_item.handle_select(_item, -1)
+				_item.handle_select(-1);
 			}
-			break;*/
+			break;
 	}
 }
 
@@ -70,14 +67,34 @@ if (control_state.pressed_state[MENU_CONTROLS.RIGHT]) {
 			_item.handle_change(1);
 			break;
 			
-		/*case FLEX_MENU_ITEM_TYPE.KEY_CONFIG:
+		case FLEX_MENU_ITEM_TYPE.KEY_CONFIG:
 			if (active_key_config == _item) {
-				_item.handle_select(_item, 1)
+				_item.handle_select(1);
 			}
-			break;*/
+			break;
 	}
 }
 
 if (control_state.pressed_state[MENU_CONTROLS.CONFIRM]) {
 	items[pos].handle_confirm();
+} else if (control_state.pressed_state[MENU_CONTROLS.CANCEL]) {
+	var _item = items[pos];
+	
+	switch (_item.type) {
+		case FLEX_MENU_ITEM_TYPE.KEY_CONFIG:
+			if (active_key_config == _item) {
+				_item.handle_cancel();
+			}
+			break;
+	}
+} else if (control_state.pressed_state[MENU_CONTROLS.DELETE_BINDING]) {
+	var _item = items[pos];	
+		
+	switch (_item.type) {
+		case FLEX_MENU_ITEM_TYPE.KEY_CONFIG:
+			if (active_key_config == _item) {
+				_item.handle_delete();
+			}
+			break;
+	}
 }

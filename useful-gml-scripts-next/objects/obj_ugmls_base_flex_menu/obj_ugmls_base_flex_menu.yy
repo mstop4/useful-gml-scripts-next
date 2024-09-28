@@ -57,6 +57,12 @@
     {"$GMObjectProperty":"v1","%Name":"value_change_sfx","filters":[
         "GMSound",
       ],"listItems":[],"multiselect":false,"name":"value_change_sfx","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"","varType":5,},
+    {"$GMObjectProperty":"v1","%Name":"use_control_icons","filters":[],"listItems":[],"multiselect":false,"name":"use_control_icons","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"True","varType":3,},
+    {"$GMObjectProperty":"v1","%Name":"keyboard_icons","filters":[],"listItems":[],"multiselect":false,"name":"keyboard_icons","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"[]","varType":4,},
+    {"$GMObjectProperty":"v1","%Name":"gamepad_icons","filters":[],"listItems":[],"multiselect":false,"name":"gamepad_icons","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"[]","varType":4,},
+    {"$GMObjectProperty":"v1","%Name":"keyboard_icons_index","filters":[],"listItems":[],"multiselect":false,"name":"keyboard_icons_index","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"0","varType":1,},
+    {"$GMObjectProperty":"v1","%Name":"gamepad_icons_index","filters":[],"listItems":[],"multiselect":false,"name":"gamepad_icons_index","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"0","varType":1,},
+    {"$GMObjectProperty":"v1","%Name":"control_icons_scale","filters":[],"listItems":[],"multiselect":false,"name":"control_icons_scale","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"1","varType":0,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
