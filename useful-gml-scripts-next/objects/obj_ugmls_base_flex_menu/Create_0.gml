@@ -168,15 +168,15 @@ function _draw_spinner_base(_item, _item_label) {
 			true
 		);
 	}
-			
+	
 	draw_text(_label_node_pos.left + _label_node_pos.paddingLeft,
-		_label_node_pos.top + _label_node_pos.paddingTop,
+		_label_node_pos.top + _label_node_pos.height / 2,
 		_item_label
 	);
 			
 	draw_set_halign(fa_center);
 	draw_text(_value_node_pos.left + _value_node_pos.width / 2,
-		_value_node_pos.top + _value_node_pos.paddingTop,
+		_value_node_pos.top + _value_node_pos.height / 2,
 		_item_value
 	);
 }
@@ -200,7 +200,8 @@ function _draw_spinner_arrows(_item) {
 }
 
 /// @param {Struct.FlexMenuKeyConfig} _item
-function _draw_key_config(_item) {
+/// @param {string} _item_label
+function _draw_key_config(_item, _item_label) {
 	var _label_node = _item.label_node;
 	var _label_node_pos = flexpanel_node_layout_get_position(_label_node, false);
 	
@@ -213,11 +214,21 @@ function _draw_key_config(_item) {
 		);
 	}
 	
-	var _binding_nodes = _item.binding_nodes;
-	var _num_nodes = array_length(_binding_nodes); 
+	draw_set_halign(fa_left);
+	draw_text(_label_node_pos.left + _label_node_pos.paddingLeft,
+		_label_node_pos.top + _label_node_pos.height / 2,
+		_item_label
+	);
 	
-	for (var _i=0; _i<_num_nodes; _i++) {
-		var _cur_node = _binding_nodes[_i];
+	var _binding_nodes = _item.binding_nodes;
+	var _num_nodes = array_length(_binding_nodes);
+	var _cur_binding_index = 0;
+	
+	draw_set_halign(fa_center);
+		
+	// Draw keyboard bindings
+	for (var _i=0; _i<KEYBOARD_MAX_BINDINGS_PER_CONTROL; _i++) {
+		var _cur_node = _binding_nodes[_cur_binding_index];
 		var _cur_node_pos = flexpanel_node_layout_get_position(_cur_node, false);
 		
 		if (item_draw_border) {
@@ -228,6 +239,59 @@ function _draw_key_config(_item) {
 				true
 			);
 		}
+		
+		if (use_control_icons) {
+			var _item_icon_index = _item.get_icon_index(CONTROL_TYPE.KEYBOARD_AND_MOUSE, _i);
+			draw_sprite_ext(keyboard_icons[keyboard_icons_index],
+				_item_icon_index,
+				_cur_node_pos.left + _cur_node_pos.width / 2,
+				_cur_node_pos.top + _cur_node_pos.height / 2,
+				control_icons_scale, control_icons_scale,
+				0, c_white, 1 /*menu_alpha.v*/
+			);
+		} else {
+			var _item_value = _item.get_text_value(CONTROL_TYPE.KEYBOARD_AND_MOUSE, _i);
+			draw_text(_cur_node_pos.left + _cur_node_pos.width / 2,
+				_cur_node_pos.top + _cur_node_pos.height / 2,
+				_item_value
+			);
+		}
+		
+		_cur_binding_index++;
+	}
+	
+	// Draw gamepad bindings
+	for (var _i=0; _i<GAMEPAD_MAX_BINDINGS_PER_CONTROL; _i++) {
+		var _cur_node = _binding_nodes[_cur_binding_index];
+		var _cur_node_pos = flexpanel_node_layout_get_position(_cur_node, false);
+		
+		if (item_draw_border) {
+			draw_rectangle(_cur_node_pos.left,
+				_cur_node_pos.top,
+				_cur_node_pos.left + _cur_node_pos.width,
+				_cur_node_pos.top + _cur_node_pos.height,
+				true
+			);
+		}
+		
+		if (use_control_icons) {
+			var _item_icon_index = _item.get_icon_index(CONTROL_TYPE.GAMEPAD, _i);
+			draw_sprite_ext(gamepad_icons[gamepad_icons_index],
+				_item_icon_index,
+				_cur_node_pos.left + _cur_node_pos.width / 2,
+				_cur_node_pos.top + _cur_node_pos.height / 2,
+				control_icons_scale, control_icons_scale,
+				0, c_white, 1 /*menu_alpha.v*/
+			);
+		} else {
+			var _item_value = _item.get_text_value(CONTROL_TYPE.GAMEPAD, _i);
+			draw_text(_cur_node_pos.left + _cur_node_pos.width / 2,
+				_cur_node_pos.top + _cur_node_pos.height / 2,
+				_item_value
+			);
+		}
+		
+		_cur_binding_index++;
 	}
 }
 
@@ -235,11 +299,10 @@ function _draw_key_config(_item) {
 /// @param {real} _i
 function draw_menu_item(_item, _i) {
 	draw_set_halign(fa_left);
-	draw_set_valign(fa_top);
+	draw_set_valign(fa_middle);
 	var _node = _item.root_node;
 	var _node_pos = flexpanel_node_layout_get_position(_node, false);
 	var _item_label = _item.label;
-	var _item_label_height = string_height(_item_label);
 	
 	// Border
 	if (item_draw_border) {
@@ -251,7 +314,7 @@ function draw_menu_item(_item, _i) {
 		case FLEX_MENU_ITEM_TYPE.ITEM:
 		case FLEX_MENU_ITEM_TYPE.SELECTABLE:
 		case FLEX_MENU_ITEM_TYPE.DIVIDER:
-			draw_text(_node_pos.left + _node_pos.paddingLeft, _node_pos.top + _node_pos.paddingTop, _item_label);
+			draw_text(_node_pos.left + _node_pos.paddingLeft, _node_pos.top + _node_pos.height / 2, _item_label);
 			break;
 		
 		case FLEX_MENU_ITEM_TYPE.SPINNER_BASE:
@@ -265,7 +328,7 @@ function draw_menu_item(_item, _i) {
 			break;
 			
 		case FLEX_MENU_ITEM_TYPE.KEY_CONFIG:
-			_draw_key_config(_item);
+			_draw_key_config(_item, _item_label);
 			break;
 			
 		default:
@@ -274,7 +337,7 @@ function draw_menu_item(_item, _i) {
 	
 	// Cursor
 	if (pos == _i) {
-		draw_sprite(cursor_spr, 0, _node_pos.left - cursor_width, _node_pos.top  + _item_label_height / 2);
+		draw_sprite(cursor_spr, 0, _node_pos.left - cursor_width, _node_pos.top + _node_pos.height / 2);
 	}
 }
 

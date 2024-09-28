@@ -10,7 +10,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Base Menu",
-    "path":"folders/Useful GML Script Library/Components/Flex Menus/Base Menu.yy",
+    "path":"folders/Useful GML Script Library/Components/Flex Menu System/Base Menu.yy",
   },
   "parentObjectId":null,
   "persistent":false,

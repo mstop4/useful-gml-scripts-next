@@ -11,7 +11,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Column Menu",
-    "path":"folders/Useful GML Script Library/Components/Flex Menus/Column Menu.yy",
+    "path":"folders/Useful GML Script Library/Components/Flex Menu System/Column Menu.yy",
   },
   "parentObjectId":{
     "name":"obj_ugmls_base_flex_menu",

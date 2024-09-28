@@ -11,7 +11,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Nested Menu",
-    "path":"folders/Useful GML Script Library/Components/Menu System/Nested Menu.yy",
+    "path":"folders/Useful GML Script Library/Components/Legacy Menu System/Nested Menu.yy",
   },
   "parentObjectId":{
     "name":"obj_ugmls_column_menu",
