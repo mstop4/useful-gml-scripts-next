@@ -42,7 +42,8 @@ function _create_simple_node(_name) {
 }
 
 /// @param {string} _name
-function _create_spinner_node(_name) {
+/// @param {real} _value_node_width
+function _create_spinner_node(_name, _value_node_width) {
 	var _root_node = flexpanel_create_node({
 		name: $"{_name}_root",
 		width: item_width,
@@ -60,17 +61,17 @@ function _create_spinner_node(_name) {
 	
 	var _left_node = flexpanel_create_node({
 		name: $"{_name}_left",
-		width: value_node_width
+		width: _value_node_width
 	});
 	
 	var _value_node = flexpanel_create_node({
 		name: $"{_name}_value",
-		width: value_node_width
+		width: _value_node_width
 	});
 	
 	var _right_node = flexpanel_create_node({
 		name: $"{_name}_right",
-		width: value_node_width
+		width: _value_node_width
 	});
 	
 	flexpanel_node_insert_child(_root_node, _label_node, 0);
@@ -89,7 +90,8 @@ function _create_spinner_node(_name) {
 
 /// @param {string} _name
 /// @param {real} _num_bindings
-function _create_key_config_node(_name, _num_bindings) {
+/// @param {real} _value_node_width
+function _create_key_config_node(_name, _num_bindings, _value_node_width) {
 	var _root_node = flexpanel_create_node({
 		name: $"{_name}_root",
 		width: item_width,
@@ -112,7 +114,7 @@ function _create_key_config_node(_name, _num_bindings) {
 	for (var _i=0; _i<_num_bindings; _i++) {
 		var _binding_node = flexpanel_create_node({
 			name: $"{_name}_binding_{_i}",
-			width: value_node_width
+			width: _value_node_width
 		});
 		
 		flexpanel_node_insert_child(_root_node, _binding_node, _i + 1);

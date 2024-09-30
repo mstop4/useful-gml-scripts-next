@@ -5,9 +5,9 @@ reset_all_control_bindings(my_player);
 
 menu = instance_create_layer(32, 64, "Instances", obj_ugmls_column_flex_menu, {
 	player_controller: my_player,
-	menu_max_width: "30%",
-	item_height: 64,
-	value_node_width: 64,
+	menu_max_width: 500,
+	item_height: 24,
+	value_node_default_width: 64,
 	item_font: fnt_demo,
 	cursor_spr: spr_arrow,
 	cursor_move_sfx: snd_menu_move,
@@ -37,6 +37,7 @@ menu.add_selectable({
 
 menu.add_valued_selectable({
 	label: "Bar",
+	value_node_width: 32,
 	init_value: 5,
 	on_confirm_func: function(_item, _value, _args) {
 		var _label = _item.get_label();
@@ -59,6 +60,7 @@ menu.add_divider({
 
 menu.add_spinner({
 	label: "Baz",
+	value_node_width: 32,
 	values: [0, 1, 2, 3, 4, 5],
 	init_index: 0,
 	on_confirm_func: function(_item, _i, _value, _args) {
@@ -77,6 +79,7 @@ menu.add_spinner({
 
 menu.add_key_config({ 
 	label: "Key",
+	value_node_width: 72,
 	control: CONTROLS.INTERACT,
 	initial_kbm_bindings: duplicate_array(my_player.get_bindings(CONTROL_TYPE.KEYBOARD_AND_MOUSE, CONTROLS.INTERACT).values),
 	initial_gamepad_bindings: duplicate_array(my_player.get_bindings(CONTROL_TYPE.GAMEPAD, CONTROLS.INTERACT).values),

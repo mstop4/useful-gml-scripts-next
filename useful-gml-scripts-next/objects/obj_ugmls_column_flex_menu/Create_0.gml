@@ -77,6 +77,7 @@ function add_selectable(_config, _update_layout = false) {
 
 /// @param {Struct} _config
 //       - {string}      label
+//       - {real}        value_node_width
 //       - {any}				 init_value
 //       - {function} on_confirm_func
 //       - {array}    on_confirm_args
@@ -86,7 +87,10 @@ function add_selectable(_config, _update_layout = false) {
 //       - {boolean}  silent_on_change
 /// @param {bool} _update_layout
 function add_valued_selectable(_config, _update_layout = false) {
-	var _nodes = _create_spinner_node(	_config.label);
+	var _value_node_width = _config.value_node_width > -1
+		? _config.value_node_width
+		: value_node_default_width
+	var _nodes = _create_spinner_node(_config.label, _value_node_width);
 
 	var _item = new FlexMenuValuedSelectable({
 		parent_menu: id,
@@ -114,6 +118,7 @@ function add_valued_selectable(_config, _update_layout = false) {
 
 /// @param {Struct} _config
 //       - {string}      label
+//       - {real}        value_node_width
 //       - {array}       values
 //       - {any}				 init_index
 //       - {function} on_confirm_func
@@ -124,7 +129,10 @@ function add_valued_selectable(_config, _update_layout = false) {
 //       - {boolean}  silent_on_change
 /// @param {bool} _update_layout
 function add_spinner(_config, _update_layout = false) {
-	var _nodes = _create_spinner_node(	_config.label);
+	var _value_node_width = _config.value_node_width > -1
+		? _config.value_node_width
+		: value_node_default_width
+	var _nodes = _create_spinner_node(	_config.label, _value_node_width);
 
 	var _item = new FlexMenuSpinner({
 		parent_menu: id,
@@ -153,6 +161,7 @@ function add_spinner(_config, _update_layout = false) {
 
 /// @param {Struct} _config
 //       - {string}      label
+//       - {real}        value_node_width
 //       - {real}        control
 //       - {array}			 initial_kbm_bindings
 //       - {array}			 initial_gamepad_bindings
@@ -164,7 +173,15 @@ function add_spinner(_config, _update_layout = false) {
 //       - {boolean}  silent_on_change
 /// @param {bool} _update_layout
 function add_key_config(_config, _update_layout = false) {
-	var _nodes = _create_key_config_node(	_config.label, KEYBOARD_MAX_BINDINGS_PER_CONTROL + GAMEPAD_MAX_BINDINGS_PER_CONTROL);
+	var _value_node_width = _config.value_node_width > -1
+		? _config.value_node_width
+		: value_node_default_width
+	
+	var _nodes = _create_key_config_node(
+		_config.label,
+		KEYBOARD_MAX_BINDINGS_PER_CONTROL + GAMEPAD_MAX_BINDINGS_PER_CONTROL,
+		_value_node_width
+	);
 
 	var _item = new FlexMenuKeyConfig({
 		parent_menu: id,
