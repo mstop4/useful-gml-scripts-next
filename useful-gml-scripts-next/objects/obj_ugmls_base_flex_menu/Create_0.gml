@@ -171,12 +171,14 @@ function _draw_spinner_base(_item, _item_label) {
 		);
 	}
 	
+	draw_set_font(label_font);
 	draw_text(_label_node_pos.left + _label_node_pos.paddingLeft,
 		_label_node_pos.top + _label_node_pos.height / 2,
 		_item_label
 	);
 			
 	draw_set_halign(fa_center);
+	draw_set_font(value_font);
 	draw_text(_value_node_pos.left + _value_node_pos.width / 2,
 		_value_node_pos.top + _value_node_pos.height / 2,
 		_item_value
@@ -231,6 +233,7 @@ function _draw_key_config(_item, _item_label) {
 	}
 	
 	draw_set_halign(fa_left);
+	draw_set_font(label_font);
 	draw_text(_label_node_pos.left + _label_node_pos.paddingLeft,
 		_label_node_pos.top + _label_node_pos.height / 2,
 		_item_label
@@ -256,6 +259,7 @@ function _draw_key_config(_item, _item_label) {
 			);
 		}
 		
+		draw_set_font(value_font);
 		if (use_control_icons) {
 			var _item_icon_index = _item.get_icon_index(CONTROL_TYPE.KEYBOARD_AND_MOUSE, _i);
 			draw_sprite_ext(keyboard_icons[keyboard_icons_index],
@@ -291,6 +295,7 @@ function _draw_key_config(_item, _item_label) {
 			);
 		}
 		
+		draw_set_font(value_font);
 		if (use_control_icons) {
 			var _item_icon_index = _item.get_icon_index(CONTROL_TYPE.GAMEPAD, _i);
 			draw_sprite_ext(gamepad_icons[gamepad_icons_index],
@@ -332,6 +337,7 @@ function draw_menu_item(_item, _i) {
 		case FLEX_MENU_ITEM_TYPE.ITEM:
 		case FLEX_MENU_ITEM_TYPE.SELECTABLE:
 		case FLEX_MENU_ITEM_TYPE.DIVIDER:
+			draw_set_font(label_font);
 			draw_text(_node_pos.left + _node_pos.paddingLeft, _node_pos.top + _node_pos.height / 2, _item_label);
 			break;
 		
@@ -350,6 +356,7 @@ function draw_menu_item(_item, _i) {
 			break;
 			
 		default:
+			draw_set_font(label_font);
 			draw_text(_node_pos.left + _node_pos.paddingLeft, _node_pos.top + _node_pos.paddingTop, $"Unknown Item: {_item_label}");
 	}
 	

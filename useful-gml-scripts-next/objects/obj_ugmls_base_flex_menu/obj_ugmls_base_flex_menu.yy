@@ -29,6 +29,12 @@
   "properties":[
     {"$GMObjectProperty":"v1","%Name":"player_controller","filters":[],"listItems":[],"multiselect":false,"name":"player_controller","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"noone","varType":4,},
     {"$GMObjectProperty":"v1","%Name":"enabled","filters":[],"listItems":[],"multiselect":false,"name":"enabled","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"true","varType":3,},
+    {"$GMObjectProperty":"v1","%Name":"label_font","filters":[
+        "GMFont",
+      ],"listItems":[],"multiselect":false,"name":"label_font","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"","varType":5,},
+    {"$GMObjectProperty":"v1","%Name":"value_font","filters":[
+        "GMFont",
+      ],"listItems":[],"multiselect":false,"name":"value_font","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"","varType":5,},
     {"$GMObjectProperty":"v1","%Name":"menu_max_width","filters":[],"listItems":[],"multiselect":false,"name":"menu_max_width","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"\"50%\"","varType":4,},
     {"$GMObjectProperty":"v1","%Name":"menu_max_height","filters":[],"listItems":[],"multiselect":false,"name":"menu_max_height","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"600","varType":4,},
     {"$GMObjectProperty":"v1","%Name":"menu_padding","filters":[],"listItems":[],"multiselect":false,"name":"menu_padding","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"4","varType":4,},
