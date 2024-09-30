@@ -36,7 +36,7 @@ function _create_simple_node(_name) {
 		height: item_height,
 		padding: item_padding,
 		margin: item_margin,
-		marginLeft: item_margin + cursor_width,
+		marginLeft: item_margin + cursor_offset_x,
 		flexDirection: "row"
 	});
 }
@@ -49,7 +49,7 @@ function _create_spinner_node(_name) {
 		height: item_height,
 		padding: item_padding,
 		margin: item_margin,
-		marginLeft: item_margin + cursor_width,
+		marginLeft: item_margin + cursor_offset_x,
 		flexDirection: "row"
 	});
 	
@@ -60,17 +60,17 @@ function _create_spinner_node(_name) {
 	
 	var _left_node = flexpanel_create_node({
 		name: $"{_name}_left",
-		width: item_height
+		width: value_node_width
 	});
 	
 	var _value_node = flexpanel_create_node({
 		name: $"{_name}_value",
-		width: item_height
+		width: value_node_width
 	});
 	
 	var _right_node = flexpanel_create_node({
 		name: $"{_name}_right",
-		width: item_height
+		width: value_node_width
 	});
 	
 	flexpanel_node_insert_child(_root_node, _label_node, 0);
@@ -96,7 +96,7 @@ function _create_key_config_node(_name, _num_bindings) {
 		height: item_height,
 		padding: item_padding,
 		margin: item_margin,
-		marginLeft: item_margin + cursor_width,
+		marginLeft: item_margin + cursor_offset_x,
 		flexDirection: "row"
 	});
 	
@@ -112,7 +112,7 @@ function _create_key_config_node(_name, _num_bindings) {
 	for (var _i=0; _i<_num_bindings; _i++) {
 		var _binding_node = flexpanel_create_node({
 			name: $"{_name}_binding_{_i}",
-			width: item_height
+			width: value_node_width
 		});
 		
 		flexpanel_node_insert_child(_root_node, _binding_node, _i + 1);
@@ -200,6 +200,20 @@ function _draw_spinner_arrows(_item) {
 }
 
 /// @param {Struct.FlexMenuKeyConfig} _item
+/// @param {Struct} _node_pos
+/// @param {real} _index
+function _draw_binding_cursor(_item, _node_pos, _index) {
+	if (discovery_mode != MENU_DISCOVERY_MODE.NONE
+		&& active_key_config == _item
+		&& _index == _item.current_binding_index) {
+		draw_sprite(sub_cursor_spr, 0,
+			_node_pos.left + _node_pos.width / 2 - binding_cursor_offset_x,
+			_node_pos.top + _node_pos.height / 2
+		);
+	}
+}
+
+/// @param {Struct.FlexMenuKeyConfig} _item
 /// @param {string} _item_label
 function _draw_key_config(_item, _item_label) {
 	var _label_node = _item.label_node;
@@ -257,6 +271,7 @@ function _draw_key_config(_item, _item_label) {
 			);
 		}
 		
+		_draw_binding_cursor(_item, _cur_node_pos, _cur_binding_index);
 		_cur_binding_index++;
 	}
 	
@@ -291,6 +306,7 @@ function _draw_key_config(_item, _item_label) {
 			);
 		}
 		
+		_draw_binding_cursor(_item, _cur_node_pos, _cur_binding_index);
 		_cur_binding_index++;
 	}
 }
@@ -337,7 +353,7 @@ function draw_menu_item(_item, _i) {
 	
 	// Cursor
 	if (pos == _i) {
-		draw_sprite(cursor_spr, 0, _node_pos.left - cursor_width, _node_pos.top + _node_pos.height / 2);
+		draw_sprite(cursor_spr, 0, _node_pos.left - cursor_offset_x, _node_pos.top + _node_pos.height / 2);
 	}
 }
 

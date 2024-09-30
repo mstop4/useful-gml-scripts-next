@@ -5,19 +5,24 @@ reset_all_control_bindings(my_player);
 
 menu = instance_create_layer(32, 64, "Instances", obj_ugmls_column_flex_menu, {
 	player_controller: my_player,
-	menu_max_width: "50%",
+	menu_max_width: "30%",
 	item_height: 64,
+	value_node_width: 64,
 	item_font: fnt_demo,
 	cursor_spr: spr_arrow,
 	cursor_move_sfx: snd_menu_move,
 	cursor_confirm_sfx: snd_menu_move,
+	sub_cursor_spr: spr_subarrow,
+	binding_cursor_offset_x: 44,
 	spinner_scroll_arrows_spr: spr_scroll_arrow,
 	value_change_sfx: snd_menu_move,
 	use_control_icons: true,
 	keyboard_icons: [spr_keyboard_icons],
 	gamepad_icons: [spr_xbox_series_gamepad_icons],
-	control_icons_scale: 0.5,
-	use_control_icons: true
+	control_icons_scale: 0.3,
+	use_control_icons: true,
+	menu_draw_border: false,
+	item_draw_border: false
 });
 
 menu.add_selectable({

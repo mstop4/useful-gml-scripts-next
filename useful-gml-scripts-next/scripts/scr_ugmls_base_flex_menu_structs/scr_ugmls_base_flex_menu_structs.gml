@@ -396,7 +396,7 @@ function FlexMenuKeyConfig(_config) : FlexMenuSelectable(_config) constructor {
 	function handle_select(_delta) {
 		if (!enabled) return;
 		var _num_values = KEYBOARD_MAX_BINDINGS_PER_CONTROL + GAMEPAD_MAX_BINDINGS_PER_CONTROL;
-		var _last_pressed = control_state.control_any_pressed();
+		var _last_pressed = parent_menu.control_state.control_any_pressed();
 		var _binding_info;
 		var _original_value = current_binding_index;
 
@@ -405,8 +405,8 @@ function FlexMenuKeyConfig(_config) : FlexMenuSelectable(_config) constructor {
 			_binding_info = get_binding_info();
 		} until (current_binding_index == _original_value || _last_pressed.control_type == _binding_info.control_type)
 
-		if (current_binding_index != _original_value && !silent_on_change && audio_exists(parent.menu.cursor_change_sfx)) {
-			audio_play_sound(parent.menu.cursor_change_sfx, 1, false);
+		if (current_binding_index != _original_value && !silent_on_change && audio_exists(parent_menu.cursor_move_sfx)) {
+			audio_play_sound(parent_menu.cursor_move_sfx, 1, false);
 		}
 	}
 
@@ -415,7 +415,7 @@ function FlexMenuKeyConfig(_config) : FlexMenuSelectable(_config) constructor {
 		if (!enabled) return;
 		var _last_pressed = parent_menu.control_state.control_any_pressed();	
 	
-		if (discovery_mode == MENU_DISCOVERY_MODE.NONE) {
+		if (parent_menu.discovery_mode == MENU_DISCOVERY_MODE.NONE) {
 			// Not selected
 			if (_last_pressed.control_type == CONTROL_TYPE.GAMEPAD) {
 				current_binding_index = KEYBOARD_MAX_BINDINGS_PER_CONTROL;
