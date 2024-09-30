@@ -4,6 +4,49 @@ num_items = 0;
 pos = 0;
 items = [];
 
+view_area = new Vector2(0, 0);
+
+#region View
+
+/// @returns {Bool}
+function update_view() {
+	var _changed = false;
+
+	if (view_height > 0) {
+		if (pos < view_area.x) {
+			view_area.x = pos;
+			view_area.y = pos + view_height - 1;
+			_changed = true;
+		} else if (pos > view_area.y) {
+			view_area.y = pos;
+			view_area.x = pos - (view_height - 1);
+			_changed = true;
+		}
+	}
+	return _changed;
+}
+
+function update_view_area() {
+	if (view_height < 1) {
+		view_area.x = 0;
+		view_area.y = num_items - 1;
+	} else {
+		view_area.x = min(pos, num_items - view_height - 1);
+		view_area.y = view_area.x + view_height - 1;
+	}
+}
+
+/// @param {real} _delta
+function start_scroll(_delta) {
+	show_debug_message($"Scroll Delta: {_delta}");
+	/*view_scroll_progress_y.v = _delta;
+	view_scroll_progress_y.d = -_delta/view_scroll_duration;*/
+}
+
+#endregion
+
+#region Insert Items
+
 /// @param {Pointer.FlexPanelNode} _node
 /// @param {Struct.FlexMenuItem} _item
 function _insert_item(_node, _item) {
@@ -28,6 +71,7 @@ function add_item(_config, _update_layout = false) {
 	
 	if (_update_layout) {
 		update_layout();
+		update_view_area();
 	}
 }
 
@@ -47,6 +91,7 @@ function add_divider(_config, _update_layout = false) {
 	
 	if (_update_layout) {
 		update_layout();
+		update_view_area();
 	}
 }
 
@@ -72,6 +117,7 @@ function add_selectable(_config, _update_layout = false) {
 	
 	if (_update_layout) {
 		update_layout();
+		update_view_area();
 	}
 }
 
@@ -113,6 +159,7 @@ function add_valued_selectable(_config, _update_layout = false) {
 	
 	if (_update_layout) {
 		update_layout();
+		update_view_area();
 	}
 }
 
@@ -156,6 +203,7 @@ function add_spinner(_config, _update_layout = false) {
 	
 	if (_update_layout) {
 		update_layout();
+		update_view_area();
 	}
 }
 
@@ -204,5 +252,8 @@ function add_key_config(_config, _update_layout = false) {
 	
 	if (_update_layout) {
 		update_layout();
+		update_view_area();
 	}
 }
+
+#endregion

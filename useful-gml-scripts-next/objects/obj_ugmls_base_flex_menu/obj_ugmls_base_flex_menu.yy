@@ -75,6 +75,7 @@
     {"$GMObjectProperty":"v1","%Name":"gamepad_icons_index","filters":[],"listItems":[],"multiselect":false,"name":"gamepad_icons_index","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"0","varType":1,},
     {"$GMObjectProperty":"v1","%Name":"control_icons_scale","filters":[],"listItems":[],"multiselect":false,"name":"control_icons_scale","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"1","varType":0,},
     {"$GMObjectProperty":"v1","%Name":"lock_icon_offset_x","filters":[],"listItems":[],"multiselect":false,"name":"lock_icon_offset_x","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"64","varType":0,},
+    {"$GMObjectProperty":"v1","%Name":"view_scroll_duration","filters":[],"listItems":[],"multiselect":false,"name":"view_scroll_duration","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"5","varType":0,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",

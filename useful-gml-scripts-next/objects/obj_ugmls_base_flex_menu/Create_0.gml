@@ -12,6 +12,8 @@ control_state = new MenuControlState(player_controller);
 active_key_config = -1;
 discovery_mode = FLEX_MENU_DISCOVERY_MODE.NONE;
 
+view_scroll_progress_y = new Tween(0, 0, -1, 1, TWEEN_LIMIT_MODE.CLAMP, true, function() {});
+
 /// @ {string} _percent_str
 /// @ {real} _full_value
 function convert_percent_to_px(_percent_str, _full_value) {
@@ -27,6 +29,8 @@ function convert_percent_to_px(_percent_str, _full_value) {
 	
 	else return 0;
 }
+
+#region Node Creation
 
 /// @param {string} _name
 function _create_simple_node(_name) {
@@ -128,13 +132,18 @@ function _create_key_config_node(_name, _num_bindings, _value_node_width) {
 	};
 }
 
+#endregion
+
 function update_layout() {
 	flexpanel_calculate_layout(root_node, room_width, room_height, flexpanel_direction.LTR);
 }
 
+#region Drawing
+
 /// @param {Struct.FlexMenuSpinnerBase} _item
 /// @param {string} _item_label
-function _draw_spinner_base(_item, _item_label) {
+/// @param {real} _y_offset
+function _draw_spinner_base(_item, _item_label, _y_offset) {
 	var _item_value = _item.get_value();
 	var _label_node_pos = flexpanel_node_layout_get_position(_item.label_node, false);
 	var _value_node_pos = flexpanel_node_layout_get_position(_item.value_node, false);
@@ -143,62 +152,65 @@ function _draw_spinner_base(_item, _item_label) {
 			
 	if (item_draw_border) {
 		draw_rectangle(_label_node_pos.left,
-			_label_node_pos.top,
+			_label_node_pos.top + _y_offset,
 			_label_node_pos.left + _label_node_pos.width,
-			_label_node_pos.top + _label_node_pos.height,
+			_label_node_pos.top + _label_node_pos.height + _y_offset,
 			true
 		);
 				
 		draw_rectangle(_value_node_pos.left,
-			_value_node_pos.top,
+			_value_node_pos.top + _y_offset,
 			_value_node_pos.left + _value_node_pos.width,
-			_value_node_pos.top + _value_node_pos.height,
+			_value_node_pos.top + _value_node_pos.height + _y_offset,
 			true
 		);
 		
 		draw_rectangle(_left_node_pos.left,
-			_left_node_pos.top,
+			_left_node_pos.top + _y_offset,
 			_left_node_pos.left + _left_node_pos.width,
-			_left_node_pos.top + _left_node_pos.height,
+			_left_node_pos.top + _left_node_pos.height + _y_offset,
 			true
 		);
 
 		draw_rectangle(_right_node_pos.left,
-			_right_node_pos.top,
+			_right_node_pos.top + _y_offset,
 			_right_node_pos.left + _right_node_pos.width,
-			_right_node_pos.top + _right_node_pos.height,
+			_right_node_pos.top + _right_node_pos.height + _y_offset,
 			true
 		);
 	}
 	
 	draw_set_font(label_font);
-	draw_text(_label_node_pos.left + _label_node_pos.paddingLeft,
-		_label_node_pos.top + _label_node_pos.height / 2,
+	draw_text(
+		_label_node_pos.left + _label_node_pos.paddingLeft,
+		_label_node_pos.top + _label_node_pos.height / 2 + _y_offset,
 		_item_label
 	);
 			
 	draw_set_halign(fa_center);
 	draw_set_font(value_font);
-	draw_text(_value_node_pos.left + _value_node_pos.width / 2,
-		_value_node_pos.top + _value_node_pos.height / 2,
+	draw_text(
+		_value_node_pos.left + _value_node_pos.width / 2,
+		_value_node_pos.top + _value_node_pos.height / 2 + _y_offset,
 		_item_value
 	);
 }
 
 /// @param {Struct.FlexMenuSpinnerBase} _item
-function _draw_spinner_arrows(_item) {
+/// @param {real} _y_offset
+function _draw_spinner_arrows(_item, _y_offset) {
 	var _left_node_pos = flexpanel_node_layout_get_position(_item.left_node, false);
 	var _right_node_pos = flexpanel_node_layout_get_position(_item.right_node, false);
 			
 	draw_sprite_ext(spinner_scroll_arrows_spr, 0,
 		_left_node_pos.left + _left_node_pos.width / 2,
-		_left_node_pos.top + _left_node_pos.height / 2,
+		_left_node_pos.top + _left_node_pos.height / 2 + _y_offset,
 		1, 1, 90, c_white, 1
 	);
 			
 	draw_sprite_ext(spinner_scroll_arrows_spr, 0,
 		_right_node_pos.left + _right_node_pos.width / 2,
-		_right_node_pos.top + _right_node_pos.height / 2,
+		_right_node_pos.top + _right_node_pos.height / 2 + _y_offset,
 		1, 1, 270, c_white, 1
 	);
 }
@@ -206,36 +218,39 @@ function _draw_spinner_arrows(_item) {
 /// @param {Struct.FlexMenuKeyConfig} _item
 /// @param {Struct} _node_pos
 /// @param {real} _index
-function _draw_binding_cursor(_item, _node_pos, _index) {
+/// @param {real} _y_offset
+function _draw_binding_cursor(_item, _node_pos, _index, _y_offset) {
 	if (discovery_mode != MENU_DISCOVERY_MODE.NONE
 		&& active_key_config == _item
 		&& _index == _item.current_binding_index) {
 		draw_sprite(sub_cursor_spr, 0,
 			_node_pos.left + _node_pos.width / 2 - binding_cursor_offset_x,
-			_node_pos.top + _node_pos.height / 2
+			_node_pos.top + _node_pos.height / 2 + _y_offset
 		);
 	}
 }
 
 /// @param {Struct.FlexMenuKeyConfig} _item
 /// @param {string} _item_label
-function _draw_key_config(_item, _item_label) {
+/// @param {real} _y_offset
+function _draw_key_config(_item, _item_label, _y_offset) {
 	var _label_node = _item.label_node;
 	var _label_node_pos = flexpanel_node_layout_get_position(_label_node, false);
 	
 	if (item_draw_border) {
 		draw_rectangle(_label_node_pos.left,
-			_label_node_pos.top,
+			_label_node_pos.top + _y_offset,
 			_label_node_pos.left + _label_node_pos.width,
-			_label_node_pos.top + _label_node_pos.height,
+			_label_node_pos.top + _label_node_pos.height + _y_offset,
 			true
 		);
 	}
 	
 	draw_set_halign(fa_left);
 	draw_set_font(label_font);
-	draw_text(_label_node_pos.left + _label_node_pos.paddingLeft,
-		_label_node_pos.top + _label_node_pos.height / 2,
+	draw_text(
+		_label_node_pos.left + _label_node_pos.paddingLeft,
+		_label_node_pos.top + _label_node_pos.height / 2 + _y_offset,
 		_item_label
 	);
 	
@@ -252,9 +267,9 @@ function _draw_key_config(_item, _item_label) {
 		
 		if (item_draw_border) {
 			draw_rectangle(_cur_node_pos.left,
-				_cur_node_pos.top,
+				_cur_node_pos.top + _y_offset,
 				_cur_node_pos.left + _cur_node_pos.width,
-				_cur_node_pos.top + _cur_node_pos.height,
+				_cur_node_pos.top + _cur_node_pos.height + _y_offset,
 				true
 			);
 		}
@@ -265,14 +280,15 @@ function _draw_key_config(_item, _item_label) {
 			draw_sprite_ext(keyboard_icons[keyboard_icons_index],
 				_item_icon_index,
 				_cur_node_pos.left + _cur_node_pos.width / 2,
-				_cur_node_pos.top + _cur_node_pos.height / 2,
+				_cur_node_pos.top + _cur_node_pos.height / 2 + _y_offset,
 				control_icons_scale, control_icons_scale,
 				0, c_white, 1 /*menu_alpha.v*/
 			);
 		} else {
 			var _item_value = _item.get_text_value(CONTROL_TYPE.KEYBOARD_AND_MOUSE, _i);
-			draw_text(_cur_node_pos.left + _cur_node_pos.width / 2,
-				_cur_node_pos.top + _cur_node_pos.height / 2,
+			draw_text(
+				_cur_node_pos.left + _cur_node_pos.width / 2,
+				_cur_node_pos.top + _cur_node_pos.height / 2 + _y_offset,
 				_item_value
 			);
 		}
@@ -288,9 +304,9 @@ function _draw_key_config(_item, _item_label) {
 		
 		if (item_draw_border) {
 			draw_rectangle(_cur_node_pos.left,
-				_cur_node_pos.top,
+				_cur_node_pos.top + _y_offset,
 				_cur_node_pos.left + _cur_node_pos.width,
-				_cur_node_pos.top + _cur_node_pos.height,
+				_cur_node_pos.top + _cur_node_pos.height + _y_offset,
 				true
 			);
 		}
@@ -301,14 +317,15 @@ function _draw_key_config(_item, _item_label) {
 			draw_sprite_ext(gamepad_icons[gamepad_icons_index],
 				_item_icon_index,
 				_cur_node_pos.left + _cur_node_pos.width / 2,
-				_cur_node_pos.top + _cur_node_pos.height / 2,
+				_cur_node_pos.top + _cur_node_pos.height / 2 + _y_offset,
 				control_icons_scale, control_icons_scale,
 				0, c_white, 1 /*menu_alpha.v*/
 			);
 		} else {
 			var _item_value = _item.get_text_value(CONTROL_TYPE.GAMEPAD, _i);
-			draw_text(_cur_node_pos.left + _cur_node_pos.width / 2,
-				_cur_node_pos.top + _cur_node_pos.height / 2,
+			draw_text(
+				_cur_node_pos.left + _cur_node_pos.width / 2,
+				_cur_node_pos.top + _cur_node_pos.height / 2 + _y_offset,
 				_item_value
 			);
 		}
@@ -320,16 +337,25 @@ function _draw_key_config(_item, _item_label) {
 
 /// @param {Struct.FlexMenuItem} _item
 /// @param {real} _i
-function draw_menu_item(_item, _i) {
+/// @param {real} _item_index_offset
+/// @param {real} _scroll_y_offset
+function draw_menu_item(_item, _i, _item_index_offset, _scroll_y_offset) {
 	draw_set_halign(fa_left);
 	draw_set_valign(fa_middle);
 	var _node = _item.root_node;
 	var _node_pos = flexpanel_node_layout_get_position(_node, false);
 	var _item_label = _item.label;
+	var _y_offset = -_item_index_offset * (_node_pos.height + _node_pos.marginTop + _node_pos.marginBottom) + _scroll_y_offset;
 	
 	// Border
 	if (item_draw_border) {
-		draw_rectangle(_node_pos.left, _node_pos.top, _node_pos.left + _node_pos.width, _node_pos.top + _node_pos.height, true);
+		draw_rectangle(
+			_node_pos.left,
+			_node_pos.top + _y_offset,
+			_node_pos.left + _node_pos.width,
+			_node_pos.top + _node_pos.height + _y_offset,
+			true
+		);
 	}
 
 	// Contents
@@ -338,33 +364,48 @@ function draw_menu_item(_item, _i) {
 		case FLEX_MENU_ITEM_TYPE.SELECTABLE:
 		case FLEX_MENU_ITEM_TYPE.DIVIDER:
 			draw_set_font(label_font);
-			draw_text(_node_pos.left + _node_pos.paddingLeft, _node_pos.top + _node_pos.height / 2, _item_label);
+			draw_text(
+				_node_pos.left + _node_pos.paddingLeft,
+				_node_pos.top + _node_pos.height / 2 + _y_offset,
+				_item_label
+			);
 			break;
 		
 		case FLEX_MENU_ITEM_TYPE.SPINNER_BASE:
 		case FLEX_MENU_ITEM_TYPE.VALUED_SELECTABLE:
-			_draw_spinner_base(_item, _item_label);
+			_draw_spinner_base(_item, _item_label, _y_offset);
 			break;
 		
 		case FLEX_MENU_ITEM_TYPE.SPINNER:
-			_draw_spinner_base(_item, _item_label);
-			_draw_spinner_arrows(_item);
+			_draw_spinner_base(_item, _item_label, _y_offset);
+			_draw_spinner_arrows(_item, _y_offset);
 			break;
 			
 		case FLEX_MENU_ITEM_TYPE.KEY_CONFIG:
-			_draw_key_config(_item, _item_label);
+			_draw_key_config(_item, _item_label, _y_offset);
 			break;
 			
 		default:
 			draw_set_font(label_font);
-			draw_text(_node_pos.left + _node_pos.paddingLeft, _node_pos.top + _node_pos.paddingTop, $"Unknown Item: {_item_label}");
+			draw_text(
+				_node_pos.left + _node_pos.paddingLeft,
+				_node_pos.top + _node_pos.paddingTop + _y_offset,
+				$"Unknown Item: {_item_label}"
+			);
 	}
 	
 	// Cursor
 	if (pos == _i) {
-		draw_sprite(cursor_spr, 0, _node_pos.left - cursor_offset_x, _node_pos.top + _node_pos.height / 2);
+		draw_sprite(
+			cursor_spr,
+			0,
+			_node_pos.left - cursor_offset_x,
+			_node_pos.top + _node_pos.height / 2 + _y_offset
+		);
 	}
 }
+
+#endregion
 
 function destroy() {
 	flexpanel_delete_node(root_node, true);

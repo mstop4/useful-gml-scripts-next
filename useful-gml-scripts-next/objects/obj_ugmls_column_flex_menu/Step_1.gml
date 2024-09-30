@@ -19,8 +19,12 @@ if (control_state.pressed_state[MENU_CONTROLS.UP]) {
 			&& _item.type != FLEX_MENU_ITEM_TYPE.DIVIDER)
 			|| _cur_pos == pos)
 		
-		/*var _should_scroll = self.update_view() && (pos < _cur_pos);
-		if (_should_scroll) self.start_scroll_up();*/
+		var _should_scroll = self.update_view() && (pos < _cur_pos);
+		if (_should_scroll) self.start_scroll(-1);
+		
+		show_debug_message($"View Height: {view_height}");
+		show_debug_message($"View Area: {view_area.x} - {view_area.y}");
+		
 		audio_play_sound(cursor_move_sfx, 1, false);
 	}
 }
@@ -37,8 +41,12 @@ if (control_state.pressed_state[MENU_CONTROLS.DOWN]) {
 			&& _item.type != FLEX_MENU_ITEM_TYPE.DIVIDER)
 			|| _cur_pos == pos)		
 		
-		/*var _should_scroll = self.update_view() && (pos > _cur_pos);
-		if (_should_scroll) self.start_scroll_down();*/
+		var _should_scroll = self.update_view() && (pos > _cur_pos);
+		if (_should_scroll) self.start_scroll(1);
+		
+		show_debug_message($"View Height: {view_height}");
+		show_debug_message($"View Area: {view_area.x} - {view_area.y}");
+		
 		audio_play_sound(cursor_move_sfx, 1, false);
 	}
 }
