@@ -428,7 +428,7 @@ function draw_menu_item(_item, _i, _item_index_offset, _scroll_y_offset, _base_a
 	}
 	
 	// Cursor
-	if (pos == _i) {
+	if (enabled && pos == _i) {
 		draw_sprite_ext(
 			cursor_spr,
 			0,

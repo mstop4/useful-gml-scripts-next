@@ -62,6 +62,7 @@ function _insert_item(_node, _item) {
 /// @param {Struct} _config
 //       - {string} label 
 /// @param {bool} _update_layout
+/// @returns {Struct.FlexMenuItem}
 function add_item(_config, _update_layout = false) {
 	var _root_node = _create_simple_node(_config.label);
 	
@@ -77,11 +78,14 @@ function add_item(_config, _update_layout = false) {
 		update_layout();
 		update_view_area();
 	}
+	
+	return _item;
 }
 
 /// @param {Struct} _config
 //       - {string} label 
 /// @param {bool} _update_layout
+/// @returns {Struct.FlexMenuDivider}
 function add_divider(_config, _update_layout = false) {
 	var _root_node = _create_simple_node(_config.label);
 	
@@ -97,6 +101,8 @@ function add_divider(_config, _update_layout = false) {
 		update_layout();
 		update_view_area();
 	}
+	
+	return _item;
 }
 
 /// @param {Struct} _config
@@ -105,6 +111,7 @@ function add_divider(_config, _update_layout = false) {
 //       - {array}       on_confirm_args
 //       - {boolean}     silent_on_confirm
 /// @param {bool} _update_layout
+/// @returns {Struct.FlexMenuSelectable}
 function add_selectable(_config, _update_layout = false) {
 	var _root_node = _create_simple_node(_config.label);
 	
@@ -123,6 +130,8 @@ function add_selectable(_config, _update_layout = false) {
 		update_layout();
 		update_view_area();
 	}
+	
+	return _item;
 }
 
 /// @param {Struct} _config
@@ -136,6 +145,7 @@ function add_selectable(_config, _update_layout = false) {
 //       - {boolean}  silent_on_confirm
 //       - {boolean}  silent_on_change
 /// @param {bool} _update_layout
+/// @returns {Struct.FlexMenuValuedSelectable}
 function add_valued_selectable(_config, _update_layout = false) {
 	var _value_node_width = _config.value_node_width > -1
 		? _config.value_node_width
@@ -165,6 +175,8 @@ function add_valued_selectable(_config, _update_layout = false) {
 		update_layout();
 		update_view_area();
 	}
+	
+	return _item;
 }
 
 /// @param {Struct} _config
@@ -179,6 +191,7 @@ function add_valued_selectable(_config, _update_layout = false) {
 //       - {boolean}  silent_on_confirm
 //       - {boolean}  silent_on_change
 /// @param {bool} _update_layout
+/// @returns {Struct.FlexMenuSpinner}
 function add_spinner(_config, _update_layout = false) {
 	var _value_node_width = _config.value_node_width > -1
 		? _config.value_node_width
@@ -209,6 +222,8 @@ function add_spinner(_config, _update_layout = false) {
 		update_layout();
 		update_view_area();
 	}
+	
+	return _item;
 }
 
 /// @param {Struct} _config
@@ -224,6 +239,7 @@ function add_spinner(_config, _update_layout = false) {
 //       - {boolean}  silent_on_confirm
 //       - {boolean}  silent_on_change
 /// @param {bool} _update_layout
+/// @returns {Struct.FlexMenuKeyConfig}
 function add_key_config(_config, _update_layout = false) {
 	var _value_node_width = _config.value_node_width > -1
 		? _config.value_node_width
@@ -258,6 +274,8 @@ function add_key_config(_config, _update_layout = false) {
 		update_layout();
 		update_view_area();
 	}
+	
+	return _item;
 }
 
 #endregion

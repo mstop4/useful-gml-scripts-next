@@ -82,7 +82,7 @@ function FlexMenuItem(_config) constructor {
 	}
 	
 	function get_label() {
-		return flexpanel_node_get_name(root_node);
+		return label;
 	}
 
 	function destroy() {}
@@ -223,6 +223,19 @@ function FlexMenuSpinner(_config) : FlexMenuSpinnerBase(_config) constructor {
 	
 	function get_value() {
 		return values[cur_index];
+	}
+	
+	function set_value(_index, _call_on_change_func = false) {
+		cur_index = clamp(_index, 0, array_length(values) - 1);
+		if (_call_on_change_func && is_callable(on_change_func)) {
+			on_change_func(
+				self,
+				cur_index,
+				values[cur_index],
+				0,
+				on_change_args
+			);
+		}
 	}
 	
 	function handle_change(_delta) {
