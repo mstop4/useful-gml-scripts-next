@@ -7,6 +7,7 @@ menu = instance_create_layer(32, 64, "Instances", obj_ugmls_column_flex_menu, {
 	player_controller: my_player,
 	menu_max_width: 500,
 	view_height: 2,
+	view_scroll_duration: 10,
 	item_height: 24,
 	value_node_default_width: 64,
 	label_font: fnt_demo,

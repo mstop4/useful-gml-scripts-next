@@ -20,7 +20,11 @@ if (control_state.pressed_state[MENU_CONTROLS.UP]) {
 			|| _cur_pos == pos)
 		
 		var _should_scroll = self.update_view() && (pos < _cur_pos);
-		if (_should_scroll) self.start_scroll(-1);
+		if (_should_scroll) {
+			start_scroll(-1);
+		} else {
+			reset_scroll();
+		}
 		
 		show_debug_message($"View Height: {view_height}");
 		show_debug_message($"View Area: {view_area.x} - {view_area.y}");
@@ -42,7 +46,11 @@ if (control_state.pressed_state[MENU_CONTROLS.DOWN]) {
 			|| _cur_pos == pos)		
 		
 		var _should_scroll = self.update_view() && (pos > _cur_pos);
-		if (_should_scroll) self.start_scroll(1);
+		if (_should_scroll) {
+			start_scroll(1);
+		} else {
+			reset_scroll();
+		}
 		
 		show_debug_message($"View Height: {view_height}");
 		show_debug_message($"View Area: {view_area.x} - {view_area.y}");

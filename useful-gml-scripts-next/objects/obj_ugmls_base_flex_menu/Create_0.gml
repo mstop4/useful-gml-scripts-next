@@ -12,10 +12,10 @@ control_state = new MenuControlState(player_controller);
 active_key_config = -1;
 discovery_mode = FLEX_MENU_DISCOVERY_MODE.NONE;
 
-view_scroll_progress_y = new Tween(0, 0, -1, 1, TWEEN_LIMIT_MODE.CLAMP, true, function() {});
+view_scroll_progress_y = new Tween(0, 0, -1, 1, TWEEN_LIMIT_MODE.CLAMP, true, undefined);
 
-/// @ {string} _percent_str
-/// @ {real} _full_value
+/// @param {string} _percent_str
+/// @param {real} _full_value
 function convert_percent_to_px(_percent_str, _full_value) {
 	// TODO: This won't work with strings like "%100%%%1234%"
 	if (is_string(_percent_str)) {
@@ -198,20 +198,21 @@ function _draw_spinner_base(_item, _item_label, _y_offset) {
 
 /// @param {Struct.FlexMenuSpinnerBase} _item
 /// @param {real} _y_offset
-function _draw_spinner_arrows(_item, _y_offset) {
+/// @param {real} _base_alpha
+function _draw_spinner_arrows(_item, _y_offset, _base_alpha) {
 	var _left_node_pos = flexpanel_node_layout_get_position(_item.left_node, false);
 	var _right_node_pos = flexpanel_node_layout_get_position(_item.right_node, false);
 			
 	draw_sprite_ext(spinner_scroll_arrows_spr, 0,
 		_left_node_pos.left + _left_node_pos.width / 2,
 		_left_node_pos.top + _left_node_pos.height / 2 + _y_offset,
-		1, 1, 90, c_white, 1
+		1, 1, 90, c_white, _base_alpha
 	);
 			
 	draw_sprite_ext(spinner_scroll_arrows_spr, 0,
 		_right_node_pos.left + _right_node_pos.width / 2,
 		_right_node_pos.top + _right_node_pos.height / 2 + _y_offset,
-		1, 1, 270, c_white, 1
+		1, 1, 270, c_white, _base_alpha
 	);
 }
 
@@ -219,13 +220,15 @@ function _draw_spinner_arrows(_item, _y_offset) {
 /// @param {Struct} _node_pos
 /// @param {real} _index
 /// @param {real} _y_offset
-function _draw_binding_cursor(_item, _node_pos, _index, _y_offset) {
+/// @param {real} _base_alpha
+function _draw_binding_cursor(_item, _node_pos, _index, _y_offset, _base_alpha) {
 	if (discovery_mode != MENU_DISCOVERY_MODE.NONE
 		&& active_key_config == _item
 		&& _index == _item.current_binding_index) {
-		draw_sprite(sub_cursor_spr, 0,
+		draw_sprite_ext(sub_cursor_spr, 0,
 			_node_pos.left + _node_pos.width / 2 - binding_cursor_offset_x,
-			_node_pos.top + _node_pos.height / 2 + _y_offset
+			_node_pos.top + _node_pos.height / 2 + _y_offset,
+			1, 1, 0, c_white, _base_alpha
 		);
 	}
 }
@@ -233,7 +236,8 @@ function _draw_binding_cursor(_item, _node_pos, _index, _y_offset) {
 /// @param {Struct.FlexMenuKeyConfig} _item
 /// @param {string} _item_label
 /// @param {real} _y_offset
-function _draw_key_config(_item, _item_label, _y_offset) {
+/// @param {real} _base_alpha
+function _draw_key_config(_item, _item_label, _y_offset, _base_alpha) {
 	var _label_node = _item.label_node;
 	var _label_node_pos = flexpanel_node_layout_get_position(_label_node, false);
 	
@@ -259,6 +263,7 @@ function _draw_key_config(_item, _item_label, _y_offset) {
 	var _cur_binding_index = 0;
 	
 	draw_set_halign(fa_center);
+	draw_set_font(value_font);
 		
 	// Draw keyboard bindings
 	for (var _i=0; _i<KEYBOARD_MAX_BINDINGS_PER_CONTROL; _i++) {
@@ -273,8 +278,7 @@ function _draw_key_config(_item, _item_label, _y_offset) {
 				true
 			);
 		}
-		
-		draw_set_font(value_font);
+
 		if (use_control_icons) {
 			var _item_icon_index = _item.get_icon_index(CONTROL_TYPE.KEYBOARD_AND_MOUSE, _i);
 			draw_sprite_ext(keyboard_icons[keyboard_icons_index],
@@ -282,7 +286,7 @@ function _draw_key_config(_item, _item_label, _y_offset) {
 				_cur_node_pos.left + _cur_node_pos.width / 2,
 				_cur_node_pos.top + _cur_node_pos.height / 2 + _y_offset,
 				control_icons_scale, control_icons_scale,
-				0, c_white, 1 /*menu_alpha.v*/
+				0, c_white, _base_alpha
 			);
 		} else {
 			var _item_value = _item.get_text_value(CONTROL_TYPE.KEYBOARD_AND_MOUSE, _i);
@@ -311,7 +315,6 @@ function _draw_key_config(_item, _item_label, _y_offset) {
 			);
 		}
 		
-		draw_set_font(value_font);
 		if (use_control_icons) {
 			var _item_icon_index = _item.get_icon_index(CONTROL_TYPE.GAMEPAD, _i);
 			draw_sprite_ext(gamepad_icons[gamepad_icons_index],
@@ -319,7 +322,7 @@ function _draw_key_config(_item, _item_label, _y_offset) {
 				_cur_node_pos.left + _cur_node_pos.width / 2,
 				_cur_node_pos.top + _cur_node_pos.height / 2 + _y_offset,
 				control_icons_scale, control_icons_scale,
-				0, c_white, 1 /*menu_alpha.v*/
+				0, c_white, _base_alpha
 			);
 		} else {
 			var _item_value = _item.get_text_value(CONTROL_TYPE.GAMEPAD, _i);
@@ -339,9 +342,11 @@ function _draw_key_config(_item, _item_label, _y_offset) {
 /// @param {real} _i
 /// @param {real} _item_index_offset
 /// @param {real} _scroll_y_offset
-function draw_menu_item(_item, _i, _item_index_offset, _scroll_y_offset) {
+/// @param {real} _base_alpha
+function draw_menu_item(_item, _i, _item_index_offset, _scroll_y_offset, _base_alpha) {
 	draw_set_halign(fa_left);
 	draw_set_valign(fa_middle);
+	draw_set_alpha(_base_alpha);
 	var _node = _item.root_node;
 	var _node_pos = flexpanel_node_layout_get_position(_node, false);
 	var _item_label = _item.label;
@@ -378,11 +383,11 @@ function draw_menu_item(_item, _i, _item_index_offset, _scroll_y_offset) {
 		
 		case FLEX_MENU_ITEM_TYPE.SPINNER:
 			_draw_spinner_base(_item, _item_label, _y_offset);
-			_draw_spinner_arrows(_item, _y_offset);
+			_draw_spinner_arrows(_item, _y_offset, _base_alpha);
 			break;
 			
 		case FLEX_MENU_ITEM_TYPE.KEY_CONFIG:
-			_draw_key_config(_item, _item_label, _y_offset);
+			_draw_key_config(_item, _item_label, _y_offset, _base_alpha);
 			break;
 			
 		default:
@@ -396,11 +401,12 @@ function draw_menu_item(_item, _i, _item_index_offset, _scroll_y_offset) {
 	
 	// Cursor
 	if (pos == _i) {
-		draw_sprite(
+		draw_sprite_ext(
 			cursor_spr,
 			0,
 			_node_pos.left - cursor_offset_x,
-			_node_pos.top + _node_pos.height / 2 + _y_offset
+			_node_pos.top + _node_pos.height / 2 + _y_offset,
+			1, 1, 0, c_white, 1.00
 		);
 	}
 }

@@ -38,9 +38,13 @@ function update_view_area() {
 
 /// @param {real} _delta
 function start_scroll(_delta) {
-	show_debug_message($"Scroll Delta: {_delta}");
-	/*view_scroll_progress_y.v = _delta;
-	view_scroll_progress_y.d = -_delta/view_scroll_duration;*/
+	view_scroll_progress_y.v = _delta;
+	view_scroll_progress_y.d = -_delta/view_scroll_duration;
+}
+
+function reset_scroll() {
+	view_scroll_progress_y.v = 0;
+	view_scroll_progress_y.d = 0;
 }
 
 #endregion
