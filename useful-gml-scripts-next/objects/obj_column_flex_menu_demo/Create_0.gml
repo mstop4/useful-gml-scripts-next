@@ -61,6 +61,7 @@ fruits_menu = instance_create_layer(32, 128, "Instances", obj_ugmls_column_flex_
 	player_controller: inst_control_manager.get_player(0),
 	menu_max_width: 500,
 	menu_max_height: 300,
+	menu_fade_duration: 30,
 	view_height: 5,
 	view_scroll_duration: 10,
 	item_height: 24,
@@ -88,14 +89,14 @@ for (var _i=0; _i<num_fruits; _i++) {
 		value_node_width: 32,
 		values: create_numeric_sequence_array(0, 10, 1, true, false),
 		init_index: 0,
-		on_confirm_func: function(_item, _i, _value, _args) {
+		on_confirm_func: function(_menu, _item, _i, _value, _args) {
 			var _label = _item.get_label();
 			var _praise = choose_from_array(_args[0]);
 			show_message_async($"You have {_value} {_label}. {_praise}!")
 		},
 		on_confirm_args: [praise_list],
-		on_change_func: method(self, function(_item, _i, _value, _delta, _args) {
-			set_total(fruits_menu, total_fruits_item);
+		on_change_func: method(self, function(_menu, _item, _i, _value, _delta, _args) {
+			set_total(_menu, total_fruits_item);
 		}),
 		on_change_args: [],
 		silent_on_confirm: false,
@@ -107,7 +108,7 @@ total_fruits_item = fruits_menu.add_valued_selectable({
 	label: "Total",
 	value_node_width: 32,
 	init_value: 0,
-	on_confirm_func: function(_item, _value, _args) {
+	on_confirm_func: function(_menu, _item, _value, _args) {
 		var _praise = choose_from_array(_args[0]);
 		show_message_async($"You have {_value} fruits in total. {_praise}!")
 	},
@@ -120,8 +121,17 @@ total_fruits_item = fruits_menu.add_valued_selectable({
 
 fruits_menu.add_selectable({
 	label: "Reset",
-	on_confirm_func: method(self, function(_item, _args) {
-		reset_menu(fruits_menu, total_fruits_item);
+	on_confirm_func: method(self, function(_menu, _item, _args) {
+		reset_menu(_menu, total_fruits_item);
+	}),
+	on_confirm_args: [],
+	silent_on_confirm: false
+});
+
+fruits_menu.add_selectable({
+	label: "Switch to Vegetable Menu",
+	on_confirm_func: method(self, function(_menu, _item, _args) {
+		_menu.menu_switch(vegetables_menu);
 	}),
 	on_confirm_args: [],
 	silent_on_confirm: false
@@ -132,6 +142,7 @@ vegetables_menu = instance_create_layer(640, 128, "Instances", obj_ugmls_column_
 	player_controller: inst_control_manager.get_player(0),
 	menu_max_width: 500,
 	menu_max_height: 300,
+	menu_fade_duration: 30,
 	view_height: 5,
 	view_scroll_duration: 10,
 	item_height: 24,
@@ -159,14 +170,14 @@ for (var _i=0; _i<num_vegetables; _i++) {
 		value_node_width: 32,
 		values: create_numeric_sequence_array(0, 10, 1, true, false),
 		init_index: 0,
-		on_confirm_func: function(_item, _i, _value, _args) {
+		on_confirm_func: function(_menu, _item, _i, _value, _args) {
 			var _label = _item.get_label();
 			var _praise = choose_from_array(_args[0]);
 			show_message_async($"You have {_value} {_label}. {_praise}!")
 		},
 		on_confirm_args: [praise_list],
-		on_change_func: method(self, function(_item, _i, _value, _delta, _args) {
-			set_total(vegetables_menu, total_vegetables_item);
+		on_change_func: method(self, function(_menu, _item, _i, _value, _delta, _args) {
+			set_total(_menu, total_vegetables_item);
 		}),
 		on_change_args: [],
 		silent_on_confirm: false,
@@ -178,7 +189,7 @@ total_vegetables_item = vegetables_menu.add_valued_selectable({
 	label: "Total",
 	value_node_width: 32,
 	init_value: 0,
-	on_confirm_func: function(_item, _value, _args) {
+	on_confirm_func: function(_menu, _item, _value, _args) {
 		var _praise = choose_from_array(_args[0]);
 		show_message_async($"You have {_value} begetables in total. {_praise}!")
 	},
@@ -191,12 +202,23 @@ total_vegetables_item = vegetables_menu.add_valued_selectable({
 
 vegetables_menu.add_selectable({
 	label: "Reset",
-	on_confirm_func: method(self, function(_item, _args) {
-		reset_menu(vegetables_menu, total_vegetables_item);
+	on_confirm_func: method(self, function(_menu, _item, _args) {
+		reset_menu(_menu, total_vegetables_item);
+	}),
+	on_confirm_args: [],
+	on_confirm_args: [],
+	silent_on_confirm: false
+});
+
+vegetables_menu.add_selectable({
+	label: "Switch to Fruits Menu",
+	on_confirm_func: method(self, function(_menu, _item, _args) {
+		_menu.menu_switch(fruits_menu);
 	}),
 	on_confirm_args: [],
 	silent_on_confirm: false
 });
+
 
 fruits_menu.update_layout();
 fruits_menu.update_view_area();
@@ -207,5 +229,4 @@ fruits_menu.toggle_visibility(true);
 vegetables_menu.update_layout();
 vegetables_menu.update_view_area();
 set_total(vegetables_menu, total_vegetables_item);
-vegetables_menu.toggle_visibility(true, true);
-vegetables_menu.enabled = false;
+vegetables_menu.toggle_visibility(false, true);

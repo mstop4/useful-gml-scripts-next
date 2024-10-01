@@ -11,6 +11,7 @@ control_state = new MenuControlState(player_controller);
 
 active_key_config = -1;
 discovery_mode = FLEX_MENU_DISCOVERY_MODE.NONE;
+next_menu = noone;
 
 view_scroll_progress_y = new Tween(0, 0, -1, 1, TWEEN_LIMIT_MODE.CLAMP, true, undefined);
 
@@ -140,11 +141,12 @@ function update_layout() {
 
 /// @param {bool} _visible
 /// @param {bool} _immediate
-function toggle_visibility(_visible, _immediate = false) {
+function toggle_visibility(_visible, _immediate) {
 	if (_immediate) {
 		menu_alpha.v = _visible;
 		visible = _visible;
 		enabled = _visible;
+		_on_visibility_fade_end();
 	} else {
 		enabled = false;
 		visible = true;
@@ -158,13 +160,24 @@ function toggle_visibility(_visible, _immediate = false) {
 	}
 }
 
-_on_visibility_fade_end = method(self, function() {
+_on_visibility_fade_end = method(self, function(_tween, _args) {
 	if (menu_alpha.v == 0) {
 		visible = false;
+		
+		if (next_menu != noone) {
+			next_menu.toggle_visibility(true);
+			next_menu = noone;
+		}
 	} else {
 		enabled = true;
 	}
 });
+
+/// @param {Id.Instance} _next_menu
+function menu_switch(_next_menu) {
+	next_menu = _next_menu;
+	toggle_visibility(false, false);
+}
 
 #region Drawing
 

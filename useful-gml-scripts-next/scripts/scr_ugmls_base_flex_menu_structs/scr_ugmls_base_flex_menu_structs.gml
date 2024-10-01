@@ -115,7 +115,7 @@ function FlexMenuSelectable(_config) : FlexMenuItem(_config) constructor {
 	handle_confirm = method(self, function() {
 		if (!enabled) return;
 		if (is_callable(on_confirm_func)) {
-			on_confirm_func(self, on_confirm_args);
+			on_confirm_func(parent_menu, self, on_confirm_args);
 		}
 
 		if (!silent_on_confirm && audio_exists(parent_menu.cursor_confirm_sfx)) {
@@ -151,7 +151,7 @@ function FlexMenuValuedSelectable(_config) : FlexMenuSpinnerBase(_config) constr
 	function set_value(_value) {
 		value = _value;
 		if (is_callable(on_change_func)) {
-			on_change_func(self, value, on_change_args);
+			on_change_func(parent_menu, self, value, on_change_args);
 		}
 
 		if (!silent_on_change && audio_exists(parent_menu.value_change_sfx)) {
@@ -162,7 +162,7 @@ function FlexMenuValuedSelectable(_config) : FlexMenuSpinnerBase(_config) constr
 	function handle_confirm() {
 		if (!enabled) return;
 		if (is_callable(on_confirm_func)) {
-			on_confirm_func(self, value, on_confirm_args);
+			on_confirm_func(parent_menu, self, value, on_confirm_args);
 		}
 
 		if (!silent_on_confirm && audio_exists(parent_menu.cursor_confirm_sfx)) {
@@ -229,6 +229,7 @@ function FlexMenuSpinner(_config) : FlexMenuSpinnerBase(_config) constructor {
 		cur_index = clamp(_index, 0, array_length(values) - 1);
 		if (_call_on_change_func && is_callable(on_change_func)) {
 			on_change_func(
+				parent_menu,
 				self,
 				cur_index,
 				values[cur_index],
@@ -245,6 +246,7 @@ function FlexMenuSpinner(_config) : FlexMenuSpinnerBase(_config) constructor {
 		
 		if (is_callable(on_change_func)) {
 			on_change_func(
+				parent_menu,
 				self,
 				cur_index,
 				values[cur_index],
@@ -261,7 +263,7 @@ function FlexMenuSpinner(_config) : FlexMenuSpinnerBase(_config) constructor {
 	function handle_confirm() {
 		if (!enabled) return;
 		if (is_callable(on_confirm_func)) {
-			on_confirm_func(self, cur_index, values[cur_index], on_confirm_args);
+			on_confirm_func(parent_menu, self, cur_index, values[cur_index], on_confirm_args);
 		}
 
 		if (!silent_on_confirm && audio_exists(parent_menu.cursor_confirm_sfx)) {
@@ -513,7 +515,7 @@ function FlexMenuKeyConfig(_config) : FlexMenuSelectable(_config) constructor {
 			discovery_binding_info = false;
 
 			if (is_callable(on_change_func)) {
-				on_change_func(self, _control_type, _last_pressed.control_source, control, _control_index, _last_pressed.control_pressed, on_change_args);
+				on_change_func(parent_menu, self, _control_type, _last_pressed.control_source, control, _control_index, _last_pressed.control_pressed, on_change_args);
 			}
 
 			parent_menu.active_key_config = -1;

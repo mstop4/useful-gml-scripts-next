@@ -43,7 +43,7 @@ room_names = [
 	"System Info"
 ];
 
-go_to_demo = method(self, function(_item, _args) {
+go_to_demo = method(self, function(_menu, _item, _args) {
 	io_clear();
 	inst_control_manager.get_player(0).clear_all_input();
 	room_goto(_args[0]);
