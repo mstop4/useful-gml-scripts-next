@@ -3,9 +3,10 @@ control_manager.add_player();
 my_player = control_manager.get_player(0);
 reset_all_control_bindings(my_player);
 
-menu = instance_create_layer(32, 64, "Instances", obj_ugmls_column_flex_menu, {
+menu = instance_create_layer(32, 128, "Instances", obj_ugmls_column_flex_menu, {
 	player_controller: my_player,
 	menu_max_width: 500,
+	menu_max_height: 300,
 	view_height: 2,
 	view_scroll_duration: 10,
 	item_height: 24,
@@ -24,8 +25,8 @@ menu = instance_create_layer(32, 64, "Instances", obj_ugmls_column_flex_menu, {
 	gamepad_icons: [spr_xbox_series_gamepad_icons],
 	control_icons_scale: 0.3,
 	use_control_icons: true,
-	menu_draw_border: true,
-	item_draw_border: true
+	menu_draw_border: false,
+	item_draw_border: false
 });
 
 menu.add_selectable({
