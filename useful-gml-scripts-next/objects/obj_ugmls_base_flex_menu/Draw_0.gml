@@ -1,5 +1,5 @@
 draw_set_colour(c_white);
-draw_set_alpha(1.00);
+draw_set_alpha(menu_alpha.v);
 
 if (menu_draw_border) {
 	// Root Node

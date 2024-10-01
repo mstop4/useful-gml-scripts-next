@@ -99,3 +99,5 @@ menu.add_key_config({
 
 menu.update_layout();
 menu.update_view_area();
+menu.toggle_visibility(false, true);
+menu.toggle_visibility(true);

@@ -11,7 +11,7 @@ if (view_height > 0 && view_scroll_progress_y.v != 0) {
 // Menu Items
 for (var _i=view_area.x; _i<=view_area.y; _i++) {
 	if (view_height > 0) {
-		var _base_alpha = 1.00;
+		var _base_alpha = menu_alpha.v;
 		
 		// Fade in items coming into view
 		if ((view_scroll_progress_y.v < 0 && _i == view_area.x)  // Last element scrolling up

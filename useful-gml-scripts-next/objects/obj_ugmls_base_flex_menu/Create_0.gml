@@ -138,6 +138,34 @@ function update_layout() {
 	flexpanel_calculate_layout(root_node, room_width, room_height, flexpanel_direction.LTR);
 }
 
+/// @param {bool} _visible
+/// @param {bool} _immediate
+function toggle_visibility(_visible, _immediate = false) {
+	if (_immediate) {
+		menu_alpha.v = _visible;
+		visible = _visible;
+		enabled = _visible;
+	} else {
+		enabled = false;
+		visible = true;
+		if (_visible) {
+			menu_alpha.v = 0;
+			menu_alpha.d = 1/menu_fade_duration;
+		} else {
+			menu_alpha.v = 1;
+			menu_alpha.d = -1/menu_fade_duration;
+		}
+	}
+}
+
+_on_visibility_fade_end = method(self, function() {
+	if (menu_alpha.v == 0) {
+		visible = false;
+	} else {
+		enabled = true;
+	}
+});
+
 #region Drawing
 
 /// @param {Struct.FlexMenuSpinnerBase} _item
@@ -406,7 +434,7 @@ function draw_menu_item(_item, _i, _item_index_offset, _scroll_y_offset, _base_a
 			0,
 			_node_pos.left - cursor_offset_x,
 			_node_pos.top + _node_pos.height / 2 + _y_offset,
-			1, 1, 0, c_white, 1.00
+			1, 1, 0, c_white, menu_alpha.v
 		);
 	}
 }
@@ -416,3 +444,5 @@ function draw_menu_item(_item, _i, _item_index_offset, _scroll_y_offset, _base_a
 function destroy() {
 	flexpanel_delete_node(root_node, true);
 }
+
+menu_alpha = new Tween(1, 0, 0, 1, TWEEN_LIMIT_MODE.CLAMP,  true, _on_visibility_fade_end);

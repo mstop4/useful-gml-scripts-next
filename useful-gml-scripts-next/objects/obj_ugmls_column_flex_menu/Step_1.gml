@@ -26,9 +26,6 @@ if (control_state.pressed_state[MENU_CONTROLS.UP]) {
 			reset_scroll();
 		}
 		
-		show_debug_message($"View Height: {view_height}");
-		show_debug_message($"View Area: {view_area.x} - {view_area.y}");
-		
 		audio_play_sound(cursor_move_sfx, 1, false);
 	}
 }
@@ -51,9 +48,6 @@ if (control_state.pressed_state[MENU_CONTROLS.DOWN]) {
 		} else {
 			reset_scroll();
 		}
-		
-		show_debug_message($"View Height: {view_height}");
-		show_debug_message($"View Area: {view_area.x} - {view_area.y}");
 		
 		audio_play_sound(cursor_move_sfx, 1, false);
 	}
