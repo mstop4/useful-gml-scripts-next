@@ -412,7 +412,11 @@ function draw_menu_item(_item, _i, _item_index_offset, _scroll_y_offset, _base_a
 		
 		case FLEX_MENU_ITEM_TYPE.SPINNER:
 			_draw_spinner_base(_item, _item_label, _y_offset);
-			_draw_spinner_arrows(_item, _y_offset, _base_alpha);
+
+			if (enabled && pos == _i) {
+				_draw_spinner_arrows(_item, _y_offset, _base_alpha);
+			}
+
 			break;
 			
 		case FLEX_MENU_ITEM_TYPE.KEY_CONFIG:
