@@ -1,12 +1,3 @@
-root_node = flexpanel_create_node({
-	name: "root",
-	left: x,
-	top: y,
-	width: menu_max_width,
-	height: menu_max_height,
-	padding: menu_padding
-});
-
 control_state = new MenuControlState(player_controller);
 
 active_key_config = -1;
@@ -37,11 +28,10 @@ function convert_percent_to_px(_percent_str, _full_value) {
 function _create_simple_node(_name) {
 	return flexpanel_create_node({
 		name: $"{_name}_root",
-		width: item_width,
+		width: "100%",
 		height: item_height,
 		padding: item_padding,
 		margin: item_margin,
-		marginLeft: item_margin + cursor_offset_x,
 		flexDirection: "row"
 	});
 }
@@ -51,11 +41,10 @@ function _create_simple_node(_name) {
 function _create_spinner_node(_name, _value_node_width) {
 	var _root_node = flexpanel_create_node({
 		name: $"{_name}_root",
-		width: item_width,
+		width: "100%",
 		height: item_height,
 		padding: item_padding,
 		margin: item_margin,
-		marginLeft: item_margin + cursor_offset_x,
 		flexDirection: "row"
 	});
 	
@@ -99,11 +88,10 @@ function _create_spinner_node(_name, _value_node_width) {
 function _create_key_config_node(_name, _num_bindings, _value_node_width) {
 	var _root_node = flexpanel_create_node({
 		name: $"{_name}_root",
-		width: item_width,
+		width: "100%",
 		height: item_height,
 		padding: item_padding,
 		margin: item_margin,
-		marginLeft: item_margin + cursor_offset_x,
 		flexDirection: "row"
 	});
 	

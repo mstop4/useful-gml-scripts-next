@@ -49,12 +49,13 @@ go_to_demo = method(self, function(_menu, _item, _args) {
 	room_goto(_args[0]);
 });
 
-menu = instance_create_layer(32, 64, layer, obj_ugmls_column_flex_menu, {
+menu = instance_create_layer(32, 56, layer, obj_ugmls_column_flex_menu, {
 	player_controller: inst_control_manager.get_player(0),
-	menu_max_width: "100%",
+	menu_max_width: 200,
 	menu_max_height: "100%",
 	view_height: 16,
 	view_scroll_duration: 5,
+	view_scroll_arrows_spr: spr_scroll_arrow,
 	item_height: 28,
 	label_font: fnt_demo,
 	value_font: fnt_menu_value,

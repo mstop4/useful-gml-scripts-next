@@ -57,13 +57,14 @@ reset_menu = method(self, function(_menu, _total_item) {
 });
 
 // Create Fruits Menu
-fruits_menu = instance_create_layer(32, 128, "Instances", obj_ugmls_column_flex_menu, {
+fruits_menu = instance_create_layer(32, 104, "Instances", obj_ugmls_column_flex_menu, {
 	player_controller: inst_control_manager.get_player(0),
-	menu_max_width: 500,
+	menu_max_width: 400,
 	menu_max_height: 300,
 	menu_fade_duration: 30,
 	view_height: 5,
 	view_scroll_duration: 10,
+	view_scroll_arrows_spr: spr_scroll_arrow,
 	item_height: 24,
 	value_node_default_width: 64,
 	label_font: fnt_demo,
@@ -138,13 +139,14 @@ fruits_menu.add_selectable({
 });
 
 // Create Vegetable Menu
-vegetables_menu = instance_create_layer(640, 128, "Instances", obj_ugmls_column_flex_menu, {
+vegetables_menu = instance_create_layer(640, 104, "Instances", obj_ugmls_column_flex_menu, {
 	player_controller: inst_control_manager.get_player(0),
-	menu_max_width: 500,
+	menu_max_width: 400,
 	menu_max_height: 300,
 	menu_fade_duration: 30,
 	view_height: 5,
 	view_scroll_duration: 10,
+	view_scroll_arrows_spr: spr_scroll_arrow,
 	item_height: 24,
 	value_node_default_width: 64,
 	label_font: fnt_demo,

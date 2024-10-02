@@ -6,6 +6,50 @@ items = [];
 
 view_area = new Vector2(0, 0);
 
+function create_menu_structure() {
+	root_node = flexpanel_create_node({
+		name: "root",
+		left: x,
+		top: y,
+		width: menu_max_width,
+		height: menu_max_height,
+		padding: menu_padding
+	});
+
+	item_list_node = flexpanel_create_node({
+		name: "item_list",
+		left: 0,
+		top: 0,
+		height: "100%",
+		marginLeft: cursor_offset_x,
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center"
+	});
+	
+	scroll_up_node = flexpanel_create_node({
+		name: "scroll_up",
+		left: 0,
+		top: 0,
+		width: view_scroll_arrows_height,
+		height: view_scroll_arrows_height,
+		padding: 0
+	});
+	
+	scroll_down_node = flexpanel_create_node({
+		name: "scroll_up",
+		left: 0,
+		top: 0,
+		width: view_scroll_arrows_height,
+		height: view_scroll_arrows_height,
+		padding: 0
+	});
+
+	flexpanel_node_insert_child(root_node, item_list_node, 0);
+	flexpanel_node_insert_child(item_list_node, scroll_down_node, 0);
+	flexpanel_node_insert_child(item_list_node, scroll_up_node, 0);
+}
+
 #region View
 
 /// @returns {Bool}
@@ -54,9 +98,9 @@ function reset_scroll() {
 /// @param {Pointer.FlexPanelNode} _node
 /// @param {Struct.FlexMenuItem} _item
 function _insert_item(_node, _item) {
-	flexpanel_node_insert_child(root_node, _node, num_items);
-	array_push(items, _item);
 	num_items++;
+	flexpanel_node_insert_child(item_list_node, _node, num_items);
+	array_push(items, _item);
 }
 
 /// @param {Struct} _config
@@ -72,7 +116,7 @@ function add_item(_config, _update_layout = false) {
 		root_node: _root_node
 	});
 	
-	_insert_item(_node, _item);
+	_insert_item(_root_node, _item);
 	
 	if (_update_layout) {
 		update_layout();
@@ -279,3 +323,5 @@ function add_key_config(_config, _update_layout = false) {
 }
 
 #endregion
+
+create_menu_structure();
