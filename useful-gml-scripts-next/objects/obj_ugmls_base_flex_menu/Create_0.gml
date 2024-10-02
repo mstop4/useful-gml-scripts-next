@@ -31,6 +31,7 @@ function _create_simple_node(_name) {
 		width: "100%",
 		height: item_height,
 		padding: item_padding,
+		paddingLeft: item_padding + cursor_offset_x,
 		margin: item_margin,
 		flexDirection: "row"
 	});
@@ -44,6 +45,7 @@ function _create_spinner_node(_name, _value_node_width) {
 		width: "100%",
 		height: item_height,
 		padding: item_padding,
+		paddingLeft: item_padding + cursor_offset_x,
 		margin: item_margin,
 		flexDirection: "row"
 	});
@@ -91,6 +93,7 @@ function _create_key_config_node(_name, _num_bindings, _value_node_width) {
 		width: "100%",
 		height: item_height,
 		padding: item_padding,
+		paddingLeft: item_padding + cursor_offset_x,
 		margin: item_margin,
 		flexDirection: "row"
 	});
@@ -437,7 +440,7 @@ function draw_menu_item(_item, _i, _item_index_offset, _scroll_y_offset, _base_a
 		draw_sprite_ext(
 			cursor_spr,
 			0,
-			_node_pos.left - cursor_offset_x,
+			_node_pos.left,
 			_node_pos.top + _node_pos.height / 2 + _y_offset,
 			1, 1, 0, c_white, menu_alpha.v
 		);

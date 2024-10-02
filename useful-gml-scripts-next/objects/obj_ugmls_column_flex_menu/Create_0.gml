@@ -21,7 +21,6 @@ function create_menu_structure() {
 		left: 0,
 		top: 0,
 		height: "100%",
-		marginLeft: cursor_offset_x,
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "center"
