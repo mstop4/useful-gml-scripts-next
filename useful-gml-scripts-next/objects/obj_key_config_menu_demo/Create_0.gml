@@ -1,7 +1,12 @@
+control_manager = instance_create_layer(0, 0, layer, obj_ugmls_control_manager);
+control_manager.add_player();
+my_player = control_manager.get_player(0);
+reset_all_control_bindings(my_player);
+
 reset_bindings = method(id, function() {
 	io_clear();
-	self.my_player.clear_all_input();
-	inst_persistent_controller.reset_all_control_bindings();
+	my_player.clear_all_input();
+	reset_all_control_bindings(my_player);
 	var _num_items = array_length(self.menu.items);
 		
 	for (var _i = 0; _i < _num_items; _i++) {
@@ -20,10 +25,9 @@ control_labels[CONTROLS.LEFT] = "Left";
 control_labels[CONTROLS.RIGHT] = "Right";
 
 num_controls = 4;
-my_player = inst_control_manager.get_player(0);
 
-current_gamepad_index = inst_control_manager.is_on_steam_deck()
-	? inst_control_manager.get_steam_deck_gamepad_index()
+current_gamepad_index = control_manager.is_on_steam_deck()
+	? control_manager.get_steam_deck_gamepad_index()
 	: 0;
 my_player.set_gamepad_slot(current_gamepad_index);
 
@@ -39,8 +43,8 @@ menu.column_menu_init({
 	cursor_change_sfx: snd_menu_move,
 	cursor_confirm_sfx: -1,
 	use_control_icons: true,
-	keyboard_icons: [spr_keyboard_icons],
-	gamepad_icons: [spr_xbox_series_gamepad_icons],
+	keyboard_icons: [spr_keyboard_icons_legacy],
+	gamepad_icons: [spr_xbox_series_gamepad_icons_legacy],
 	control_icons_scale: 0.3
 });
 

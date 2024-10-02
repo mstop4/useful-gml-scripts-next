@@ -13,6 +13,7 @@ rooms = [
 	room_grid_menu_demo,
 	room_nested_menu_demo,
 	room_key_config_menu_demo,
+	room_column_flex_menu_demo,
 	room_signal_manager_demo,
 	room_strings_demo,
 	room_web_demo,
@@ -35,19 +36,52 @@ room_names = [
 	"Grid Menu",
 	"Nested Menu",
 	"Control Config Menu",
-	"Signal Manager Menu",
+	"Column Flex Menu",
+	"Signal Manager",
 	"Strings",
 	"Web",
 	"System Info"
 ];
 
-
-go_to_demo = method(self, function(_args) {
+go_to_demo = method(self, function(_menu, _item, _args) {
 	io_clear();
 	inst_control_manager.get_player(0).clear_all_input();
 	room_goto(_args[0]);
 });
 
+menu = instance_create_layer(32, 56, layer, obj_ugmls_column_flex_menu, {
+	player_controller: inst_control_manager.get_player(0),
+	menu_max_width: 200,
+	menu_max_height: "100%",
+	view_height: 16,
+	view_scroll_duration: 5,
+	view_scroll_arrows_spr: spr_scroll_arrow,
+	item_height: 28,
+	label_font: fnt_demo,
+	value_font: fnt_menu_value,
+	cursor_spr: spr_arrow,
+	cursor_move_sfx: snd_menu_move,
+	cursor_confirm_sfx: snd_menu_move,
+	sub_cursor_spr: spr_subarrow,
+	spinner_scroll_arrows_spr: spr_scroll_arrow,
+	value_change_sfx: snd_menu_move,
+	keyboard_icons: [spr_keyboard_icons],
+	gamepad_icons: [spr_xbox_series_gamepad_icons],
+});
+
+for (var _i=0; _i<num_rooms; _i++) {
+	menu.add_selectable({
+		label: room_names[_i],
+		on_confirm_func: self.go_to_demo,
+		on_confirm_args: [ rooms[_i] ],
+		silent_on_confirm: false
+	});
+}
+
+menu.update_layout();
+menu.update_view_area();
+
+/*
 menu = instance_create_layer(32, 64, layer, obj_ugmls_column_menu);
 menu.column_menu_init({
 	player_controller: inst_control_manager.get_player(0),
@@ -73,3 +107,4 @@ for (var _i=0; _i<num_rooms; _i++) {
 		silent_on_confirm: false
 	});
 }
+*/

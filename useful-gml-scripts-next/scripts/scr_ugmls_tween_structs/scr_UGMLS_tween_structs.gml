@@ -18,8 +18,18 @@ enum TWEEN_LIMIT_MODE {
 /// @param {real}									 _max_v
 /// @param {Enum.TWEEN_LIMIT_MODE} _limit_mode
 /// @param {bool}									 _stop_outside_range  If true, delta is automatically set to 0 when value goes outside the designated range
-/// @param {Function}							 [_outside_range_callback]  A function that is called when value goes outside the designated range 
-function Tween(_value, _delta, _min_v, _max_v, _limit_mode, _stop_outside_range, _outside_range_callback) constructor {
+/// @param {Function}							 [_outside_range_callback]  A function that is called when value goes outside the designated range
+/// @param {Array}							   [_outside_range_callback_args] Additional arguments that are passed to _outside_range_callback
+function Tween(
+	_value,
+	_delta,
+	_min_v,
+	_max_v,
+	_limit_mode,
+	_stop_outside_range,
+	_outside_range_callback,
+	_outside_range_callback_args
+) constructor {
 	v = _value;
 	d = _delta;
 	min_v = _min_v;
@@ -27,6 +37,7 @@ function Tween(_value, _delta, _min_v, _max_v, _limit_mode, _stop_outside_range,
 	limit_mode = _limit_mode;
 	stop_outside_range = _stop_outside_range;
 	outside_range_callback = _outside_range_callback;
+	outside_range_callback_args = _outside_range_callback_args;
 
 	function update() {
 		if (d != 0) {
@@ -89,7 +100,7 @@ function Tween(_value, _delta, _min_v, _max_v, _limit_mode, _stop_outside_range,
 			if (stop_outside_range && (v >= max_v || v <= min_v)) {
 				d = 0;
 				if (is_callable(outside_range_callback)) {
-					outside_range_callback();
+					outside_range_callback(self, outside_range_callback_args);
 				}
 			}
 		}

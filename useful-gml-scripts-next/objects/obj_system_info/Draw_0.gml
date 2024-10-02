@@ -20,6 +20,6 @@ if (os_type == os_linux) {
 	draw_text(16, 304, "Vendor: " + gl_vendor);
 	draw_text(16, 336, "Version: " + gl_version);
 	draw_text(16, 368, "Renderer: " + gl_renderer);
-	draw_text(16, 400, "Is On Steam Deck: " + (steam_deck_info.is_on_steam_deck ? "Yes" : "No"));
-	draw_text(16, 432, "Steam Deck Gamepad Index: " + string(steam_deck_info.gamepad_index));
+	draw_text(16, 400, "Is On Steam Deck: " + (global.ugmls_steam_deck_info.is_on_steam_deck ? "Yes" : "No"));
+	draw_text(16, 432, "Steam Deck Gamepad Index: " + string(global.ugmls_steam_deck_info.gamepad_index));
 }
