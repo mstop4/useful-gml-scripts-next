@@ -2,9 +2,10 @@ event_inherited();
 
 show_debug_message($"{menu_width_items}, {menu_height_items}"); 
 
-items = ds_grid_create(menu_width_items, menu_height_items);
+items = array_create(menu_height_items);
 pos = new Vector2(0, 0);
-view_area = new Rectangle(0, 0, 0, 0);
+view_area_x = new Vector2(0, 0);
+view_area_y = new Vector2(0, 0);
 view_scroll_progress_x = new Tween(0, 0, -1, 1, TWEEN_LIMIT_MODE.CLAMP, true, undefined, []);
 
 function create_menu_structure() {
@@ -26,7 +27,6 @@ function create_menu_structure() {
 
 	item_list_node = flexpanel_create_node({
 		name: "item_list",
-		height: menu_height_items * (item_height + item_padding * 2),
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "center"
@@ -61,7 +61,162 @@ function create_menu_structure() {
 	flexpanel_node_insert_child(alignment_node, item_list_node, 0);
 	flexpanel_node_insert_child(alignment_node, scroll_left_node, 0);
 	flexpanel_node_insert_child(item_list_node, scroll_down_node, 0);
+	
+	row_nodes = array_create(menu_height_items);
+	item_nodes = array_create(menu_height_items);
+	
+	// Allocate space
+	for (var _i=0; _i<menu_height_items; _i++) {
+		items[_i] = array_create(menu_width_items, undefined);
+		item_nodes[_i] = array_create(menu_width_items, undefined);
+	}
+
+	for (var _i=0; _i<menu_height_items; _i++) {
+		var _row_node = flexpanel_create_node({
+			name: $"row_{_i}",
+			width: "100%",
+			height: item_height,
+			margin: item_margin,
+			display: "flex",
+			flexDirection: "row",
+			alignItems: "center"
+		});
+		
+		row_nodes[_i] = _row_node;
+		flexpanel_node_insert_child(item_list_node, _row_node, 0);
+		
+		for (var _j=0; _j<menu_width_items; _j++) {
+			add_divider({
+				label: "",
+				x: _j,
+				y: _i
+			});
+		}
+	}
+	
 	flexpanel_node_insert_child(item_list_node, scroll_up_node, 0);
+}
+
+/// @param {Pointer.FlexPanelNode} _node
+/// @param {Struct.FlexMenuItem} _item
+/// @param {real} _x
+/// @param {real} _y
+function _insert_item(_node, _item, _x, _y) {
+	if (!is_undefined(item_nodes[_x][_y])) {
+		flexpanel_node_remove_child(row_nodes[_x], item_nodes[_x][_y]);
+		flexpanel_delete_node(item_nodes[_x][_y]);
+	}
+	
+	flexpanel_node_insert_child(row_nodes[_y], _node, _x);
+	item_nodes[_x][_y] = _node;
+	items[_x][_y] = _item;
+}
+
+/// @param {Struct} _config
+//       - {string} label
+//       - {real}   x
+//       - {real}   y
+/// @param {bool} _update_layout
+/// @returns {Struct.FlexMenuDivider}
+function add_divider(_config, _update_layout = false) {
+	var _root_node = _create_simple_node(_config.label, item_width);
+	
+	var _item = new FlexMenuDivider({
+		parent_menu: id,
+		label: _config.label,
+		root_node: _root_node
+	});
+	
+	_insert_item(_root_node, _item, _config.x, _config.y);
+	
+	if (_update_layout) {
+		update_layout();
+		update_view_area();
+	}
+	
+	return _item;
+}
+
+/// @param {Struct.FlexMenuItem} _item
+/// @param {real} _x
+/// @param {real} _y
+/// @param {real} _item_x_offset
+/// @param {real} _item_y_offset
+/// @param {real} _scroll_x_offset
+/// @param {real} _scroll_y_offset
+/// @param {real} _base_alpha
+function draw_menu_item(_item, _x, _y, _item_x_offset, _item_y_offset, _scroll_x_offset, _scroll_y_offset, _base_alpha) {
+	draw_set_halign(fa_left);
+	draw_set_valign(fa_middle);
+	draw_set_alpha(_base_alpha);
+	var _node = _item.root_node;
+	var _node_pos = flexpanel_node_layout_get_position(_node, false);
+	var _item_label = _item.label;
+	var _y_offset = 0; //-_item_index_offset * (_node_pos.height + _node_pos.marginTop + _node_pos.marginBottom) + _scroll_y_offset;
+	
+	// Border
+	if (item_draw_border) {
+		draw_rectangle(
+			_node_pos.left,
+			_node_pos.top + _y_offset,
+			_node_pos.left + _node_pos.width,
+			_node_pos.top + _node_pos.height + _y_offset,
+			true
+		);
+	}
+
+	// Contents
+	draw_text(_node_pos.left, _node_pos.top, "Item");
+	
+	/*switch (_item.type) {
+		case FLEX_MENU_ITEM_TYPE.ITEM:
+		case FLEX_MENU_ITEM_TYPE.SELECTABLE:
+		case FLEX_MENU_ITEM_TYPE.DIVIDER:
+			draw_set_font(label_font);
+			draw_text(
+				_node_pos.left + _node_pos.paddingLeft,
+				_node_pos.top + _node_pos.height / 2 + _y_offset,
+				_item_label
+			);
+			break;
+		
+		case FLEX_MENU_ITEM_TYPE.SPINNER_BASE:
+		case FLEX_MENU_ITEM_TYPE.VALUED_SELECTABLE:
+			_draw_spinner_base(_item, _item_label, _y_offset);
+			break;
+		
+		case FLEX_MENU_ITEM_TYPE.SPINNER:
+			_draw_spinner_base(_item, _item_label, _y_offset);
+
+			if (enabled && pos == _i) {
+				_draw_spinner_arrows(_item, _y_offset, _base_alpha);
+			}
+
+			break;
+			
+		case FLEX_MENU_ITEM_TYPE.KEY_CONFIG:
+			_draw_key_config(_item, _item_label, _y_offset, _base_alpha);
+			break;
+			
+		default:
+			draw_set_font(label_font);
+			draw_text(
+				_node_pos.left + _node_pos.paddingLeft,
+				_node_pos.top + _node_pos.paddingTop + _y_offset,
+				$"Unknown Item: {_item_label}"
+			);
+	}
+	
+	// Cursor
+	if (enabled && pos == _i) {
+		draw_sprite_ext(
+			cursor_spr,
+			0,
+			_node_pos.left,
+			_node_pos.top + _node_pos.height / 2 + _y_offset,
+			1, 1, 0, c_white, menu_alpha.v
+		);
+	}*/
 }
 
 create_menu_structure();

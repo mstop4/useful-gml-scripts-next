@@ -27,10 +27,11 @@ function convert_percent_to_px(_percent_str, _full_value) {
 #region Node Creation
 
 /// @param {string} _name
-function _create_simple_node(_name) {
+/// @param {string or real} _width
+function _create_simple_node(_name, _width) {
 	return flexpanel_create_node({
 		name: $"{_name}_root",
-		width: "100%",
+		width: _width,
 		height: item_height,
 		padding: item_padding,
 		paddingLeft: item_padding + cursor_offset_x,
@@ -40,11 +41,12 @@ function _create_simple_node(_name) {
 }
 
 /// @param {string} _name
+/// @param {string or real} _width
 /// @param {real} _value_node_width
-function _create_spinner_node(_name, _value_node_width) {
+function _create_spinner_node(_name, _width, _value_node_width) {
 	var _root_node = flexpanel_create_node({
 		name: $"{_name}_root",
-		width: "100%",
+		width: _width,
 		height: item_height,
 		padding: item_padding,
 		paddingLeft: item_padding + cursor_offset_x,
@@ -87,12 +89,13 @@ function _create_spinner_node(_name, _value_node_width) {
 }
 
 /// @param {string} _name
+/// @param {string or real} _width
 /// @param {real} _num_bindings
 /// @param {real} _value_node_width
-function _create_key_config_node(_name, _num_bindings, _value_node_width) {
+function _create_key_config_node(_name, _width, _num_bindings, _value_node_width) {
 	var _root_node = flexpanel_create_node({
 		name: $"{_name}_root",
-		width: "100%",
+		width: _width,
 		height: item_height,
 		padding: item_padding,
 		paddingLeft: item_padding + cursor_offset_x,
@@ -369,83 +372,6 @@ function _draw_key_config(_item, _item_label, _y_offset, _base_alpha) {
 		
 		_draw_binding_cursor(_item, _cur_node_pos, _cur_binding_index);
 		_cur_binding_index++;
-	}
-}
-
-/// @param {Struct.FlexMenuItem} _item
-/// @param {real} _i
-/// @param {real} _item_index_offset
-/// @param {real} _scroll_y_offset
-/// @param {real} _base_alpha
-function draw_menu_item(_item, _i, _item_index_offset, _scroll_y_offset, _base_alpha) {
-	draw_set_halign(fa_left);
-	draw_set_valign(fa_middle);
-	draw_set_alpha(_base_alpha);
-	var _node = _item.root_node;
-	var _node_pos = flexpanel_node_layout_get_position(_node, false);
-	var _item_label = _item.label;
-	var _y_offset = -_item_index_offset * (_node_pos.height + _node_pos.marginTop + _node_pos.marginBottom) + _scroll_y_offset;
-	
-	// Border
-	if (item_draw_border) {
-		draw_rectangle(
-			_node_pos.left,
-			_node_pos.top + _y_offset,
-			_node_pos.left + _node_pos.width,
-			_node_pos.top + _node_pos.height + _y_offset,
-			true
-		);
-	}
-
-	// Contents
-	switch (_item.type) {
-		case FLEX_MENU_ITEM_TYPE.ITEM:
-		case FLEX_MENU_ITEM_TYPE.SELECTABLE:
-		case FLEX_MENU_ITEM_TYPE.DIVIDER:
-			draw_set_font(label_font);
-			draw_text(
-				_node_pos.left + _node_pos.paddingLeft,
-				_node_pos.top + _node_pos.height / 2 + _y_offset,
-				_item_label
-			);
-			break;
-		
-		case FLEX_MENU_ITEM_TYPE.SPINNER_BASE:
-		case FLEX_MENU_ITEM_TYPE.VALUED_SELECTABLE:
-			_draw_spinner_base(_item, _item_label, _y_offset);
-			break;
-		
-		case FLEX_MENU_ITEM_TYPE.SPINNER:
-			_draw_spinner_base(_item, _item_label, _y_offset);
-
-			if (enabled && pos == _i) {
-				_draw_spinner_arrows(_item, _y_offset, _base_alpha);
-			}
-
-			break;
-			
-		case FLEX_MENU_ITEM_TYPE.KEY_CONFIG:
-			_draw_key_config(_item, _item_label, _y_offset, _base_alpha);
-			break;
-			
-		default:
-			draw_set_font(label_font);
-			draw_text(
-				_node_pos.left + _node_pos.paddingLeft,
-				_node_pos.top + _node_pos.paddingTop + _y_offset,
-				$"Unknown Item: {_item_label}"
-			);
-	}
-	
-	// Cursor
-	if (enabled && pos == _i) {
-		draw_sprite_ext(
-			cursor_spr,
-			0,
-			_node_pos.left,
-			_node_pos.top + _node_pos.height / 2 + _y_offset,
-			1, 1, 0, c_white, menu_alpha.v
-		);
 	}
 }
 

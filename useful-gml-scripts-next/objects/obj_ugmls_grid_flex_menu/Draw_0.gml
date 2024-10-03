@@ -18,7 +18,7 @@ if (menu_draw_border || view_height > 0) {
 		? view_scroll_arrows_height + (item_height + item_margin * 2) * view_height
 		: view_scroll_arrows_height + (item_height + item_margin * 2) * menu_height_items;
 }
-
+ 
 if (menu_draw_border || view_width > 0) {
 	_scroll_left_pos = flexpanel_node_layout_get_position(scroll_left_node, false);
 	_scroll_right_pos = flexpanel_node_layout_get_position(scroll_right_node, false);
@@ -82,7 +82,7 @@ if (menu_draw_border) {
 		true
 	);
 	
-	// Scroll Down
+	// Scroll Right
 	draw_rectangle(
 		_scroll_left_pos.left + _x_offset,
 		_scroll_right_pos.top,
@@ -90,6 +90,17 @@ if (menu_draw_border) {
 		_scroll_right_pos.top + _scroll_right_pos.height,
 		true
 	);
+	
+	for (var _i=0; _i<menu_height_items; _i++) {
+		var _row_pos = flexpanel_node_layout_get_position(row_nodes[_i], false);
+		draw_rectangle(
+			_row_pos.left,
+			_row_pos.top,
+			_row_pos.left + _row_pos.width,
+			_row_pos.top + _row_pos.height,
+			true
+		);
+	}
 }
 
 // Scroll Arrows
@@ -116,6 +127,16 @@ if (menu_draw_border) {
 }*/
 
 // Menu Items
+
+for (var _i=0; _i<menu_height_items; _i++) {
+	for (var _j=0; _j<menu_width_items; _j++) {
+		if (is_undefined(items[_j][_i])) continue;
+		
+		var _base_alpha = menu_alpha.v;
+		draw_menu_item(items[_j][_i], _j, _i, 0, 0, 0, 0, _base_alpha);
+	}
+}
+
 /*for (var _i=view_area.x; _i<=view_area.y; _i++) {
 	var _base_alpha = menu_alpha.v;
 	if (view_height > 0) {		
