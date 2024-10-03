@@ -13,13 +13,10 @@ function create_menu_structure() {
 		top: y,
 		width: menu_max_width,
 		height: menu_max_height,
-		padding: menu_padding
 	});
 
 	item_list_node = flexpanel_create_node({
 		name: "item_list",
-		left: 0,
-		top: 0,
 		height: "100%",
 		display: "flex",
 		flexDirection: "column",
@@ -28,20 +25,14 @@ function create_menu_structure() {
 	
 	scroll_up_node = flexpanel_create_node({
 		name: "scroll_up",
-		left: 0,
-		top: 0,
 		width: view_scroll_arrows_height,
 		height: view_scroll_arrows_height,
-		padding: 0
 	});
 	
 	scroll_down_node = flexpanel_create_node({
-		name: "scroll_up",
-		left: 0,
-		top: 0,
+		name: "scroll_down",
 		width: view_scroll_arrows_height,
 		height: view_scroll_arrows_height,
-		padding: 0
 	});
 
 	flexpanel_node_insert_child(root_node, item_list_node, 0);

@@ -4,7 +4,7 @@ active_key_config = -1;
 discovery_mode = FLEX_MENU_DISCOVERY_MODE.NONE;
 next_menu = noone;
 
-view_scroll_progress_y = new Tween(0, 0, -1, 1, TWEEN_LIMIT_MODE.CLAMP, true, undefined);
+view_scroll_progress_y = new Tween(0, 0, -1, 1, TWEEN_LIMIT_MODE.CLAMP, true, undefined, []);
 
 /// @param {string} _percent_str
 /// @param {real} _full_value
@@ -21,6 +21,8 @@ function convert_percent_to_px(_percent_str, _full_value) {
 	
 	else return 0;
 }
+
+// TODO: menu_max_width, menu_max_height, and menu_padding are irrelvant?
 
 #region Node Creation
 

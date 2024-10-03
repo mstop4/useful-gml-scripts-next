@@ -62,7 +62,7 @@ fruits_menu = instance_create_layer(32, 104, "Instances", obj_ugmls_column_flex_
 	menu_max_width: 400,
 	menu_max_height: 300,
 	menu_fade_duration: 30,
-	view_height: 5,
+	view_height: 0,
 	view_scroll_duration: 10,
 	view_scroll_arrows_spr: spr_scroll_arrow,
 	item_height: 24,
@@ -80,8 +80,8 @@ fruits_menu = instance_create_layer(32, 104, "Instances", obj_ugmls_column_flex_
 	gamepad_icons: [spr_xbox_series_gamepad_icons],
 	control_icons_scale: 0.3,
 	use_control_icons: true,
-	menu_draw_border: false,
-	item_draw_border: false
+	menu_draw_border: true,
+	item_draw_border: true
 });
 
 for (var _i=0; _i<num_fruits; _i++) {
