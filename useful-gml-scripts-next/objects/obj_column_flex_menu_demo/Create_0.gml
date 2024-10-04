@@ -62,7 +62,7 @@ fruits_menu = instance_create_layer(32, 104, "Instances", obj_ugmls_column_flex_
 	menu_max_width: 400,
 	menu_max_height: 300,
 	menu_fade_duration: 30,
-	view_height: 0,
+	view_height: 5,
 	view_scroll_duration: 10,
 	view_scroll_arrows_spr: spr_scroll_arrow,
 	item_height: 24,
@@ -80,8 +80,8 @@ fruits_menu = instance_create_layer(32, 104, "Instances", obj_ugmls_column_flex_
 	gamepad_icons: [spr_xbox_series_gamepad_icons],
 	control_icons_scale: 0.3,
 	use_control_icons: true,
-	menu_draw_border: true,
-	item_draw_border: true
+	menu_draw_border: false,
+	item_draw_border: false
 });
 
 for (var _i=0; _i<num_fruits; _i++) {
@@ -90,10 +90,11 @@ for (var _i=0; _i<num_fruits; _i++) {
 		value_node_width: 32,
 		values: create_numeric_sequence_array(0, 10, 1, true, false),
 		init_index: 0,
+		lockable: false,
 		on_confirm_func: function(_menu, _item, _i, _value, _args) {
 			var _label = _item.get_label();
 			var _praise = choose_from_array(_args[0]);
-			show_message_async($"You have {_value} {_label}. {_praise}!")
+			show_message_async($"You have {_value} {_label}. {_praise}!");
 		},
 		on_confirm_args: [praise_list],
 		on_change_func: method(self, function(_menu, _item, _i, _value, _delta, _args) {
@@ -172,6 +173,7 @@ for (var _i=0; _i<num_vegetables; _i++) {
 		value_node_width: 32,
 		values: create_numeric_sequence_array(0, 10, 1, true, false),
 		init_index: 0,
+		lockable: false,
 		on_confirm_func: function(_menu, _item, _i, _value, _args) {
 			var _label = _item.get_label();
 			var _praise = choose_from_array(_args[0]);

@@ -254,6 +254,7 @@ function add_spinner(_config, _update_layout = false) {
 		right_node: _nodes.right,
 		values: _config.values,
 		init_index: _config.init_index,
+		lockable: _config.lockable,
 		menu_data: {
 			index: num_items + 1
 		},
@@ -381,7 +382,7 @@ function draw_menu_item(_item, _i, _item_index_offset, _scroll_y_offset, _base_a
 		case FLEX_MENU_ITEM_TYPE.SPINNER:
 			_draw_spinner_base(_item, _item_label, _y_offset);
 
-			if (enabled && pos == _i) {
+			if (_item.can_interact() && !_item.is_locked() && pos == _i) {
 				_draw_spinner_arrows(_item, _y_offset, _base_alpha);
 			}
 
@@ -401,7 +402,7 @@ function draw_menu_item(_item, _i, _item_index_offset, _scroll_y_offset, _base_a
 	}
 	
 	// Cursor
-	if (enabled && pos == _i) {
+	if (can_interact() && pos == _i) {
 		draw_sprite_ext(
 			cursor_spr,
 			0,

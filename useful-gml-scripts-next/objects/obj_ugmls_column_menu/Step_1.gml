@@ -1,4 +1,4 @@
-if (!enabled) exit;
+if (!can_interact()) exit;
 
 control_state.poll_input();
 

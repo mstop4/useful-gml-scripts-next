@@ -79,6 +79,10 @@ function FlexMenuItem(_config) constructor {
 	menu_data = _config.menu_data;
 	enabled = true;
 	
+	function can_interact() {
+		return parent_menu.can_interact() && enabled;
+	}
+	
 	function set_enabled(_enabled) {
 		enabled = _enabled;
 	}
@@ -117,7 +121,7 @@ function FlexMenuSelectable(_config) : FlexMenuItem(_config) constructor {
 	silent_on_confirm = _config.silent_on_confirm;
 	
 	handle_confirm = method(self, function() {
-		if (!enabled) return;
+		if (!can_interact()) return;
 		if (is_callable(on_confirm_func)) {
 			on_confirm_func(parent_menu, self, on_confirm_args);
 		}
@@ -165,7 +169,7 @@ function FlexMenuValuedSelectable(_config) : FlexMenuSpinnerBase(_config) constr
 	}
 	
 	function handle_confirm() {
-		if (!enabled) return;
+		if (!can_interact()) return;
 		if (is_callable(on_confirm_func)) {
 			on_confirm_func(parent_menu, self, value, on_confirm_args);
 		}
@@ -215,6 +219,7 @@ function FlexMenuSpinnerBase(_config) : FlexMenuSelectable(_config) constructor 
 // 				 - {Pointer.FlexPanelNode} value_node
 //         - {array}    values
 //         - {real}     init_index
+//         - {bool}     lockable
 //         - {function} on_confirm_func
 //         - {array}    on_confirm_args
 //         - {function} on_change_func
@@ -223,6 +228,8 @@ function FlexMenuSpinnerBase(_config) : FlexMenuSelectable(_config) constructor 
 //         - {boolean}  silent_on_change
 function FlexMenuSpinner(_config) : FlexMenuSpinnerBase(_config) constructor {
 	type = FLEX_MENU_ITEM_TYPE.SPINNER;
+	lockable = _config.lockable ?? false;
+	locked = lockable;
 	var _num_values = array_length(_config.values);
 	values = array_create(_num_values);
 	array_copy(values, 0, _config.values, 0, _num_values);
@@ -246,8 +253,14 @@ function FlexMenuSpinner(_config) : FlexMenuSpinnerBase(_config) constructor {
 		}
 	}
 	
+	function is_locked() {
+		return lockable && locked;
+	}
+	
 	function handle_change(_delta) {
-		if (!enabled) return;
+		if (!can_interact()) return;
+		if (is_locked()) return;
+
 		var _num_values = array_length(values);
 		cur_index = wrap(cur_index + _delta, 0, _num_values);
 		
@@ -268,7 +281,12 @@ function FlexMenuSpinner(_config) : FlexMenuSpinnerBase(_config) constructor {
 	}
 	
 	function handle_confirm() {
-		if (!enabled) return;
+		if (!can_interact()) return;
+		
+		if (lockable) {
+			locked = !locked;
+		}
+		
 		if (is_callable(on_confirm_func)) {
 			on_confirm_func(parent_menu, self, cur_index, values[cur_index], on_confirm_args);
 		}
@@ -417,7 +435,7 @@ function FlexMenuKeyConfig(_config) : FlexMenuSelectable(_config) constructor {
 	
 	/// @param {real}		_delta
 	function handle_select(_delta) {
-		if (!enabled) return;
+		if (!can_interact()) return;
 		var _num_values = KEYBOARD_MAX_BINDINGS_PER_CONTROL + GAMEPAD_MAX_BINDINGS_PER_CONTROL;
 		var _last_pressed = parent_menu.control_state.control_any_pressed();
 		var _binding_info;
@@ -435,7 +453,7 @@ function FlexMenuKeyConfig(_config) : FlexMenuSelectable(_config) constructor {
 
 	function handle_confirm() {
 		// TODO: on_confirm_func is currently not used
-		if (!enabled) return;
+		if (!can_interact()) return;
 		var _last_pressed = parent_menu.control_state.control_any_pressed();	
 	
 		if (parent_menu.discovery_mode == MENU_DISCOVERY_MODE.NONE) {
@@ -461,7 +479,7 @@ function FlexMenuKeyConfig(_config) : FlexMenuSelectable(_config) constructor {
 	}
 
 	function handle_cancel() {
-		if (!enabled) return;
+		if (!can_interact()) return;
 		if (parent_menu.discovery_mode == MENU_DISCOVERY_MODE.SELECTING) {
 			parent_menu.discovery_mode = MENU_DISCOVERY_MODE.NONE;
 			parent_menu.active_key_config = -1;		
@@ -469,7 +487,7 @@ function FlexMenuKeyConfig(_config) : FlexMenuSelectable(_config) constructor {
 	}
 
 	function handle_delete() {
-		if (!enabled) return;
+		if (!can_interact()) return;
 		var _binding_info = get_binding_info();
 		if (_binding_info.binding_locked) return;
 	
@@ -493,7 +511,7 @@ function FlexMenuKeyConfig(_config) : FlexMenuSelectable(_config) constructor {
 	}
 
 	function handle_discovery() {
-		if (!enabled) return;
+		if (!can_interact()) return;
 		if (parent_menu.control_state.pressed_state[MENU_CONTROLS.CANCEL]) {
 			parent_menu.discovery_mode = MENU_DISCOVERY_MODE.SELECTING;
 			discovery_binding_info = false;

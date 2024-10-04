@@ -3,6 +3,7 @@ control_state = new MenuControlState(player_controller);
 active_key_config = -1;
 discovery_mode = FLEX_MENU_DISCOVERY_MODE.NONE;
 next_menu = noone;
+showing = true;
 
 view_scroll_progress_y = new Tween(0, 0, -1, 1, TWEEN_LIMIT_MODE.CLAMP, true, undefined, []);
 
@@ -20,6 +21,11 @@ function convert_percent_to_px(_percent_str, _full_value) {
 	}
 	
 	else return 0;
+}
+
+/// @returns {bool}
+function can_interact() {
+	return enabled && showing;
 }
 
 // TODO: menu_max_width, menu_max_height, and menu_padding are irrelvant?
@@ -141,10 +147,9 @@ function toggle_visibility(_visible, _immediate) {
 	if (_immediate) {
 		menu_alpha.v = _visible;
 		visible = _visible;
-		enabled = _visible;
+		showing = _visible;	
 		_on_visibility_fade_end();
 	} else {
-		enabled = false;
 		visible = true;
 		if (_visible) {
 			menu_alpha.v = 0;
@@ -152,6 +157,7 @@ function toggle_visibility(_visible, _immediate) {
 		} else {
 			menu_alpha.v = 1;
 			menu_alpha.d = -1/menu_fade_duration;
+			showing = false;
 		}
 	}
 }
@@ -165,7 +171,7 @@ _on_visibility_fade_end = method(self, function(_tween, _args) {
 			next_menu = noone;
 		}
 	} else {
-		enabled = true;
+		showing = true;
 	}
 });
 

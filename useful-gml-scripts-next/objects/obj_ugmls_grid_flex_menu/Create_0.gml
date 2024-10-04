@@ -319,7 +319,7 @@ function draw_menu_item(_item, _x, _y, _item_x_offset, _item_y_offset, _scroll_x
 		case FLEX_MENU_ITEM_TYPE.SPINNER:
 			_draw_spinner_base(_item, _item_label, _y_offset);
 
-			if (enabled && pos == _i) {
+			if (_item.can_interact() && pos == _i) {
 				_draw_spinner_arrows(_item, _y_offset, _base_alpha);
 			}
 
@@ -339,7 +339,7 @@ function draw_menu_item(_item, _x, _y, _item_x_offset, _item_y_offset, _scroll_x
 	}
 	
 	// Cursor
-	if (enabled && pos.x == _x && pos.y == _y) {
+	if (can_interact() && pos.x == _x && pos.y == _y) {
 		draw_sprite_ext(
 			cursor_spr,
 			0,
