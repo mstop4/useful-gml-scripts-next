@@ -28,6 +28,20 @@ for (var _i=0; _i<grid_size; _i++) {
 			on_confirm_args: [],
 			silent_on_confirm: false
 		});
+		
+		/*menu.add_valued_selectable({
+			label: "Foo",
+			x: _i,
+			y: _j,
+			value_node_width: 128,
+			init_value: irandom(20),
+			on_confirm_func: undefined,
+			on_confirm_args: [],
+			on_change_func: undefined,
+			on_change_args: [],
+			silent_on_confirm: false,
+			silent_on_change: true
+		});*/
 	}
 }
 

@@ -24,9 +24,7 @@ var _alignment_pos,
 	_up_down_arrow_x_offset,
 	_down_arrow_y_offset;
 
-if (view_width > 0 || view_height > 0) {
-	_alignment_pos = flexpanel_node_layout_get_position(alignment_node, false);
-}
+_alignment_pos = flexpanel_node_layout_get_position(alignment_node, false);
 
 if (menu_draw_border || view_height > 0) {
 	_scroll_up_pos = flexpanel_node_layout_get_position(scroll_up_node, false);
