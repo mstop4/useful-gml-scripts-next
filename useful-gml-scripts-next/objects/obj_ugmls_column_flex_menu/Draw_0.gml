@@ -64,7 +64,7 @@ if (view_height > 0) {
 			view_scroll_arrows_spr,
 			0,
 			_scroll_up_pos.left + _scroll_up_pos.width / 2,
-			_scroll_up_pos.top + _scroll_down_pos.height / 2,
+			_scroll_up_pos.top + _scroll_up_pos.height / 2,
 			1, 1, 0, c_white, menu_alpha.v
 		);
 	}

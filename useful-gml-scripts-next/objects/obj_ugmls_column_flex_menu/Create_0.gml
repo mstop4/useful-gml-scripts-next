@@ -18,7 +18,6 @@ function create_menu_structure() {
 	item_list_node = flexpanel_create_node({
 		name: "item_list",
 		height: "100%",
-		display: "flex",
 		flexDirection: "column",
 		alignItems: "center"
 	});
@@ -43,7 +42,7 @@ function create_menu_structure() {
 #region View
 
 /// @returns {Bool}
-function update_view() {
+function scroll_view() {
 	var _changed = false;
 
 	if (view_height > 0) {
@@ -57,6 +56,7 @@ function update_view() {
 			_changed = true;
 		}
 	}
+	
 	return _changed;
 }
 
@@ -94,7 +94,7 @@ function _insert_item(_node, _item) {
 }
 
 /// @param {Struct} _config
-//       - {string} label 
+//       - {string} label
 /// @param {bool} _update_layout
 /// @returns {Struct.FlexMenuItem}
 function add_item(_config, _update_layout = false) {
@@ -103,7 +103,10 @@ function add_item(_config, _update_layout = false) {
 	var _item = new FlexMenuItem({
 		parent_menu: id,
 		label: _config.label,
-		root_node: _root_node
+		root_node: _root_node,
+		menu_data: {
+			index: num_items + 1
+		}
 	});
 	
 	_insert_item(_root_node, _item);
@@ -117,7 +120,7 @@ function add_item(_config, _update_layout = false) {
 }
 
 /// @param {Struct} _config
-//       - {string} label 
+//       - {string} label
 /// @param {bool} _update_layout
 /// @returns {Struct.FlexMenuDivider}
 function add_divider(_config, _update_layout = false) {
@@ -126,7 +129,10 @@ function add_divider(_config, _update_layout = false) {
 	var _item = new FlexMenuDivider({
 		parent_menu: id,
 		label: _config.label,
-		root_node: _root_node
+		root_node: _root_node,
+		menu_data: {
+			index: num_items + 1
+		}
 	});
 	
 	_insert_item(_root_node, _item);
@@ -153,6 +159,9 @@ function add_selectable(_config, _update_layout = false) {
 		parent_menu: id,
 		label: _config.label,
 		root_node: _root_node,
+		menu_data: {
+			index: num_items + 1
+		},
 		on_confirm_func: _config.on_confirm_func,
 		on_confirm_args: _config.on_confirm_args,
 		silent_on_confirm: _config.silent_on_confirm
@@ -195,6 +204,9 @@ function add_valued_selectable(_config, _update_layout = false) {
 		value_node: _nodes.value,
 		right_node: _nodes.right,
 		init_value: _config.init_value,
+		menu_data: {
+			index: num_items + 1
+		},
 		on_confirm_func: _config.on_confirm_func,
 		on_confirm_args: _config.on_confirm_args,
 		on_change_func: _config.on_change_func,
@@ -242,6 +254,9 @@ function add_spinner(_config, _update_layout = false) {
 		right_node: _nodes.right,
 		values: _config.values,
 		init_index: _config.init_index,
+		menu_data: {
+			index: num_items + 1
+		},
 		on_confirm_func: _config.on_confirm_func,
 		on_confirm_args: _config.on_confirm_args,
 		on_change_func: _config.on_change_func,
@@ -295,6 +310,9 @@ function add_key_config(_config, _update_layout = false) {
 		control: _config.control,
 		initial_kbm_bindings: _config.initial_kbm_bindings,
 		initial_gamepad_bindings: _config.initial_gamepad_bindings,
+		menu_data: {
+			index: num_items + 1
+		},
 		on_confirm_func: _config.on_confirm_func,
 		on_confirm_args: _config.on_confirm_args,
 		on_change_func: _config.on_change_func,
@@ -345,12 +363,14 @@ function draw_menu_item(_item, _i, _item_index_offset, _scroll_y_offset, _base_a
 		case FLEX_MENU_ITEM_TYPE.ITEM:
 		case FLEX_MENU_ITEM_TYPE.SELECTABLE:
 		case FLEX_MENU_ITEM_TYPE.DIVIDER:
-			draw_set_font(label_font);
-			draw_text(
-				_node_pos.left + _node_pos.paddingLeft,
-				_node_pos.top + _node_pos.height / 2 + _y_offset,
-				_item_label
-			);
+			if (_item_label != "") {
+				draw_set_font(label_font);
+				draw_text(
+					_node_pos.left + _node_pos.paddingLeft,
+					_node_pos.top + _node_pos.height / 2 + _y_offset,
+					_item_label
+				);
+			}
 			break;
 		
 		case FLEX_MENU_ITEM_TYPE.SPINNER_BASE:
