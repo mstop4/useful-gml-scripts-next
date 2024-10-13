@@ -14,7 +14,7 @@
     {"name":"Debugging","order":6,"path":"folders/Demos/Debugging.yy",},
     {"name":"Drawing","order":7,"path":"folders/Demos/Drawing.yy",},
     {"name":"Easings","order":9,"path":"folders/Demos/Easings.yy",},
-    {"name":"Flex Column Menu","order":22,"path":"folders/Demos/Flex Column Menu.yy",},
+    {"name":"Column Flex Menu","order":22,"path":"folders/Demos/Column Flex Menu.yy",},
     {"name":"Geometry","order":10,"path":"folders/Demos/Geometry.yy",},
     {"name":"Grid Menu","order":19,"path":"folders/Demos/Grid Menu.yy",},
     {"name":"Init","order":2,"path":"folders/Demos/Init.yy",},

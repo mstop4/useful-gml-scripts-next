@@ -10,8 +10,8 @@
   "name":"obj_column_flex_menu_demo",
   "overriddenProperties":[],
   "parent":{
-    "name":"Flex Column Menu",
-    "path":"folders/Demos/Flex Column Menu.yy",
+    "name":"Column Flex Menu",
+    "path":"folders/Demos/Column Flex Menu.yy",
   },
   "parentObjectId":null,
   "persistent":false,
