@@ -1,4 +1,4 @@
-if (!enabled) exit;
+if (!can_interact()) exit;
 
 control_state.poll_input();
 
@@ -19,7 +19,7 @@ if (control_state.pressed_state[MENU_CONTROLS.UP]) {
 			&& _item.type != FLEX_MENU_ITEM_TYPE.DIVIDER)
 			|| _cur_pos == pos)
 		
-		var _should_scroll = self.update_view() && (pos < _cur_pos);
+		var _should_scroll = self.scroll_view() && (pos < _cur_pos);
 		if (_should_scroll) {
 			start_scroll(-1);
 		} else {
@@ -42,7 +42,7 @@ if (control_state.pressed_state[MENU_CONTROLS.DOWN]) {
 			&& _item.type != FLEX_MENU_ITEM_TYPE.DIVIDER)
 			|| _cur_pos == pos)		
 		
-		var _should_scroll = self.update_view() && (pos > _cur_pos);
+		var _should_scroll = self.scroll_view() && (pos > _cur_pos);
 		if (_should_scroll) {
 			start_scroll(1);
 		} else {
