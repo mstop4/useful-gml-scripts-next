@@ -12,7 +12,7 @@ function create_menu_structure() {
 		left: x,
 		top: y,
 		width: menu_max_width,
-		height: menu_max_height,
+		height: menu_max_height
 	});
 
 	item_list_node = flexpanel_create_node({
@@ -25,13 +25,13 @@ function create_menu_structure() {
 	scroll_up_node = flexpanel_create_node({
 		name: "scroll_up",
 		width: view_scroll_arrows_height,
-		height: view_scroll_arrows_height,
+		height: view_scroll_arrows_height
 	});
 	
 	scroll_down_node = flexpanel_create_node({
 		name: "scroll_down",
 		width: view_scroll_arrows_height,
-		height: view_scroll_arrows_height,
+		height: view_scroll_arrows_height
 	});
 
 	flexpanel_node_insert_child(root_node, item_list_node, 0);
@@ -230,6 +230,7 @@ function add_valued_selectable(_config, _update_layout = false) {
 //       - {real}        value_node_width
 //       - {array}       values
 //       - {any}				 init_index
+//       - {bool}        lockable
 //       - {function} on_confirm_func
 //       - {array}    on_confirm_args
 //       - {function} on_change_func
