@@ -39,7 +39,7 @@ function Tween(
 	outside_range_callback = _outside_range_callback;
 	outside_range_callback_args = _outside_range_callback_args;
 
-	function update() {
+	update = method(self, function() {
 		if (d != 0) {
 			var _old_v = v;
 			var _new_v = v + d;
@@ -98,11 +98,25 @@ function Tween(
 			}
 			
 			if (stop_outside_range && (v >= max_v || v <= min_v)) {
-				d = 0;
+				stop();
 				if (is_callable(outside_range_callback)) {
 					outside_range_callback(self, outside_range_callback_args);
 				}
 			}
 		}
+	});
+	
+	ticker = time_source_create(time_source_game, 1, time_source_units_frames, update, [], -1);
+	
+	function start() {
+		time_source_start(ticker);
+	}
+	
+	function stop() {
+		time_source_stop(ticker);
+	}
+	
+	function destroy() {
+		time_source_destroy(ticker);
 	}
 }
