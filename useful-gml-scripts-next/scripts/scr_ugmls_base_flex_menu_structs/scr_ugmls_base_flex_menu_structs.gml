@@ -69,14 +69,14 @@ function FlexMenuControlState(_player_inst = noone) constructor {
 /// @param _config
 //         - {Id.Instance} parent_menu
 //				 - {string} label
-//         - {struct} menu_data
+//         - {struct} item_data
 //         - {Pointer.FlexPanelNode} root_node
 function FlexMenuItem(_config) constructor {
 	type = FLEX_MENU_ITEM_TYPE.ITEM;
 	label = _config.label;
 	root_node = _config.root_node;
 	parent_menu = _config.parent_menu;
-	menu_data = _config.menu_data;
+	item_data = _config.item_data;
 	enabled = true;
 	
 	function can_interact() {
@@ -98,7 +98,7 @@ function FlexMenuItem(_config) constructor {
 /// @param _config 
 //         - {Id.Instance} parent_menu
 //				 - {string} label
-//         - {struct} menu_data
+//         - {struct} item_data
 //         - {Pointer.FlexPanelNode} root_node
 function FlexMenuDivider(_config) : FlexMenuItem(_config) constructor {
 	type = FLEX_MENU_ITEM_TYPE.DIVIDER;
@@ -108,7 +108,7 @@ function FlexMenuDivider(_config) : FlexMenuItem(_config) constructor {
 /// @param _config 
 //         - {Id.Instance} parent_menu
 //				 - {string} label
-//         - {struct} menu_data
+//         - {struct} item_data
 //         - {Pointer.FlexPanelNode} root_node
 //         - {string}      label
 //         - {function}    on_confirm_func
@@ -183,7 +183,7 @@ function FlexMenuValuedSelectable(_config) : FlexMenuSpinnerBase(_config) constr
 /// @param _config 
 //         - {Id.Instance} parent_menu
 //				 - {string} label
-//         - {struct} menu_data
+//         - {struct} item_data
 //         - {Pointer.FlexPanelNode} root_node
 //         - {Pointer.FlexPanelNode} left_node
 // 				 - {Pointer.FlexPanelNode} label_node
@@ -210,7 +210,7 @@ function FlexMenuSpinnerBase(_config) : FlexMenuSelectable(_config) constructor 
 /// @param _config 
 //         - {Id.Instance} parent_menu
 //				 - {string} label
-//         - {struct} menu_data
+//         - {struct} item_data
 //         - {Pointer.FlexPanelNode} root_node
 //         - {Pointer.FlexPanelNode} left_node
 // 				 - {Pointer.FlexPanelNode} label_node
@@ -300,7 +300,7 @@ function FlexMenuSpinner(_config) : FlexMenuSpinnerBase(_config) constructor {
 /// @param _config 
 //         - {Id.Instance} parent_menu
 //				 - {string} label
-//				 - {struct} menu_data
+//				 - {struct} item_data
 //         - {Pointer.FlexPanelNode} root_node
 //         - {Pointer.FlexPanelNode} label_node
 //         - {array}		binding_nodes

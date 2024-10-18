@@ -104,7 +104,7 @@ function add_item(_config, _update_layout = false) {
 		parent_menu: id,
 		label: _config.label,
 		root_node: _root_node,
-		menu_data: {
+		item_data: {
 			index: num_items + 1
 		}
 	});
@@ -130,7 +130,7 @@ function add_divider(_config, _update_layout = false) {
 		parent_menu: id,
 		label: _config.label,
 		root_node: _root_node,
-		menu_data: {
+		item_data: {
 			index: num_items + 1
 		}
 	});
@@ -159,7 +159,7 @@ function add_selectable(_config, _update_layout = false) {
 		parent_menu: id,
 		label: _config.label,
 		root_node: _root_node,
-				menu_data: {
+		item_data: {
 			index: num_items + 1
 		},
 		on_confirm_func: _config.on_confirm_func,
@@ -204,7 +204,7 @@ function add_valued_selectable(_config, _update_layout = false) {
 		value_node: _nodes.value,
 		right_node: _nodes.right,
 		init_value: _config.init_value,
-		menu_data: {
+		item_data: {
 			index: num_items + 1
 		},
 		on_confirm_func: _config.on_confirm_func,
@@ -256,7 +256,7 @@ function add_spinner(_config, _update_layout = false) {
 		values: _config.values,
 		init_index: _config.init_index,
 		lockable: _config.lockable,
-				menu_data: {
+		item_data: {
 			index: num_items + 1
 		},
 		on_confirm_func: _config.on_confirm_func,
@@ -312,7 +312,7 @@ function add_key_config(_config, _update_layout = false) {
 		control: _config.control,
 		initial_kbm_bindings: _config.initial_kbm_bindings,
 		initial_gamepad_bindings: _config.initial_gamepad_bindings,
-				menu_data: {
+		item_data: {
 			index: num_items + 1
 		},
 		on_confirm_func: _config.on_confirm_func,
