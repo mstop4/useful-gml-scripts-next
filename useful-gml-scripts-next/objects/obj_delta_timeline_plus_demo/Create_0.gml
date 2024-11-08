@@ -1,3 +1,6 @@
+multipliers = [0.5, 1, 2, 4];
+cur_multiplier = 1;
+
 red_timeline = new DeltaTimelinePlus();
 num_red_lights = 0;
 
