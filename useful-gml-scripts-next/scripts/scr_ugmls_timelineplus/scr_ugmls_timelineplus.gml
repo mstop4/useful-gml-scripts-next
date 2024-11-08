@@ -90,8 +90,10 @@ function DeltaTimelinePlus() constructor {
 	/// @param {Bool} _timestamp_is_frames
 	/// @param {Function} _callback
 	function add_moment(_timestamp, _timestamp_is_frames, _callback, _sort_timeline = false) {
+		// NOTE: There is an issue with sorting floating-point timestamps: https://github.com/YoYoGames/GameMaker-Bugs/issues/185
+		// Because of this, timestamps only have millisecond resolution 
 		var _timestamp_secs = _timestamp_is_frames
-			? _timestamp / game_get_speed(gamespeed_fps)
+			? floor(_timestamp / game_get_speed(gamespeed_fps) * 1000)
 			: _timestamp;
 		
 		var _moment = new TimelinePlusMoment(_timestamp_secs, _callback);
@@ -117,8 +119,10 @@ function DeltaTimelinePlus() constructor {
 	/// @param {Real} _timestamp seconds or frames
 	/// @param {Bool} _timestamp_is_frames
 	function set_timer(_timestamp, _timestamp_is_frames) {
+		// NOTE: There is an issue with sorting floating-point timestamps: https://github.com/YoYoGames/GameMaker-Bugs/issues/185
+		// Because of this, timestamps only have millisecond resolution 
 		timer = _timestamp_is_frames
-			? _timestamp / game_get_speed(gamespeed_fps)
+			? floor(_timestamp / game_get_speed(gamespeed_fps) * 1000)
 			: _timestamp;
 		
 		if (!moments_sorted) self._sort_moments();
@@ -165,7 +169,7 @@ function DeltaTimelinePlus() constructor {
 			}
 		}
 		
-		timer += (delta_time * time_step_multiplier) / 1000000;
+		timer += (delta_time * time_step_multiplier) / 1000;
 	}
 	
 	function cleanup() {

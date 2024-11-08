@@ -31,26 +31,26 @@ red_timeline.add_moment(360, true, method(self, function() {
 blue_timeline = new DeltaTimelinePlus();
 num_blue_lights = 0;
 
-blue_timeline.add_moment(1, false, method(self, function() {
+blue_timeline.add_moment(1000, false, method(self, function() {
 	num_blue_lights++;
 }), false);
 
-blue_timeline.add_moment(2, false, method(self, function() {
+blue_timeline.add_moment(2000, false, method(self, function() {
 	num_blue_lights++;
 }), false);
 
-blue_timeline.add_moment(3, false, method(self, function() {
+blue_timeline.add_moment(3000, false, method(self, function() {
 	num_blue_lights++;
 }), false);
 
-blue_timeline.add_moment(4, false, method(self, function() {
+blue_timeline.add_moment(4000, false, method(self, function() {
 	num_blue_lights++;
 }), false);
 
-blue_timeline.add_moment(5, false, method(self, function() {
+blue_timeline.add_moment(5000, false, method(self, function() {
 	num_blue_lights++;
 }), false);
 
-blue_timeline.add_moment(6, false, method(self, function() {
+blue_timeline.add_moment(6000, false, method(self, function() {
 	num_blue_lights++;
 }), false);
