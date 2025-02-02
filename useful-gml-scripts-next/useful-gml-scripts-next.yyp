@@ -25,11 +25,11 @@
     {"$GMFolder":"","%Name":"Control Manager","folderPath":"folders/Demos/Control Manager.yy","name":"Control Manager","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Data Structures","folderPath":"folders/Demos/Data Structures.yy","name":"Data Structures","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Debugging","folderPath":"folders/Demos/Debugging.yy","name":"Debugging","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Delta Timeline Plus","folderPath":"folders/Demos/Delta Timeline Plus.yy","name":"Delta Timeline Plus","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Drawing","folderPath":"folders/Demos/Drawing.yy","name":"Drawing","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Easings","folderPath":"folders/Demos/Easings.yy","name":"Easings","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Geometry","folderPath":"folders/Demos/Geometry.yy","name":"Geometry","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Grid Menu","folderPath":"folders/Demos/Grid Menu.yy","name":"Grid Menu","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Delta Timeline Plus","folderPath":"folders/Demos/Delta Timeline Plus.yy","name":"Delta Timeline Plus","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Init","folderPath":"folders/Demos/Init.yy","name":"Init","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Input","folderPath":"folders/Demos/Input.yy","name":"Input","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Key Config Menu","folderPath":"folders/Demos/Key Config Menu.yy","name":"Key Config Menu","resourceType":"GMFolder","resourceVersion":"2.0",},
@@ -71,7 +71,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.8.1.171",
+    "IDEVersion":"2024.11.0.179",
   },
   "name":"useful-gml-scripts-next",
   "resources":[
