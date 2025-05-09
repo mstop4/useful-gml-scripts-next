@@ -114,14 +114,14 @@ function soft_clamp(_value, _delta, _min, _max) {
 	return (_value > _max && _delta > 0) || (_value < _min && _delta < 0) ? clamp(_value, _min, _max) : _value + _delta;
 }
 
-/// @desc  Wraps a value to a positive number between min and max.
+/// @desc  Wraps a value to a number between min and max (where min < max)
 /// @param {real} _value 
 /// @param {real} _min   
 /// @param {real} _max   
 function wrap(_value, _min, _max) {
-	var _range = _max - _min;
-	if (_range == 0) return 0;
+	var _range = _max - _min + 1;
+	if (_range <= 0) return 0;
 
-	var _a = _value - _min;	
-	return (_a - _range * floor(_a / _range)) + _min;
+	var _a = floor((_value - _min) / _range);
+	return _value - _a * _range;
 }
