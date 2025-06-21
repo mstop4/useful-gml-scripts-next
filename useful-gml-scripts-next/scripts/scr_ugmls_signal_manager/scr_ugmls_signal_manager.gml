@@ -1,3 +1,5 @@
+/// @param {function} _listener
+/// @param {bool} _once
 function Signal(_listener, _once) constructor {
 	listener = _listener;
 	once = _once;
@@ -34,8 +36,9 @@ function SignalManager() constructor {
 
 	/// @desc  Dispatches a signal
 	/// @param {string} _name
+  /// @param {Array} _args 
 	/// @returns {bool}
-	function dispatch(_name) {
+	function dispatch(_name, _args = []) {
 		if (!struct_exists(signals, _name)) {
 			show_debug_message($"ERROR: SignalManager.dispatch - no signal with name {_name} found");
 			return false;
@@ -44,7 +47,7 @@ function SignalManager() constructor {
 		var _num_listeners = array_length(signals[$ _name]);
 	
 		for (var _i=0; _i<_num_listeners; _i++) {	
-			signals[$ _name][_i].listener();
+			method_call(signals[$ _name][_i].listener, _args);
 		
 			if (signals[$ _name][_i].once) {
 				remove(_name, _i);
@@ -78,4 +81,14 @@ function SignalManager() constructor {
 			array_delete(signals[$ _name], _index, 1);
 		}
 	}
+  
+  /// @desc  Removes all listeners from all signals 
+  function cleanup() {
+    var _signal_names = struct_get_names(signals);
+    var _num_signals = array_length(_signal_names);
+    
+    for (var _i=0; _i<_num_signals; _i++) {
+      self.remove(_signal_names[_i]);
+    }
+  }
 }

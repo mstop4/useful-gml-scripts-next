@@ -179,11 +179,3 @@ function DeltaTimelinePlus() constructor {
 	
 	ts_ticker = time_source_create(time_source_game, 1, time_source_units_frames, method(self, _do_step), [], -1);
 }
-
-/// @desc 
-/// @param {Real} _timestamp
-/// @param {Function} _callback
-function TimelinePlusMoment(_timestamp, _callback) constructor {
-	timestamp = _timestamp;
-	callback = _callback;
-}

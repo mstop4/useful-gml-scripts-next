@@ -115,6 +115,10 @@ function Tween(
 	function stop() {
 		time_source_stop(ticker);
 	}
+  
+  function is_running() {
+    return time_source_get_state(ticker) == time_source_state_active;
+  }
 	
 	function destroy() {
 		time_source_destroy(ticker);
