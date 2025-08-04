@@ -3,12 +3,21 @@ function TimelinePlus() constructor {
 	current_moment_index = 0;
 	timer = 0;
 	moments_sorted = true;
+  
+  /*
+   * Step callback: function(timer, moment_progress, moment_length, next_moment); 
+   * timer: total elapsed time in the timeline
+   * moment_progress: time elapsed since previous moment
+   * moment_length: time between previous moment and next moment
+   * next_moment: the upcoming moment
+   */
 	
 	/// @desc 
 	/// @param {Real} _timestamp
-	/// @param {Function} _callback
-	function add_moment(_timestamp, _callback, _sort_timeline = false) {
-		var _moment = new TimelinePlusMoment(_timestamp, _callback);
+  /// @param {Function} _end_callback
+	/// @param {Function} _step_callback
+	function add_moment(_timestamp, _end_callback, _step_callback, _sort_timeline = false) {
+		var _moment = new TimelinePlusMoment(_timestamp, _end_callback, _step_callback);
 		array_push(moments, _moment);
 		moments_sorted = false;
 		
@@ -58,8 +67,23 @@ function TimelinePlus() constructor {
 	
 	function _do_step() {
 		var _current_moment = moments[current_moment_index];
+    
+    if (is_callable(_current_moment.step_callback)) {
+      var _moment_length;
+      
+      if (current_moment_index > 0) {
+        var _previous_moment = moments[current_moment_index - 1];
+        _moment_length = _current_moment.timestamp - _previous_moment.timestamp;
+      } else {
+        _moment_length = _current_moment.timestamp;
+      }
+      
+      var _moment_progress = _moment_length - (_current_moment.timestamp - timer); // revrse
+      _current_moment.step_callback(timer, _moment_progress, _moment_length, _current_moment);
+    }
+    
 		if (_current_moment.timestamp <= timer) {
-			_current_moment.callback();
+      if (is_callable(_current_moment.end_callback)) _current_moment.end_callback();
 			current_moment_index++;
 			
 			if (current_moment_index >= array_length(moments)) {
