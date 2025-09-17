@@ -17,6 +17,7 @@ enum TWEEN_LIMIT_MODE {
 /// @param {real}									 _min_v
 /// @param {real}									 _max_v
 /// @param {Enum.TWEEN_LIMIT_MODE} _limit_mode
+// @param {boolean} _use_delta_time
 /// @param {bool}									 _stop_outside_range  If true, delta is automatically set to 0 when value goes outside the designated range
 /// @param {Function}							 [_outside_range_callback]  A function that is called when value goes outside the designated range
 /// @param {Array}							   [_outside_range_callback_args] Additional arguments that are passed to _outside_range_callback
@@ -26,6 +27,7 @@ function Tween(
 	_min_v,
 	_max_v,
 	_limit_mode,
+  // _use_delta_time,  TODO: delta_time scaling currently requires external multipler from game 
 	_stop_outside_range,
 	_outside_range_callback,
 	_outside_range_callback_args
@@ -35,6 +37,7 @@ function Tween(
 	min_v = _min_v;
 	max_v = _max_v;
 	limit_mode = _limit_mode;
+  // use_delta_time = _use_delta_time;
 	stop_outside_range = _stop_outside_range;
 	outside_range_callback = _outside_range_callback;
 	outside_range_callback_args = _outside_range_callback_args;
@@ -42,7 +45,9 @@ function Tween(
 	update = method(self, function() {
 		if (d != 0) {
 			var _old_v = v;
-			var _new_v = v + d;
+			var _new_v = // use_delta_time
+        //? v + d * obj_graphics_controller.dt_scale
+        /*:*/ v + d;
 
 			switch (limit_mode) {
 				case TWEEN_LIMIT_MODE.NONE:
@@ -115,7 +120,7 @@ function Tween(
 	function stop() {
 		time_source_stop(ticker);
 	}
-  
+	
   function is_running() {
     return time_source_get_state(ticker) == time_source_state_active;
   }

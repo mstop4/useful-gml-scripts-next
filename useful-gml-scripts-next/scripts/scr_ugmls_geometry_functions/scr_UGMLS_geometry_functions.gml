@@ -1,7 +1,7 @@
 /// @desc	 Get the closest intersection point between a line segment and the edge of a rectangle.
 ///        x, y: the coordinates of the intersection point
 ///        angle: the angle to the intersection point
-///        z: same as dir, for backward compatibility
+///        z: same as angle, for backward compatibility
 ///        side: which side of the bounding box the intersection point is on:
 ///        0 - left, 1 - top, 2 - right, 3 - bottom
 /// @param {Struct.LineSegment} _line
@@ -166,4 +166,160 @@ function ray_reflect(_incident_dir, _normal_dir) {
 	var _reflect_y = _ri.y - 2 * _n.y * _dot;
 
 	return point_direction(0, 0, _reflect_x, _reflect_y);
+}
+
+/// @desc  Calculates the ray-sphere intersection.
+/// @param {Struct.Ray3D} _ray
+/// @param {Struct.Sphere} _sphere
+/// @returns {real} Distance from ray origin to closest intersection point on sphere, as a multiple of ray's direction vector. Infinity = no hit
+function ray_sphere_intersect(_ray, _sphere) {
+  // Convert to local space
+  var _local_x = _ray.o.x - _sphere.c.x;
+  var _local_y = _ray.o.y - _sphere.c.y;
+  var _local_z = _ray.o.z - _sphere.c.z;
+
+  // Compute A, B, C
+  var _a = dot_product_3d(_ray.d.x, _ray.d.y, _ray.d.z, _ray.d.x, _ray.d.y, _ray.d.z);
+	if (_a == 0) return infinity; // degenerate ray
+  
+  var _b = 2 * dot_product_3d(_ray.d.x, _ray.d.y, _ray.d.z, _local_x, _local_y, _local_z);
+	var _c = dot_product_3d(_local_x, _local_y, _local_z, _local_x, _local_y, _local_z) - sqr(_sphere.r);
+  
+  // Find discriminant
+  var _disc = _b * _b - 4 * _a * _c;
+
+  // If discriminant < 0, ray misses sphere
+  if (_disc < 0) return infinity;
+    
+  // Compute q
+  var _q = _b < 0
+    ? (-_b - sqrt(_disc)) / 2
+    : (-_b + sqrt(_disc)) / 2;
+    
+  // Compute t0 and t1
+  var _t0, _t1;
+  
+  if (abs(q) == 0) {
+    // Tangent: both roots are the same
+    _t0 = (-0.5 * _b) / _a;
+    _t1 = _t0;
+  } else {
+    _t0 = _q / _a;
+    _t1 = _c / _q;
+  }
+  
+  // Make sure t0 is smaller than t1
+  if (_t0 > _t1) {
+    var _temp = _t0;
+    _t0 = _t1;
+    _t1 = _temp;
+  }
+
+  // If t1 < 0, object is behind ray, miss
+  // If t0 < 0, the intersection point is at t1
+  // else the intersection point is at t0
+  if (_t1 < 0) return infinity;
+    
+  return _t0 < 0 ? _t1 : _t0;
+}
+
+function ray_box_intersect(_ray, _box, _min_t, _max_t) {
+  var _tmin = -infinity;
+  var _tmax = infinity;
+  var _ray_origin;
+  var _ray_dir;
+  var _box_min;
+  var _box_max;
+  
+  // X
+  _ray_origin = _ray.o.x;
+  _ray_dir = _ray.d.x;
+  _box_min = _box.min_corner.x;
+  _box_max = _box.max_corner.x;
+  
+  if (abs(_ray_dir) <= 0) {
+    // Parallel
+    if (_ray_origin < _box_min || _ray_origin > _box_max) return { hit: false };
+  } else {
+    var _t1 = (_box_min - _ray_origin) / _ray_dir;
+    var _t2 = (_box_max - _ray_origin) / _ray_dir;
+    
+    if (_t1 > _t2) {
+      var _temp = _t1;
+      _t1 = _t2;
+      _t2 = _temp;
+    }
+    
+    _tmin = max(_tmin, _t1);
+    _tmax = min(_tmax, _t2);
+    
+    if (_tmin > _tmax) return { hit: false };
+  }
+  
+  // Y
+  _ray_origin = _ray.o.y;
+  _ray_dir = _ray.d.y;
+  _box_min = _box.min_corner.y;
+  _box_max = _box.max_corner.y;
+  
+  if (abs(_ray_dir) <= 0) {
+    // Parallel
+    if (_ray_origin < _box_min || _ray_origin > _box_max) return { hit: false };
+  } else {
+    var _t1 = (_box_min - _ray_origin) / _ray_dir;
+    var _t2 = (_box_max - _ray_origin) / _ray_dir;
+    
+    if (_t1 > _t2) {
+      var _temp = _t1;
+      _t1 = _t2;
+      _t2 = _temp;
+    }
+    
+    _tmin = max(_tmin, _t1);
+    _tmax = min(_tmax, _t2);
+    
+    if (_tmin > _tmax) return { hit: false };
+  }
+  
+  // Z
+  _ray_origin = _ray.o.z;
+  _ray_dir = _ray.d.z;
+  _box_min = _box.min_corner.z;
+  _box_max = _box.max_corner.z;
+  
+  if (abs(_ray_dir) <= 0) {
+    // Parallel
+    if (_ray_origin < _box_min || _ray_origin > _box_max) return { hit: false };
+  } else {
+    var _t1 = (_box_min - _ray_origin) / _ray_dir;
+    var _t2 = (_box_max - _ray_origin) / _ray_dir;
+    
+    if (_t1 > _t2) {
+      var _temp = _t1;
+      _t1 = _t2;
+      _t2 = _temp;
+    }
+    
+    _tmin = max(_tmin, _t1);
+    _tmax = min(_tmax, _t2);
+    
+    if (_tmin > _tmax) return { hit: false };
+  }
+  
+  // Clamp to allowed parameter range
+  var _t1 = max(_tmin, _min_t);
+  var _t2 = min(_tmax, _max_t);
+  
+  if (_t1 > _t2) return { hit: false };
+    
+  return {
+    hit: true,
+    tmin: _t1,
+    tmax: _t2,
+    hit_point: new Vector3(
+      _ray.o.x + _ray.d.x * _t1,
+      _ray.o.y + _ray.d.y * _t1,
+      _ray.o.z + _ray.d.z * _t1
+    ) 
+  }
 }
