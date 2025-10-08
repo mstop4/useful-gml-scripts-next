@@ -172,7 +172,7 @@ function ray_reflect(_incident_dir, _normal_dir) {
 /// @param {Struct.Ray3D} _ray
 /// @param {Struct.Sphere} _sphere
 /// @returns {real} Distance from ray origin to closest intersection point on sphere, as a multiple of ray's direction vector. Infinity = no hit
-function ray_sphere_intersect(_ray, _sphere) {
+function ray_sphere_intersect_quad(_ray, _sphere) {
   // Convert to local space
   var _local_x = _ray.o.x - _sphere.c.x;
   var _local_y = _ray.o.y - _sphere.c.y;
@@ -221,6 +221,57 @@ function ray_sphere_intersect(_ray, _sphere) {
   if (_t1 < 0) return infinity;
     
   return _t0 < 0 ? _t1 : _t0;
+}
+
+/// @desc  Calculates the ray-sphere intersection.
+/// @param {Struct.Ray3D} _ray Should be normalized
+/// @param {Struct.Sphere} _sphere
+/// @returns {bool} Whether the ray hits the sphere or not
+function ray_sphere_intersect_geom_fast(_ray, _sphere) {
+  var _e = _sphere.c.subtract(_ray.o);
+  var _mag_sqr = dot_product_3d(_e.x, _e.y, _e.z, _e.x, _e.y, _e.z);
+  var _r_sqr = _sphere.r * _sphere.r;
+  var _e_dot_d = dot_product_3d(_e.x, _e.y, _e.z, _ray.d.x, _ray.d.y, _ray.d.z);
+  var _offset = _r_sqr - (_mag_sqr - (_e_dot_d * _e_dot_d));
+  return offset >= 0;
+}
+
+/// @desc  Calculates the ray-sphere intersection.
+/// @param {Struct.Ray3D} _ray Should be normalized
+/// @param {Struct.Sphere} _sphere
+/// @returns {Struct} Whether the ray hits the sphere or not, and two hit points
+function ray_sphere_intersect_geom_t(_ray, _sphere) {
+  var _l = _sphere.c.subtract(_ray.o);
+  var _tc = dot_product_3d(_l.x, _l.y, _l.z, _ray.d.x, _ray.d.y, _ray.d.z);
+  
+  if (_tc < 0) return {
+    hit: false
+  };
+    
+  // L dot L = magnitude^2 of L
+  var _d_sqr = dot_product_3d(_l.x, _l.y, _l.z, _l.x, _l.y, _l.z) - (_tc * _tc);
+  var _r_sqr = _sphere.r * _sphere.r;
+  if (_d_sqr > _r_sqr) return {
+    hit: false  
+  };
+
+  // t1 should always be <= t2
+  var _t1c = sqrt(_r_sqr - _d_sqr);
+  var _t1 = _tc - _t1c;
+  var _t2 = _tc + _t1c;
+  
+  if (_t1 < 0 && _t2 < 0) return { hit: false }; 
+  if (_t1 < 0) return {
+    hit: true,
+    tmin: _t2,
+    tmax: _t2
+  }
+  
+  return {
+    hit: true,
+    tmin: _t1,
+    tmax: _t2
+  };
 }
 
 function ray_box_intersect(_ray, _box, _min_t, _max_t) {
@@ -315,11 +366,6 @@ function ray_box_intersect(_ray, _box, _min_t, _max_t) {
   return {
     hit: true,
     tmin: _t1,
-    tmax: _t2,
-    hit_point: new Vector3(
-      _ray.o.x + _ray.d.x * _t1,
-      _ray.o.y + _ray.d.y * _t1,
-      _ray.o.z + _ray.d.z * _t1
-    ) 
+    tmax: _t2
   }
 }
