@@ -98,6 +98,16 @@ function create_numeric_sequence_array(_a, _b, _step, _include_b = true, _shuffl
 	return _shuffle ? array_shuffle(_arr) : _arr;
 }
 
+/// @desc	 Creates a new shallow copy of part of a given array.
+/// @param {Array} _array
+/// @param {Real} _start
+/// @param {Real} _length
+function array_slice(_array, _start, _length) {
+	var _new_array = array_create(_length);
+	array_copy(_new_array, 0, _array, _start, _length);
+	return _new_array;
+}
+
 /// @desc	 Creates a new shallow copy of a given array.
 /// @param {Array} _array
 function duplicate_array(_array) {
@@ -107,6 +117,8 @@ function duplicate_array(_array) {
 }
 
 /// @desc Returns a deep clone of an array or struct
+///       Deprecated: Use variable_clone instead 
+/// @deprecated
 /// @param {Array,Struct} _obj
 /// @returns {Any}
 function deep_clone(_obj) {
