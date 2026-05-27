@@ -27,8 +27,8 @@
   "physicsShapePoints":[],
   "physicsStartAwake":true,
   "properties":[
-    {"$GMObjectProperty":"v1","%Name":"inst_id","filters":[],"listItems":[],"multiselect":false,"name":"inst_id","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"-4","varType":1,},
-    {"$GMObjectProperty":"v1","%Name":"super_nudge_dist","filters":[],"listItems":[],"multiselect":false,"name":"super_nudge_dist","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"10","varType":0,},
+    {"$GMObjectProperty":"v2","%Name":"inst_id","filters":[],"listItems":[],"multiselect":false,"name":"inst_id","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"-4","varType":1,},
+    {"$GMObjectProperty":"v2","%Name":"super_nudge_dist","filters":[],"listItems":[],"multiselect":false,"name":"super_nudge_dist","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"10","varType":0,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",

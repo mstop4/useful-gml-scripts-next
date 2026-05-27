@@ -126,6 +126,13 @@ function wrap(_value, _min, _max) {
 	return _value - _a * _range;
 }
 
+/// @desc  Returns n mod m, but the result is always positive
+/// @param {real} _n 
+/// @param {real} _m   
+function mod_positive(_n, _m) {
+  return ((_n mod _m) + _m) mod _m;
+}
+
 /// @desc  Calculates total distance travelled with a given initial speed and constant deceleration value, based on the formula v^2 = u^2 / (2*a*d)
 /// @param {Real} _initial_speed
 /// @param {Real} _deceleration should be positive
