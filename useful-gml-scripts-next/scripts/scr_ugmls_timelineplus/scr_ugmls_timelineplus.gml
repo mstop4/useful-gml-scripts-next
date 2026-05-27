@@ -3,6 +3,7 @@ function TimelinePlus() constructor {
 	current_moment_index = 0;
 	timer = 0;
 	moments_sorted = true;
+  cleaning_up = false;
   
   /*
    * Step callback: function(timer, moment_progress, moment_length, next_moment); 
@@ -15,9 +16,11 @@ function TimelinePlus() constructor {
 	/// @desc 
 	/// @param {Real} _timestamp
   /// @param {Function} _end_callback
+  /// @param {Array} _end_args
 	/// @param {Function} _step_callback
-	function add_moment(_timestamp, _end_callback, _step_callback, _sort_timeline = false) {
-		var _moment = new TimelinePlusMoment(_timestamp, _end_callback, _step_callback);
+	/// @param {Array} _step_args
+	function add_moment(_timestamp, _end_callback, _end_args, _step_callback, _step_args, _sort_timeline = false) {
+		var _moment = new TimelinePlusMoment(_timestamp, _end_callback, _end_args, _step_callback, _step_args);
 		array_push(moments, _moment);
 		moments_sorted = false;
 		
@@ -78,12 +81,12 @@ function TimelinePlus() constructor {
         _moment_length = _current_moment.timestamp;
       }
       
-      var _moment_progress = _moment_length - (_current_moment.timestamp - timer); // revrse
-      _current_moment.step_callback(timer, _moment_progress, _moment_length, _current_moment);
+      var _moment_progress = _moment_length - (_current_moment.timestamp - timer); // reverse
+      _current_moment.step_callback(timer, _moment_progress, _moment_length, _current_moment, _current_moment.step_args);
     }
     
 		if (_current_moment.timestamp <= timer) {
-      if (is_callable(_current_moment.end_callback)) _current_moment.end_callback();
+      if (is_callable(_current_moment.end_callback)) _current_moment.end_callback(_current_moment.end_args);
 			current_moment_index++;
 			
 			if (current_moment_index >= array_length(moments)) {
@@ -92,9 +95,14 @@ function TimelinePlus() constructor {
 		}
 		
 		timer++;
+    if (cleaning_up) _garbage_collect();
 	}
 	
-	function cleanup() {
+  function cleanup() {
+    cleaning_up = true;
+  }
+  
+	function _garbage_collect() {
 		time_source_destroy(ts_ticker);
 		array_delete(moments, 0, array_length(moments));
 	}
@@ -108,19 +116,22 @@ function DeltaTimelinePlus() constructor {
 	timer = 0;
 	time_step_multiplier = 1;
 	moments_sorted = true;
+  cleaning_up = false;
 	
 	/// @desc 
 	/// @param {Real} _timestamp seconds or frames
 	/// @param {Bool} _timestamp_is_frames
-	/// @param {Function} _callback
-	function add_moment(_timestamp, _timestamp_is_frames, _callback, _sort_timeline = false) {
+	/// @param {Function} _end_callback
+	/// @param {Function} _step_callback
+	/// @param {Bool} [_sort_timeline]
+	function add_moment(_timestamp, _timestamp_is_frames, _end_callback, _end_args, _step_callback, _step_args, _sort_timeline = false) {
 		// NOTE: There is an issue with sorting floating-point timestamps: https://github.com/YoYoGames/GameMaker-Bugs/issues/185
 		// Because of this, timestamps only have millisecond resolution 
 		var _timestamp_secs = _timestamp_is_frames
 			? floor(_timestamp / game_get_speed(gamespeed_fps) * 1000)
 			: _timestamp;
 		
-		var _moment = new TimelinePlusMoment(_timestamp_secs, _callback);
+		var _moment = new TimelinePlusMoment(_timestamp, _end_callback, _end_args, _step_callback, _step_args);
 		array_push(moments, _moment);
 		moments_sorted = false;
 		
@@ -181,22 +192,39 @@ function DeltaTimelinePlus() constructor {
 	
 	function _do_step() {
 		var _current_moment = moments[current_moment_index];
-		while (_current_moment.timestamp <= timer) {
-			_current_moment.callback();
+    
+    if (is_callable(_current_moment.step_callback)) {
+      var _moment_length;
+      
+      if (current_moment_index > 0) {
+        var _previous_moment = moments[current_moment_index - 1];
+        _moment_length = _current_moment.timestamp - _previous_moment.timestamp;
+      } else {
+        _moment_length = _current_moment.timestamp;
+      }
+      
+      var _moment_progress = _moment_length - (_current_moment.timestamp - timer); // reverse
+      _current_moment.step_callback(timer, _moment_progress, _moment_length, _current_moment, _current_moment.step_args);
+    }
+    
+		if (_current_moment.timestamp == timer) {
+      if (is_callable(_current_moment.end_callback)) _current_moment.end_callback(_current_moment.end_args);
 			current_moment_index++;
-
+			
 			if (current_moment_index >= array_length(moments)) {
 				time_source_stop(ts_ticker);
-				break;
-			} else {
-				_current_moment = moments[current_moment_index];
 			}
 		}
 		
-		timer += (delta_time * time_step_multiplier) / 1000;
+		timer = min(timer + (delta_time * time_step_multiplier) / 1000, _current_moment.timestamp);
+    if (cleaning_up) _garbage_collect();
 	}
 	
-	function cleanup() {
+  function cleanup() {
+    cleaning_up = true;
+  }
+  
+	function _garbage_collect() {
 		time_source_destroy(ts_ticker);
 		array_delete(moments, 0, array_length(moments));
 	}
