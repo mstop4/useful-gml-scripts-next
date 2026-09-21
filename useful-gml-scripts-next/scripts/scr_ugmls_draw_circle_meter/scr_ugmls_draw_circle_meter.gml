@@ -1,0 +1,77 @@
+/// @desc	 Draws circular progress meter on a surface.
+/// @param {Id.Surface}				_surface
+/// @param {real}							_x          
+/// @param {real}							_y          
+/// @param {real}							_radius     
+/// @param {real}							_start_angle
+/// @param {real}							_direction    < 0 = clockwise, > 0 = counter-clockwise. Can't be 0.
+/// @param {real}							_percentage   0 - 1
+/// @param {real}							_front_color  colour      
+/// @param {real}							_back_color   colour
+/// @param {Asset.GMSprite}   _sprite       use pointer_null for no sprite
+/// @param {real}							_fidelity        
+function draw_circle_meter(_surface, _x, _y, _radius, _start_angle, _direction, _percentage, _front_color, _back_color, _sprite, _fidelity) {
+	if (!surface_exists(_surface) || _direction == 0) return;
+
+	surface_set_target(_surface);
+	draw_clear_alpha(c_black, 0);
+	
+	var _step_size = 360/_fidelity;
+	var _actual_start_angle = _direction > 0 ? _start_angle : _start_angle + 360;
+		
+	if (sprite_exists(_sprite)) {
+		var _texture = sprite_get_texture(_sprite, 0);
+		
+		// Draw back
+		draw_primitive_begin_texture(pr_trianglestrip, _texture);
+		
+		for (var _i=0; _i<=360; _i+=_step_size) {
+			draw_vertex_texture_color(_x,_y, 0.5, 0.5, _back_color, 1);
+			
+			draw_vertex_texture_color(
+				_x + dcos(_i)*_radius, _y - dsin(_i)*_radius,
+				0.5 + dcos(_i) * 0.5, 0.5 - dsin(_i) * 0.5,_back_color, 1);
+		}
+		draw_primitive_end();
+
+		// Draw front
+		draw_primitive_begin_texture(pr_trianglestrip, _texture);
+    
+		for (var _i=0; _i<=360*_percentage; _i+=_step_size) {
+			var _angle = _actual_start_angle + _i * _direction;
+			draw_vertex_texture_color(_x, _y, 0.5, 0.5, _front_color, 1);
+			
+			draw_vertex_texture_color(
+				_x + dcos(_angle)*_radius, _y - dsin(_angle)*_radius,
+				0.5 + dcos(_angle) * 0.5, 0.5 - dsin(_angle) * 0.5,_front_color, 1);
+		}
+		draw_primitive_end();
+	} else {
+		// Draw back
+		draw_primitive_begin(pr_trianglestrip);
+		
+		for (var _i=0; _i<=360; _i+=_step_size) {
+			draw_vertex_color(_x, _y, _back_color, 1);
+			
+			draw_vertex_color(
+				_x + dcos(_i)*_y, _radius - dsin(_i)*_radius,
+				_back_color, 1);
+		}
+		draw_primitive_end();
+		
+		// Draw front
+		draw_primitive_begin(pr_trianglestrip);
+    
+		for (var _i=0; _i<=360*_percentage; _i+=_step_size) {
+			var _angle = _actual_start_angle + _i * _direction;
+			draw_vertex_color(_x, _y, _front_color, 1);
+			
+			draw_vertex_color(
+				_x + dcos(_angle)*_radius, _y - dsin(_angle)*_radius,
+				_front_color, 1);
+		}
+		draw_primitive_end();
+	}
+		
+	surface_reset_target();
+}

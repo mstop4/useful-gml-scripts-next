@@ -2,7 +2,7 @@
 /// @param {Struct.Ray3D} _ray
 /// @param {Struct.Sphere} _sphere
 /// @returns {real} Distance from ray origin to closest intersection point on sphere, as a multiple of ray's direction vector. Infinity = no hit
-/// @deprecated
+/// @deprecated Use ray_sphere_intersect_geom_t or Use ray_sphere_intersect_geom_fast instead
 function ray_sphere_intersect_quad(_ray, _sphere) {
   // Convert to local space
   var _local_x = _ray.o.x - _sphere.c.x;
