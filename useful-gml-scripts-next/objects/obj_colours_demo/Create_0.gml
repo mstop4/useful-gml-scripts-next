@@ -9,7 +9,7 @@ for (var _i=0; _i<=num_samples; _i++) {
 		_i / num_samples
 	));
 	
-	array_push(varied_colours, vary_color_hsv(vary_colour_base_colour, irandom_range(-32,32), irandom_range(-32,32), irandom_range(-32,32)));
+	array_push(varied_colours, vary_colour_hsv(vary_colour_base_colour, irandom_range(-32,32), irandom_range(-32,32), irandom_range(-32,32)));
 }
 
 parsed_rgb_hexcode_string = rgb_hex_string_to_real(rgb_hexcode_str);

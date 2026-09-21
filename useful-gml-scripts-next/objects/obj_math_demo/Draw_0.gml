@@ -33,10 +33,10 @@ draw_text(192, 208, "ĉ = " + normalize_3d(vec_c).to_string());
 
 // Cross Products
 draw_text(640, 96, "a x b = " + string(cross_product_2d(vec_a, vec_b)) + " (Z-component)");
-draw_text(640, 128, "c x d = " + cross_product(vec_c, vec_d).to_string());
+draw_text(640, 128, "c x d = " + cross_product_3d(vec_c, vec_d).to_string());
 
 // Normalized Cross Products
-draw_text(640, 208, "c x d / |c x d| = " + cross_product_normalized(vec_c, vec_d).to_string());
+draw_text(640, 208, "c x d / |c x d| = " + cross_product_3d_normalized(vec_c, vec_d).to_string());
 
 // Pulse
 draw_text(96, 288, "t: " + string(pulse_counter.v));

@@ -1,0 +1,24 @@
+global.ugmls_os_type_strings[os_windows] = "Windows";
+global.ugmls_os_type_strings[os_uwp] = "Universal Windows Platform";
+global.ugmls_os_type_strings[os_operagx] = "Opera GX";
+global.ugmls_os_type_strings[os_linux] = "Linux";
+global.ugmls_os_type_strings[os_macosx] = "macOS";
+global.ugmls_os_type_strings[os_ios] = "iOS";
+global.ugmls_os_type_strings[os_tvos] = "Apple tvOS";
+global.ugmls_os_type_strings[os_android] = "Android";
+global.ugmls_os_type_strings[os_ps4] = "PlayStation 4";
+global.ugmls_os_type_strings[os_ps5] = "PlayStation 5";
+global.ugmls_os_type_strings[os_xboxone] = "Xbox One";
+global.ugmls_os_type_strings[os_xboxseriesxs] = "Xbox Series X/S";
+global.ugmls_os_type_strings[os_switch] = "Nintendo Switch";
+
+global.ugmls_os_browser_strings[browser_unknown] = "Unknown Browser";
+global.ugmls_os_browser_strings[browser_ie] = "Internet Explorer";
+global.ugmls_os_browser_strings[browser_ie_mobile] = "Mobile Internet Explorer";
+global.ugmls_os_browser_strings[browser_firefox] = "Firefox";
+global.ugmls_os_browser_strings[browser_chrome] = "Chrome";
+global.ugmls_os_browser_strings[browser_safari] = "Safari";
+global.ugmls_os_browser_strings[browser_safari_mobile] = "Mobile Safari";
+global.ugmls_os_browser_strings[browser_opera] = "Opera";
+global.ugmls_os_browser_strings[browser_tizen] = "Tizen";
+global.ugmls_os_browser_strings[browser_windows_store] = "Windows App";

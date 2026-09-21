@@ -14,7 +14,7 @@ if (control_state.pressed_state[MENU_CONTROLS.UP]) {
 		var _item = -1;
 	
 		do {
-			pos.y = wrap(pos.y-1, 0, ds_grid_height(items));
+			pos.y = wrap(pos.y-1, 0, ds_grid_height(items)-1);
 			_item = items[# pos.x, pos.y];
 		} until ((is_struct(_item)
 			&& _item.type != "divider")
@@ -32,7 +32,7 @@ if (control_state.pressed_state[MENU_CONTROLS.DOWN]) {
 		var _item = -1;
 	
 		do {
-			pos.y = wrap(pos.y+1, 0, ds_grid_height(items));
+			pos.y = wrap(pos.y+1, 0, ds_grid_height(items)-1);
 			_item = items[# pos.x, pos.y];
 		} until ((is_struct(_item)
 			&& _item.type != "divider")
@@ -62,7 +62,7 @@ if (control_state.pressed_state[MENU_CONTROLS.LEFT]) {
 	}
 
 	do {
-		pos.x = wrap(pos.x-1, 0, ds_grid_width(items));
+		pos.x = wrap(pos.x-1, 0, ds_grid_width(items)-1);
 		_item = items[# pos.x, pos.y];
 	} until ((is_struct(_item)
 			&& _item.type != "divider")
@@ -91,7 +91,7 @@ if (control_state.pressed_state[MENU_CONTROLS.RIGHT]) {
 	}
 
 	do {
-		pos.x = wrap(pos.x+1, 0, ds_grid_width(items));
+		pos.x = wrap(pos.x+1, 0, ds_grid_width(items)-1);
 		_item = items[# pos.x, pos.y];
 	} until ((is_struct(_item)
 			&& _item.type != "divider")
