@@ -131,7 +131,6 @@
     {"name":"scr_ugmls_easings_quadratic","order":1,"path":"scripts/scr_ugmls_easings_quadratic/scr_ugmls_easings_quadratic.yy",},
     {"name":"scr_ugmls_easings_quartic","order":3,"path":"scripts/scr_ugmls_easings_quartic/scr_ugmls_easings_quartic.yy",},
     {"name":"scr_ugmls_easings_quintic","order":4,"path":"scripts/scr_ugmls_easings_quintic/scr_ugmls_easings_quintic.yy",},
-    {"name":"scr_UGMLS_feather_directives","order":3,"path":"scripts/scr_UGMLS_feather_directives/scr_UGMLS_feather_directives.yy",},
     {"name":"scr_ugmls_file_jsonc_parse","order":1,"path":"scripts/scr_ugmls_file_jsonc_parse/scr_ugmls_file_jsonc_parse.yy",},
     {"name":"scr_ugmls_gamepad_constant_to_string","order":1,"path":"scripts/scr_ugmls_gamepad_constant_to_string/scr_ugmls_gamepad_constant_to_string.yy",},
     {"name":"scr_ugmls_get_edge_position","order":4,"path":"scripts/scr_ugmls_get_edge_position/scr_ugmls_get_edge_position.yy",},

@@ -14,7 +14,7 @@ if (control_state.pressed_state[MENU_CONTROLS.UP]) {
 		var _item = -1;
 	
 		do {
-			pos = wrap(pos-1, 0, num_items);
+			pos = wrap(pos-1, 0, num_items-1);
 			_item = items[pos];
 		} until ((is_struct(_item)
 			&& _item.type != "divider")
@@ -32,7 +32,7 @@ if (control_state.pressed_state[MENU_CONTROLS.DOWN]) {
 		var _item = -1;
 	
 		do {
-			pos = wrap(pos+1, 0, num_items);
+			pos = wrap(pos+1, 0, num_items-1);
 			_item = items[pos];
 		} until ((is_struct(_item)
 			&& _item.type != "divider")

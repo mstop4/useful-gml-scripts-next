@@ -1,1 +1,0 @@
-// FIXME: When Feather becomes more stable, these should be ideally removed

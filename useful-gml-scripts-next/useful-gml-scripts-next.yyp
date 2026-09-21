@@ -198,7 +198,6 @@
     {"id":{"name":"scr_ugmls_easings_quadratic","path":"scripts/scr_ugmls_easings_quadratic/scr_ugmls_easings_quadratic.yy",},},
     {"id":{"name":"scr_ugmls_easings_quartic","path":"scripts/scr_ugmls_easings_quartic/scr_ugmls_easings_quartic.yy",},},
     {"id":{"name":"scr_ugmls_easings_quintic","path":"scripts/scr_ugmls_easings_quintic/scr_ugmls_easings_quintic.yy",},},
-    {"id":{"name":"scr_UGMLS_feather_directives","path":"scripts/scr_UGMLS_feather_directives/scr_UGMLS_feather_directives.yy",},},
     {"id":{"name":"scr_ugmls_file_json_parse","path":"scripts/scr_ugmls_file_json_parse/scr_ugmls_file_json_parse.yy",},},
     {"id":{"name":"scr_ugmls_file_jsonc_parse","path":"scripts/scr_ugmls_file_jsonc_parse/scr_ugmls_file_jsonc_parse.yy",},},
     {"id":{"name":"scr_ugmls_gamepad_constant_to_string","path":"scripts/scr_ugmls_gamepad_constant_to_string/scr_ugmls_gamepad_constant_to_string.yy",},},
